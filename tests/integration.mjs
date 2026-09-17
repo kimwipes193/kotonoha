@@ -1,0 +1,31 @@
+import assert from 'node:assert/strict';
+const base='http://localhost:5173';
+const prefix='integration-'+crypto.randomUUID();
+const a=prefix+'-a',b=prefix+'-b';
+async function api(owner,data,origin=base){const r=await fetch(base+'/api/diary',{method:data?'POST':'GET',headers:{...(owner?{'oai-authenticated-user-id':owner}:{}),...(data?{'Content-Type':'application/json',Origin:origin}:{})},body:data?JSON.stringify(data):undefined});const raw=await r.text();let parsed;try{parsed=JSON.parse(raw);}catch{parsed={error:raw};}return {status:r.status,data:parsed};}
+assert.equal((await api(null)).status,401);
+assert.equal((await api(a,{action:'gacha'},'https://invalid.example')).status,403);
+const diary={action:'send',body:'今日は公園を歩きました。風が気持ちよくて、小さな花も見つけました。',mood:'🌤️',region:'日本',paper:'plain',sticker:''};
+assert.equal((await api(a,{...diary,body:'私の連絡先は example@example.com です。'})).status,400);
+assert.equal((await api(a,diary)).status,200);
+assert.equal((await api(a,diary)).status,409);
+assert.equal((await api(b,{...diary,region:'フランス'})).status,200);
+assert.equal((await api(a)).data.received.length,0);
+assert.equal((await api(a,{action:'gacha'})).status,200);
+assert.equal((await api(a,{action:'gacha'})).status,409);
+console.log('PASS: authentication, origin guard, moderation, save, daily limits, gacha persistence; waiting for delivery delay');
+await new Promise(resolve=>setTimeout(resolve,31000));
+const box=(await api(a)).data;
+assert.equal(box.received.length,1);
+assert.equal(box.today,1);
+assert.equal(box.collection.length,1);
+assert.equal(box.received[0].region,'フランス');
+assert.equal(box.received[0].owner,undefined);
+const id=box.received[0].id;
+assert.equal((await api(b,{action:'react',id,reaction:'🤍'})).status,404);
+assert.equal((await api(a,{action:'react',id,reaction:'🤍'})).status,200);
+assert.equal((await api(a)).data.received[0].reaction,'🤍');
+assert.equal((await api(a,{action:'report',id,reason:'その他'})).status,200);
+assert.equal((await api(a)).data.received.length,0);
+console.log('PASS: delayed matching, persisted collection, anonymous payload, ownership protection, reactions, report hiding');
+

@@ -1,0 +1,10 @@
+import { readFileSync } from 'node:fs';
+import { transformSync } from 'esbuild';
+import assert from 'node:assert/strict';
+const code=transformSync(readFileSync('lib/diary-rules.ts','utf8'),{loader:'ts',format:'esm'}).code;
+const {checkDiary,dayKey}=await import('data:text/javascript;base64,'+Buffer.from(code).toString('base64'));
+assert.equal(checkDiary('今日は公園を散歩して、きれいな空を見上げました。'),null);
+for(const text of ['短い','連絡は someone@example.com までお願いします。','電話番号は０９０１２３４５６７８です。よろしくお願いします。','詳しいことは https://example.com を読んでください。','今日はつらかった。死ねと言ってしまった。']) assert.ok(checkDiary(text));
+assert.equal(dayKey(new Date('2026-09-16T14:59:59Z')),'2026-09-16');
+assert.equal(dayKey(new Date('2026-09-16T15:00:00Z')),'2026-09-17');
+console.log('PASS: moderation and Japan midnight boundary');
