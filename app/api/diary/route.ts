@@ -1,9 +1,10 @@
 import { env } from 'cloudflare:workers';
+import { getUser } from '@/lib/auth';
 import { checkDiary, dayKey, items, moods, regions } from '@/lib/diary-rules';
 export const dynamic='force-dynamic';
 function db(){ if(!env.DB) throw new Error('Database unavailable'); return env.DB; }
 function reply(data:unknown,status=200){return Response.json(data,{status,headers:{'Cache-Control':'no-store'}});}
-function user(req:Request){return req.headers.get('oai-authenticated-user-id');}
+
 async function match(owner:string){
  const database=db();
  const waiting=await database.prepare('SELECT e.id FROM entries e WHERE e.owner=? AND e.created<=? AND NOT EXISTS (SELECT 1 FROM entries r WHERE r.received_for=e.id) ORDER BY e.created LIMIT 20').bind(owner,Date.now()-30000).all<{id:string}>();
@@ -12,8 +13,8 @@ async function match(owner:string){
  }
 }
 export async function GET(req:Request){
- const owner=user(req); if(!owner)return reply({error:'保存・交換にはログインが必要です。',signedIn:false},401);
  try{
+ const owner=await getUser(req); if(!owner)return reply({error:'保存・交換にはログインが必要です。',signedIn:false},401);
  await match(owner); const database=db(); const day=dayKey();
  const [sent,received,collection,today,bonus]=await Promise.all([
  database.prepare('SELECT id,body,mood,region,paper,sticker,created,receiver IS NOT NULL AS delivered,reaction FROM entries WHERE owner=? ORDER BY created DESC LIMIT 100').bind(owner).all(),
@@ -26,9 +27,9 @@ export async function GET(req:Request){
  }catch(e){console.error('Diary load failed',e);return reply({error:'日記帳を読み込めませんでした。少し待って再試行してください。'},503);}
 }
 export async function POST(req:Request){
- const owner=user(req);if(!owner)return reply({error:'保存・交換にはログインしてください。'},401);
- if(req.headers.get('origin')!==new URL(req.url).origin)return reply({error:'操作元を確認できません。'},403);
  try{
+ const owner=await getUser(req);if(!owner)return reply({error:'保存・交換にはログインしてください。'},401);
+ if(req.headers.get('origin')!==new URL(req.url).origin)return reply({error:'操作元を確認できません。'},403);
  const raw=await req.text();if(raw.length>8000)return reply({error:'入力が長すぎます。'},400);
  let data:any;try{data=JSON.parse(raw);}catch{return reply({error:'入力を確認してください。'},400);}
  const database=db(),day=dayKey(),id=crypto.randomUUID();
@@ -66,4 +67,5 @@ export async function POST(req:Request){
  return reply({error:'操作を確認してください。'},400);
  }catch(e){console.error('Diary write failed',e);if(String(e).includes('UNIQUE'))return reply({error:'今日の操作はすでに完了しています。画面を更新してください。'},409);return reply({error:'保存できませんでした。内容を残したまま再試行できます。'},503);}
 }
+
 

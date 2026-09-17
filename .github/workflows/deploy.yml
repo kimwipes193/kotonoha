@@ -1,0 +1,35 @@
+name: Publish Kotonoha
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: kotonoha-production
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run test
+      - run: npm run typecheck
+      - run: npm run build
+      - name: Apply database migrations and publish
+        run: npm run deploy:cloudflare
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          CLOUDFLARE_WORKER_NAME: ${{ vars.CLOUDFLARE_WORKER_NAME }}
+          CLOUDFLARE_DATABASE_ID: ${{ vars.CLOUDFLARE_DATABASE_ID }}
+          CLOUDFLARE_DATABASE_NAME: ${{ vars.CLOUDFLARE_DATABASE_NAME }}
+          APP_ORIGIN: ${{ vars.APP_ORIGIN }}

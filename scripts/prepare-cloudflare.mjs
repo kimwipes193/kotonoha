@@ -1,0 +1,15 @@
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { resolve } from 'node:path';
+const required=['CLOUDFLARE_WORKER_NAME','CLOUDFLARE_DATABASE_ID','APP_ORIGIN'];
+for(const key of required)if(!process.env[key])throw new Error(`${key} is required. See docs/GITHUB-CLOUDFLARE.md.`);
+const name=process.env.CLOUDFLARE_WORKER_NAME;
+if(!/^[a-z0-9][a-z0-9-]{0,62}$/.test(name))throw new Error('Invalid Worker name');
+const databaseId=process.env.CLOUDFLARE_DATABASE_ID;
+if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(databaseId)||databaseId==='00000000-0000-4000-8000-000000000000')throw new Error('Use your real Cloudflare D1 database ID');
+const origin=new URL(process.env.APP_ORIGIN);
+if(origin.protocol!=='https:'||origin.origin!==process.env.APP_ORIGIN)throw new Error('APP_ORIGIN must be an HTTPS origin without a trailing slash');
+const built=JSON.parse(readFileSync('dist/server/wrangler.json','utf8'));
+const config={name,main:'../dist/server/index.js',compatibility_date:built.compatibility_date,compatibility_flags:built.compatibility_flags,no_bundle:true,rules:built.rules,assets:{directory:'../dist/client'},d1_databases:[{binding:'DB',database_name:process.env.CLOUDFLARE_DATABASE_NAME||'kotonoha',database_id:databaseId,migrations_dir:'../drizzle'}],vars:{APP_ORIGIN:origin.origin},workers_dev:true};
+mkdirSync('.deploy-output',{recursive:true});
+writeFileSync('.deploy-output/wrangler.json',JSON.stringify(config,null,2)+'\n');
+console.log('Cloudflare configuration prepared: '+resolve('.deploy-output/wrangler.json'));
