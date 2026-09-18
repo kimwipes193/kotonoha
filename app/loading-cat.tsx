@@ -1,1 +1,2 @@
-export default function LoadingCat(){return <div className="post-loading" role="status"><div className="cat-walkway" aria-hidden="true"><img src="/mascot-delivery.png" width="80" height="80" alt=""/><span>· · · · · · · · · · · ·</span></div><p>ぽすとが日記帳を運んでいます。<small>よいしょ、よいしょ。</small></p></div>;}
+import { Localized } from './language';
+export default function LoadingCat(){return <Localized><div className="post-loading" role="status"><div className="cat-walkway" aria-hidden="true"><img src="/mascot-delivery.png" width="80" height="80" alt=""/><span>· · · · · · · · · · · ·</span></div><p>ぽすとが日記帳を運んでいます。<small>よいしょ、よいしょ。</small></p></div></Localized>;}

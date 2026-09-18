@@ -1,0 +1,158 @@
+{
+  "更新日：2026年9月19日": [
+    "Updated: September 19, 2026",
+    "Mise à jour : 19 septembre 2026",
+    "更新日期：2026年9月19日",
+    "업데이트: 2026년 9월 19일"
+  ],
+  "ことのはは、匿名の相手と日記を交換するサービスです。運営窓口は kimwipes193@gmail.com です。": [
+    "Kotonoha is a service for exchanging diaries anonymously. Contact: kimwipes193@gmail.com.",
+    "Kotonoha permet d'échanger des journaux anonymement. Contact : kimwipes193@gmail.com.",
+    "Kotonoha 是与匿名伙伴交换日记的服务。运营联系方式：kimwipes193@gmail.com。",
+    "코토노하는 익명의 상대와 일기를 교환하는 서비스입니다. 문의: kimwipes193@gmail.com."
+  ],
+  "取得する情報と目的": [
+    "Information collected and its purposes",
+    "Informations recueillies et finalités",
+    "收集的信息及用途",
+    "수집하는 정보와 목적"
+  ],
+  "Googleログインでは、本人確認のためGoogleのユーザー識別子とメールアドレスの確認情報を受け取ります。サービスにはGoogleの識別子を保存し、名前やメールアドレスを日記データとして保存しません。Gmailのメール本文や連絡先にはアクセスしません。": [
+    "Google sign-in provides a Google user identifier and email verification information to verify your identity. We store the Google identifier, not your name or email as diary data. We do not access Gmail messages or contacts.",
+    "La connexion Google fournit un identifiant Google et des informations de vérification de l'adresse e-mail pour vérifier votre identité. Nous conservons l'identifiant, mais pas votre nom ou votre e-mail comme données du journal. Nous n'accédons ni aux messages Gmail ni aux contacts.",
+    "Google 登录会提供用户标识符和邮箱验证信息以确认身份。服务保存 Google 标识符，不会将姓名或邮箱作为日记数据保存。不会访问 Gmail 邮件正文或联系人。",
+    "Google 로그인 시 본인 확인을 위해 Google 사용자 식별자와 이메일 확인 정보를 받습니다. Google 식별자를 저장하며 이름이나 이메일을 일기 데이터로 저장하지 않습니다. Gmail 본문이나 연락처에 접근하지 않습니다."
+  ],
+  "日記本文、気分、IPアドレスから判定した国・地域、便箋、ステッカー、投稿日時、交換先との対応、リアクション、獲得アイテム・称号、なでた回数と操作記録、日記の書体、通報・ブロック情報を、日記の保存・交換、利用回数の管理、不正利用への対応に使用します。": [
+    "We use diary text, mood, country or region detected from IP, paper, stickers, posting times, exchange assignments, reactions, earned items and titles, pet counts and action records, diary font, and reports and blocks to save and exchange diaries, manage usage limits, and address abuse.",
+    "Nous utilisons le texte, l'humeur, le pays ou la région détecté par IP, le papier, les autocollants, les dates d'envoi, les attributions d'échange, les réactions, les objets et titres obtenus, les caresses et actions, la police et les signalements et blocages pour enregistrer et échanger les journaux, gérer les limites et lutter contre les abus.",
+    "日记正文、心情、由 IP 识别的国家或地区、信纸、贴纸、投稿时间、交换对应关系、回应、获得的物品与称号、摸摸次数和操作记录、字体、举报与屏蔽信息，用于保存及交换日记、管理使用次数和处理滥用。",
+    "일기 본문, 기분, IP로 확인한 국가·지역, 편지지, 스티커, 작성 시각, 교환 관계, 반응, 획득 아이템·칭호, 쓰다듬기 횟수와 활동 기록, 글꼴, 신고·차단 정보를 일기 저장·교환, 이용 횟수 관리, 부정 이용 대응에 사용합니다."
+  ],
+  "国・地域の自動判定": [
+    "Automatic country or region detection",
+    "Détection automatique du pays ou de la région",
+    "国家或地区的自动识别",
+    "국가·지역 자동 감지"
+  ],
+  "投稿時の通信についてCloudflareがIPアドレスから判定した国・地域を、日記の差出人表示に使用します。アプリのデータベースにIPアドレスそのものや市区町村・詳しい位置を保存することはありません。VPNなどの接続先により判定が変わることがあり、判定できない場合は「どこか」と表示します。以前の日記の国・地域は投稿時の表示のままです。": [
+    "The sender location uses the country or region Cloudflare detects from your IP when posting. The app database does not store the IP itself, city, or precise location. VPN endpoints may change the result; failed detection shows “Somewhere”. Older diaries retain their original location label.",
+    "Le lieu d'envoi est le pays ou la région détecté par Cloudflare via votre IP lors de l'envoi. La base de données ne conserve ni l'IP, ni la ville, ni la position précise. Un VPN peut modifier le résultat ; en cas d'échec, « Quelque part » est affiché. Les anciens journaux gardent leur lieu d'origine.",
+    "发件人位置使用 Cloudflare 在投稿时根据 IP 识别的国家或地区。应用数据库不保存 IP 本身、城市或详细位置。VPN 等连接可能影响识别，无法识别时显示“某处”。过去日记的位置保持投稿时的显示。",
+    "보낼 때 Cloudflare가 IP로 확인한 국가·지역을 발신 위치로 표시합니다. 앱 데이터베이스에는 IP 자체, 시·군·구 또는 상세 위치를 저장하지 않습니다. VPN 등에 따라 결과가 달라질 수 있으며 확인하지 못하면 ‘어딘가’로 표시합니다. 이전 일기는 작성 당시 표시를 유지합니다."
+  ],
+  "交換相手への表示": [
+    "What your exchange partner sees",
+    "Informations visibles par votre partenaire",
+    "交换伙伴看到的信息",
+    "상대에게 표시되는 정보"
+  ],
+  "送信した日記本文、気分、国・地域、装飾などは、割り当てられた相手に表示されます。Googleの識別子、名前、メールアドレスは表示しません。本文に自分で書いた情報は相手にも伝わるため、本名・住所・連絡先などは書かないでください。": [
+    "Your diary text, mood, country or region and decorations are shown to the assigned recipient. Your Google identifier, name and email are not shown. Anything you write in the diary is visible to the recipient, so leave out real names, addresses and contact details.",
+    "Votre texte, humeur, pays ou région et décorations sont visibles par le destinataire attribué. Votre identifiant Google, nom et e-mail ne sont pas affichés. Tout ce que vous écrivez est visible : n'incluez ni nom réel, ni adresse, ni coordonnées.",
+    "已发送的日记正文、心情、国家或地区及装饰等会向分配的伙伴显示。不会显示 Google 标识符、姓名或邮箱。你写进正文的信息会被对方看到，请勿填写真实姓名、地址或联系方式。",
+    "일기 본문, 기분, 국가·지역, 장식 등은 배정된 상대에게 표시됩니다. Google 식별자, 이름, 이메일은 표시하지 않습니다. 직접 작성한 정보는 상대도 보게 되므로 실명·주소·연락처 등을 쓰지 마세요."
+  ],
+  "保存と外部サービス": [
+    "Storage and external services",
+    "Stockage et services externes",
+    "存储及外部服务",
+    "저장과 외부 서비스"
+  ],
+  "アプリとデータベースはCloudflareで運用し、認証にはGoogleを利用します。これらのサービスでは通信に必要なIPアドレスなどが処理される場合があります。Googleから受け取る情報を広告配信や販売に利用しません。現在、広告配信と外部の自動翻訳は接続していません。": [
+    "Cloudflare hosts the app and database; Google handles authentication. These services may process IP addresses and other information needed for communications. Information received from Google is not used for advertising or sold. Advertising and external automatic translation are not currently connected.",
+    "Cloudflare héberge l'application et la base de données ; Google assure l'authentification. Ces services peuvent traiter les adresses IP et d'autres données nécessaires aux communications. Les informations de Google ne servent pas à la publicité et ne sont pas vendues. La publicité et la traduction automatique externe ne sont pas connectées actuellement.",
+    "应用和数据库由 Cloudflare 运行，身份验证使用 Google。这些服务可能处理通信所需的 IP 等信息。不会将从 Google 获得的信息用于广告或出售。目前尚未接入广告和外部自动翻译。",
+    "앱과 데이터베이스는 Cloudflare에서 운영하며 인증은 Google을 이용합니다. 이들 서비스는 통신에 필요한 IP 등의 정보를 처리할 수 있습니다. Google에서 받은 정보를 광고에 이용하거나 판매하지 않습니다. 현재 광고와 외부 자동 번역은 연결하지 않았습니다."
+  ],
+  "Cookie・端末内保存": [
+    "Cookies and device storage",
+    "Cookies et stockage sur l'appareil",
+    "Cookie 与设备内存储",
+    "쿠키와 기기 내 저장"
+  ],
+  "ログイン維持に最長30日の認証Cookieを使用し、サイトを開いた際に有効期限を更新します。パスワードをアプリや端末の保存領域に保存することはありません。ログアウトするとサーバーのセッションを無効にします。ログイン途中の確認情報は10分で失効します。下書きは利用中のブラウザーに保存され、ブラウザーのサイトデータ削除で消去できます。": [
+    "Authentication cookies last up to 30 days and are renewed when you open the site. Passwords are not stored in the app or device storage. Signing out invalidates the server session. Sign-in verification data expires after 10 minutes. Drafts are stored in your browser and can be removed by clearing site data.",
+    "Les cookies d'authentification durent jusqu'à 30 jours et sont renouvelés à l'ouverture du site. Les mots de passe ne sont pas conservés dans l'application ou le stockage local. La déconnexion invalide la session serveur. Les données de vérification expirent après 10 minutes. Les brouillons sont conservés dans le navigateur et supprimables en effaçant les données du site.",
+    "认证 Cookie 最长有效期为30天，打开网站时会续期。应用及设备存储不保存密码。退出登录会使服务器会话失效。登录验证信息10分钟后过期。草稿保存在当前浏览器中，可通过清除网站数据删除。",
+    "로그인 유지 쿠키는 최대 30일간 유효하며 사이트를 열면 갱신합니다. 비밀번호를 앱이나 기기 저장소에 저장하지 않습니다. 로그아웃하면 서버 세션이 무효화됩니다. 로그인 확인 정보는 10분 후 만료됩니다. 초안은 브라우저에 저장되며 사이트 데이터 삭제로 지울 수 있습니다."
+  ],
+  "保持・削除・お問い合わせ": [
+    "Retention, deletion and contact",
+    "Conservation, suppression et contact",
+    "保留、删除与联系",
+    "보관·삭제·문의"
+  ],
+  "日記や交換履歴には現在、自動削除期限を設けていません。画面に表示される日記は直近100件です。情報の確認・削除を希望する場合は、運営窓口へご連絡ください。本人確認のうえ個別に対応します。パスワードや認証コードを送る必要はありません。相手が既にコピーした内容は回収できません。": [
+    "Diaries and exchange records currently have no automatic deletion deadline. The interface shows the latest 100 diaries. Contact us to request access or deletion; we handle requests individually after verifying identity. Do not send passwords or verification codes. We cannot retrieve content already copied by a recipient.",
+    "Aucun délai de suppression automatique n'est actuellement prévu pour les journaux et échanges. L'interface affiche les 100 derniers journaux. Contactez-nous pour consulter ou supprimer vos informations ; nous traitons les demandes après vérification d'identité. N'envoyez aucun mot de passe ou code. Les contenus déjà copiés par un destinataire ne peuvent être récupérés.",
+    "日记和交换记录目前不设自动删除期限，页面显示最近100篇日记。如需查询或删除信息，请联系运营方，核实身份后逐项处理。无需发送密码或验证码。无法收回已被对方复制的内容。",
+    "일기와 교환 기록에는 현재 자동 삭제 기한이 없습니다. 화면에는 최근 일기 100개가 표시됩니다. 정보 확인·삭제를 원하면 문의해 주세요. 본인 확인 후 개별 처리합니다. 비밀번호나 인증 코드를 보낼 필요는 없습니다. 상대가 이미 복사한 내용은 회수할 수 없습니다."
+  ],
+  "Googleアカウント側でアクセスを取り消しても、保存済みの日記は自動削除されません。ポリシーを変更した場合は、このページの更新日と内容を更新します。": [
+    "Revoking access in your Google account does not automatically delete saved diaries. If this policy changes, we update this page and its revision date.",
+    "Révoquer l'accès dans votre compte Google ne supprime pas automatiquement les journaux enregistrés. En cas de modification, nous mettons à jour cette page et sa date.",
+    "在 Google 账号中撤销访问权限，不会自动删除已保存的日记。政策更改时会更新本页内容及日期。",
+    "Google 계정에서 접근을 취소해도 저장된 일기는 자동 삭제되지 않습니다. 방침을 변경하면 이 페이지 내용과 업데이트 날짜를 수정합니다."
+  ],
+  "ことのはは、Googleアカウントでログインして匿名の日記を交換するサービスです。利用にあたり、次の内容をご確認ください。": [
+    "Kotonoha lets you sign in with Google and exchange diaries anonymously. Please read the following before using the service.",
+    "Kotonoha permet de se connecter avec Google et d'échanger des journaux anonymement. Veuillez lire les conditions suivantes.",
+    "Kotonoha 是使用 Google 账号登录后匿名交换日记的服务。使用前请确认以下内容。",
+    "코토노하는 Google 계정으로 로그인하여 익명으로 일기를 교환하는 서비스입니다. 이용 전 다음 내용을 확인해 주세요."
+  ],
+  "日記の交換": [
+    "Diary exchanges",
+    "Échanges de journaux",
+    "日记交换",
+    "일기 교환"
+  ],
+  "日記を送信すると、その内容を別の利用者に表示し、保存することに同意したものとします。投稿内容の権利は投稿者に帰属します。運営者はサービスの保存・配信・安全管理に必要な範囲で投稿を扱います。相手の投稿がない場合は、交換まで時間がかかります。交換や返信の到着を保証するものではありません。": [
+    "By sending a diary, you agree that it may be displayed to and saved by another user. Authors retain rights to their content. The operator handles posts as needed for storage, delivery and safety. Exchanges may take time if no partner has posted. Delivery of exchanges or replies is not guaranteed.",
+    "L'envoi d'un journal vaut accord pour son affichage et sa conservation par un autre utilisateur. Les auteurs conservent leurs droits. L'opérateur traite les publications pour le stockage, la livraison et la sécurité du service. Sans partenaire, l'échange peut prendre du temps. La réception d'un échange ou d'une réponse n'est pas garantie.",
+    "发送日记即表示同意内容向其他用户显示并保存。投稿者保留内容权利。运营方仅在服务保存、配送及安全管理所需范围内处理投稿。没有伙伴投稿时，交换可能需要时间。不保证交换或回复一定到达。",
+    "일기를 보내면 다른 이용자에게 표시하고 저장하는 데 동의한 것으로 봅니다. 게시물의 권리는 작성자에게 있습니다. 운영자는 저장·전달·안전 관리에 필요한 범위에서 처리합니다. 상대의 글이 없으면 교환까지 시간이 걸릴 수 있으며 교환이나 답장 도착을 보장하지 않습니다."
+  ],
+  "本名・住所・連絡先などの個人情報、脅迫、嫌がらせ、差別、他人の権利を侵害する内容、不正な勧誘を投稿しないでください。受け取った日記を相手の許可なく公開・転載しないでください。不適切な内容は通報・ブロックできます。自動チェックはすべての問題を検出できません。": [
+    "Do not post personal details such as real names, addresses or contact information, threats, harassment, discrimination, content infringing others' rights, or improper solicitation. Do not publish or repost received diaries without permission. You can report or block inappropriate content. Automatic checks cannot detect every issue.",
+    "Ne publiez pas de données personnelles, menaces, harcèlement, discrimination, contenus portant atteinte aux droits d'autrui ou sollicitations illicites. Ne publiez ni ne reproduisez les journaux reçus sans autorisation. Vous pouvez signaler ou bloquer les contenus inappropriés. Les contrôles automatiques ne détectent pas tous les problèmes.",
+    "请勿投稿真实姓名、地址、联系方式等个人信息、威胁、骚扰、歧视、侵犯他人权利的内容或不当招揽。未经对方许可，不得公开或转载收到的日记。可举报或屏蔽不当内容。自动检测无法发现所有问题。",
+    "실명·주소·연락처 등 개인정보, 협박, 괴롭힘, 차별, 권리 침해 내용, 부정한 권유를 게시하지 마세요. 받은 일기를 허락 없이 공개·전재하지 마세요. 부적절한 내용은 신고·차단할 수 있습니다. 자동 검사는 모든 문제를 발견할 수 없습니다."
+  ],
+  "利用回数とアイテム": [
+    "Usage limits and items",
+    "Limites d'utilisation et objets",
+    "使用次数及物品",
+    "이용 횟수와 아이템"
+  ],
+  "通常の日記は日本時間の1日につき1通です。無料ガチャは1日1回、全24種類がそれぞれ約4.17%で出現し、重複する場合があります。アイテムはサービス内でのみ使用できます。投函成功時にステッカーを1枚消費し、便箋は繰り返し使えます。行動のごほうびは別途獲得できます。一部のごほうびは週ごとに繰り返し獲得できます。称号は一度獲得すると残ります。広告による追加投稿と自動翻訳は現在準備中です。": [
+    "The standard limit is one diary per Japan-calendar day. The free daily draw offers 24 items with about a 4.17% chance each; duplicates are possible. Items are only usable in this service. A successful post consumes one sticker; paper is reusable. Actions can earn additional rewards, some repeatable weekly. Earned titles remain. Ad-based extra posts and automatic translation are in preparation.",
+    "La limite habituelle est d'un journal par jour au Japon. Le tirage gratuit quotidien propose 24 objets, chacun avec environ 4,17 % de chances ; les doublons sont possibles. Les objets sont réservés au service. Un envoi réussi consomme un autocollant ; le papier est réutilisable. Des actions donnent des récompenses, parfois renouvelables chaque semaine. Les titres obtenus restent acquis. Les envois supplémentaires avec publicité et la traduction automatique sont en préparation.",
+    "普通日记每天限一封，以日本时间为准。每日免费抽取一次，共24种物品，各约4.17%概率，可能重复。物品仅限本服务使用。投递成功消耗一张贴纸，信纸可重复使用。通过行动可获得额外奖励，部分奖励可每周重复获得，已获得称号会保留。广告额外投稿和自动翻译正在筹备中。",
+    "일반 일기는 일본 시간 기준 하루 한 통입니다. 무료 뽑기는 하루 한 번, 24종이 각 약 4.17% 확률로 나오며 중복될 수 있습니다. 아이템은 서비스 안에서만 사용합니다. 투함 성공 시 스티커 한 장을 사용하고 편지지는 계속 쓸 수 있습니다. 행동 보상을 별도로 받을 수 있으며 일부는 매주 반복 획득할 수 있습니다. 획득한 칭호는 유지됩니다. 광고 추가 작성과 자동 번역은 준비 중입니다."
+  ],
+  "運営とお問い合わせ": [
+    "Operations and contact",
+    "Fonctionnement et contact",
+    "运营与联系",
+    "운영과 문의"
+  ],
+  "保守や不正利用への対応のため、投稿の非表示や利用制限、サービスの変更・中断を行う場合があります。お問い合わせやデータ削除の相談は kimwipes193@gmail.com へお願いします。": [
+    "For maintenance or abuse prevention, we may hide posts, restrict use, or change or interrupt the service. For questions or data deletion, contact kimwipes193@gmail.com.",
+    "Pour la maintenance ou la prévention des abus, nous pouvons masquer des publications, limiter l'utilisation, modifier ou interrompre le service. Pour toute question ou suppression de données : kimwipes193@gmail.com.",
+    "因维护或处理滥用，可能隐藏投稿、限制使用、变更或中断服务。咨询及数据删除请联系 kimwipes193@gmail.com。",
+    "유지보수나 부정 이용 대응을 위해 글 숨김, 이용 제한, 서비스 변경·중단을 할 수 있습니다. 문의나 데이터 삭제 상담은 kimwipes193@gmail.com으로 연락해 주세요."
+  ],
+  "データの取り扱いは": [
+    "For data handling, see our ",
+    "Pour le traitement des données, consultez notre ",
+    "数据处理请参阅",
+    "데이터 처리는 다음을 확인하세요:"
+  ],
+  "をご覧ください。": [
+    ".",
+    ".",
+    "。",
+    "."
+  ]
+}

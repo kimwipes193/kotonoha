@@ -1,1 +1,2 @@
-export default function NotFound(){return <main className="lost-page"><span className="eyebrow">404 / 配達先が見つかりません</span><img src="/mascot.png" width="240" height="240" alt="頭を下げて謝る配達係ぽすと"/><h1>すみません。<br/>猫の地図、逆さまでした。</h1><p>このページは見つかりませんでした。<br/>日記帳は、ちゃんと郵便局にあります。</p><a href="/" className="lost-home">郵便局に帰る →</a><small>ぽすと「次は、たぶん大丈夫です。」</small></main>;}
+import { Localized } from './language';
+export default function NotFound(){return <Localized><main className="lost-page"><span className="eyebrow">404 / 配達先が見つかりません</span><img src="/mascot.png" width="240" height="240" alt="頭を下げて謝る配達係ぽすと"/><h1>すみません。<br/>猫の地図、逆さまでした。</h1><p>このページは見つかりませんでした。<br/>日記帳は、ちゃんと郵便局にあります。</p><a href="/" className="lost-home">郵便局に帰る →</a><small>ぽすと「次は、たぶん大丈夫です。」</small></main></Localized>;}

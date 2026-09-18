@@ -37,3 +37,12 @@
 @keyframes wood-sign-swing{0%{transform:rotate(-12deg)}35%{transform:rotate(9deg)}65%{transform:rotate(-4deg)}100%{transform:rotate(4deg)}}
 
 .detected-country{display:flex;align-items:center;gap:6px;font-size:12px;flex-wrap:wrap}.detected-country small{color:#756c75;font-size:10px}.customize{flex-wrap:wrap}
+/* Language names remain readable at narrow widths and in longer translations. */
+.language-picker{display:inline-flex;align-items:center;gap:6px;border:1px solid #d8d3c8;border-radius:18px;padding:6px 9px;background:#fffdf6;color:#242134;font:inherit;flex-shrink:0}
+.language-picker select{max-width:125px;background:transparent;border:0;font:inherit;color:inherit;cursor:pointer}
+.language-picker:focus-within{outline:2px solid #74638f;outline-offset:2px}
+html:not([lang="ja"]) .main-nav button{white-space:normal;height:auto;min-height:48px;text-align:left}
+html:not([lang="ja"]) .duty-sign-board{font-size:11px;white-space:normal}
+html:not([lang="ja"]) .send-button{white-space:normal;height:auto;min-height:44px}
+.account-controls{flex-wrap:wrap}
+@media(max-width:700px){.masthead{flex-wrap:wrap;gap:12px}.account-controls{gap:8px}.language-picker{font-size:12px}.font-picker{flex-wrap:wrap}.send-row{flex-wrap:wrap;gap:12px}.collection-grid strong{overflow-wrap:anywhere}}

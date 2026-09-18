@@ -1,4 +1,6 @@
 'use client';
+import { Localized } from './language';
+
 import type { Progress } from '@/lib/rewards';
 import { useEffect, useState } from 'react';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
@@ -14,7 +16,7 @@ export default function PostalCat({mood,bodyLength,catMentioned,signedIn,progres
  async function pat(){if(petting||busy)return;setPetting(true);try{if(signedIn){const had=progress?.titles.some(t=>t.id==='pet5');const eventId=retry||crypto.randomUUID();setRetry(eventId);const result=await onPet(eventId);if(!result)return;setRetry(null);if(!had&&result.titles.some(t=>t.id==='pet5'))setSecret(true);}else if(pats===4){setSecret(true);}setPats(pats+1);if(pats+1>=5)setFound(true);setAsleep(false);setHappy(true);}finally{setPetting(false);}}
 
  const saying=asleep?'勤務中のまばたきが、ちょっと長め。':pats>0?remarks[pats%remarks.length]:catMentioned?'「ねこ」って書いた？ 呼びました？':bodyLength>=800?'大作ですね。両手で運びます。':bodyLength>=10?'うんうん。ちゃんと、預かるよ。':mood==='🌧️'?'雨の日は、ここで雨宿り。':mood==='🌙'?'今日は省エネ。それも立派な一日。':'白紙もいいけど、お話も聞きたい。';
- return <section className={'cat-office '+(asleep?'is-asleep':'')} aria-label="配達係ぽすとの部屋">
+ return <Localized><section className={'cat-office '+(asleep?'is-asleep':'')} aria-label="配達係ぽすとの部屋">
   <div className="office-top"><span>POST OFFICE / 001</span><button className="duty-sign" onClick={()=>{setAsleep(!asleep);setHappy(false);}} aria-pressed={asleep}><span key={String(asleep)} className="duty-sign-hanger"><span className="duty-sign-board">{asleep?'休憩中 zZ':'勤務中（たぶん）'}</span></span></button></div>
   <h2>きもちの配達、<br/>猫の手も借りて。</h2>
   <p className="cat-speech" role="status" aria-live="polite">{saying}</p>
@@ -26,5 +28,5 @@ export default function PostalCat({mood,bodyLength,catMentioned,signedIn,progres
   <div className="cat-caption"><span><b>ぽすと</b><small>特技：大事そうに運ぶ</small></span><span className="pet-hint">なでる？ ↗</span></div>
   {(signedIn?progress?.titles.some(t=>t.id==='pet5'):found)&&<button className="secret-badge" onClick={()=>setSecret(true)}>✦ 名誉なで係の会員証</button>}
   <Dialog open={secret} onOpenChange={setSecret}><DialogContent className="diary-dialog secret-dialog"><DialogTitle>あ、見つかっちゃった。</DialogTitle><DialogDescription>ぽすとから、あなたへ。</DialogDescription><div className="secret-certificate"><span>ことのは郵便局 非公式</span><strong>名誉なで係</strong><img src="/mascot-happy.png" alt="笑顔で前足を上げる会員証のぽすと" width="150" height="150"/><p>お給料：猫からの信頼。<br/>勤務時間：気が向いたとき。</p><span className="certificate-number">MEMBER No. 0005</span></div><p className="center-note">{signedIn?'称号は小さなコレクションの台帳に保存されています。':'ログインすると、なでた回数と称号をアカウントに保存できます。'}</p></DialogContent></Dialog>
- </section>;
+ </section></Localized>;
 }
