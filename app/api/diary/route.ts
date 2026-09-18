@@ -10,9 +10,9 @@ function reply(data:unknown,status=200){return Response.json(data,{status,header
 
 async function match(owner:string){
  const database=db();
- const waiting=await database.prepare('SELECT e.id FROM entries e WHERE e.owner=? AND e.created<=? AND NOT EXISTS (SELECT 1 FROM entries r WHERE r.received_for=e.id) ORDER BY e.created LIMIT 20').bind(owner,Date.now()-30000).all<{id:string}>();
+ const waiting=await database.prepare('SELECT e.id,e.day FROM entries e WHERE e.owner=? AND e.created<=? AND NOT EXISTS (SELECT 1 FROM entries r WHERE r.received_for=e.id) AND EXISTS (SELECT 1 FROM entries candidate WHERE candidate.day=e.day AND candidate.owner<>e.owner AND candidate.receiver IS NULL AND candidate.flagged=0 AND candidate.created<=? AND NOT EXISTS (SELECT 1 FROM blocks b WHERE (b.owner=e.owner AND b.target=candidate.owner) OR (b.target=e.owner AND b.owner=candidate.owner))) ORDER BY e.created LIMIT 20').bind(owner,Date.now()-30000,Date.now()-30000).all<{id:string;day:string}>();
  for(const own of waiting.results){
-  await database.prepare(`UPDATE entries SET receiver=?,received_for=? WHERE id=(SELECT e.id FROM entries e WHERE e.owner<>? AND e.receiver IS NULL AND e.flagged=0 AND e.created<=? AND NOT EXISTS(SELECT 1 FROM blocks b WHERE (b.owner=? AND b.target=e.owner) OR (b.target=? AND b.owner=e.owner)) ORDER BY e.created LIMIT 1) AND receiver IS NULL AND NOT EXISTS(SELECT 1 FROM entries WHERE received_for=?)`).bind(owner,own.id,owner,Date.now()-30000,owner,owner,own.id).run();
+  await database.prepare(`UPDATE entries SET receiver=?,received_for=? WHERE id=(SELECT e.id FROM entries e WHERE e.owner<>? AND e.day=? AND e.receiver IS NULL AND e.flagged=0 AND e.created<=? AND NOT EXISTS(SELECT 1 FROM blocks b WHERE (b.owner=? AND b.target=e.owner) OR (b.target=? AND b.owner=e.owner)) ORDER BY e.created LIMIT 1) AND receiver IS NULL AND NOT EXISTS(SELECT 1 FROM entries WHERE received_for=?)`).bind(owner,own.id,owner,own.day,Date.now()-30000,owner,owner,own.id).run();
  }
 }
 export async function GET(req:Request){
