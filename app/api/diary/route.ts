@@ -2,7 +2,8 @@ import { fonts, weekKey } from '@/lib/rewards';
 import { syncProgress } from '@/lib/progression';
 import { env } from 'cloudflare:workers';
 import { getUser } from '@/lib/auth';
-import { checkDiary, dayKey, items, moods, regions } from '@/lib/diary-rules';
+import { requestCountry } from '@/lib/country';
+import { checkDiary, dayKey, items, moods } from '@/lib/diary-rules';
 export const dynamic='force-dynamic';
 function db(){ if(!env.DB) throw new Error('Database unavailable'); return env.DB; }
 function reply(data:unknown,status=200){return Response.json(data,{status,headers:{'Cache-Control':'no-store'}});}
@@ -16,7 +17,8 @@ async function match(owner:string){
 }
 export async function GET(req:Request){
  try{
- const owner=await getUser(req); if(!owner)return reply({error:'保存・交換にはログインが必要です。',signedIn:false},401);
+ const region=requestCountry(req);
+ const owner=await getUser(req); if(!owner)return reply({error:'保存・交換にはログインが必要です。',signedIn:false,region},401);
  await match(owner); const database=db(); const day=dayKey(); const progress=await syncProgress(database,owner);
  const [sent,received,collection,today,bonus]=await Promise.all([
  database.prepare('SELECT id,body,mood,region,paper,sticker,font,created,receiver IS NOT NULL AS delivered,reaction FROM entries WHERE owner=? ORDER BY created DESC LIMIT 100').bind(owner).all(),
@@ -25,7 +27,7 @@ export async function GET(req:Request){
  database.prepare('SELECT COUNT(*) AS count FROM entries WHERE owner=? AND day=?').bind(owner,day).first<{count:number}>(),
  database.prepare('SELECT kind FROM rewards WHERE owner=? AND day=?').bind(owner,day).all<{kind:string}>()
  ]);
- return reply({progress,signedIn:true,sent:sent.results,received:received.results,collection:collection.results.map((r:any)=>r.item),today:today?.count??0,bonus:bonus.results.some(r=>r.kind==='bonus'),drawn:bonus.results.some(r=>r.kind==='gacha')});
+ return reply({region,progress,signedIn:true,sent:sent.results,received:received.results,collection:collection.results.map((r:any)=>r.item),today:today?.count??0,bonus:bonus.results.some(r=>r.kind==='bonus'),drawn:bonus.results.some(r=>r.kind==='gacha')});
  }catch(e){console.error('Diary load failed',e);return reply({error:'日記帳を読み込めませんでした。少し待って再試行してください。'},503);}
 }
 export async function POST(req:Request){
@@ -44,14 +46,14 @@ export async function POST(req:Request){
  if(data.action==='send'){
   const font=data.font??'sans';if(!fonts.some(f=>f.id===font))return reply({error:'フォントを選んでください。'},400);
   const error=checkDiary(data.body);if(error)return reply({error},400);
-  if(!moods.includes(data.mood)||!regions.includes(data.region))return reply({error:'気分と国・地域を選んでください。'},400);
+  if(!moods.includes(data.mood))return reply({error:'気分を選んでください。'},400);
   const owned=await database.prepare("SELECT item FROM rewards WHERE owner=? AND kind<>'bonus'").bind(owner).all<{item:string}>();
   const unlocked=owned.results.map(r=>r.item);
   if(!['plain',...unlocked.filter(i=>i.startsWith('paper-'))].includes(data.paper)||!['',...unlocked.filter(i=>!i.startsWith('paper-'))].includes(data.sticker))return reply({error:'持っている便箋とステッカーを選んでください。'},400);
   const count=await database.prepare('SELECT COUNT(*) AS n FROM entries WHERE owner=? AND day=?').bind(owner,day).first<{n:number}>();
   const n=count?.n??0;const bonus=await database.prepare("SELECT id FROM rewards WHERE owner=? AND day=? AND kind='bonus'").bind(owner,day).first();
   if(n>= (bonus?2:1))return reply({error:'今日の交換は完了しています。また明日、待っています。'},409);
-  await database.prepare('INSERT INTO entries(id,owner,day,slot,body,mood,region,paper,sticker,font,created) VALUES(?,?,?,?,?,?,?,?,?,?,?)').bind(id,owner,day,n,data.body.trim(),data.mood,data.region,data.paper,data.sticker,font,Date.now()).run();
+  await database.prepare('INSERT INTO entries(id,owner,day,slot,body,mood,region,paper,sticker,font,created) VALUES(?,?,?,?,?,?,?,?,?,?,?)').bind(id,owner,day,n,data.body.trim(),data.mood,requestCountry(req),data.paper,data.sticker,font,Date.now()).run();
   return reply({message:'日記を預かりました。相手が見つかるまで、少しお待ちください。'});
  }
  if(data.action==='gacha'){

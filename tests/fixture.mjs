@@ -13,7 +13,7 @@ export function createFixture(){
 }
 export async function loadModules(includeDiary=false){
  let source=readFileSync('lib/auth.ts','utf8');
- if(includeDiary)source+=['lib/diary-rules.ts','lib/rewards.ts','lib/progression.ts','app/api/diary/route.ts'].map(p=>readFileSync(p,'utf8').replace(/^import .* from ['"][^'"]+['"];$/gm,'')).join('\n');
+ if(includeDiary)source+=['lib/country.ts','lib/diary-rules.ts','lib/rewards.ts','lib/progression.ts','app/api/diary/route.ts'].map(p=>readFileSync(p,'utf8').replace(/^import .* from ['"][^'"]+['"];$/gm,'')).join('\n');
  source=source.replace("import { env } from 'cloudflare:workers';",'const env=globalThis.__diaryTestEnv;');
  source=source.replace("from 'jose'",'from '+JSON.stringify(pathToFileURL(resolve('node_modules/jose/dist/webapi/index.js')).href));
  return import('data:text/javascript;base64,'+Buffer.from(transformSync(source,{loader:'ts',format:'esm'}).code).toString('base64'));
