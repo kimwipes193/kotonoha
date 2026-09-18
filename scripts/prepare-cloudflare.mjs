@@ -11,5 +11,6 @@ if(origin.protocol!=='https:'||origin.origin!==process.env.APP_ORIGIN)throw new 
 const built=JSON.parse(readFileSync('dist/server/wrangler.json','utf8'));
 const config={name,main:'../dist/server/index.js',compatibility_date:built.compatibility_date,compatibility_flags:built.compatibility_flags,no_bundle:true,rules:built.rules,assets:{directory:'../dist/client'},d1_databases:[{binding:'DB',database_name:process.env.CLOUDFLARE_DATABASE_NAME||'kotonoha',database_id:databaseId,migrations_dir:'../drizzle'}],vars:{APP_ORIGIN:origin.origin},workers_dev:true};
 mkdirSync('.deploy-output',{recursive:true});
+if(process.env.PAGES_ORIGIN){const pages=new URL(process.env.PAGES_ORIGIN);if(pages.protocol!=='https:'||pages.origin!==process.env.PAGES_ORIGIN)throw new Error('PAGES_ORIGIN must be an HTTPS origin');config.vars.PAGES_ORIGIN=pages.origin;}
 writeFileSync('.deploy-output/wrangler.json',JSON.stringify(config,null,2)+'\n');
 console.log('Cloudflare configuration prepared: '+resolve('.deploy-output/wrangler.json'));

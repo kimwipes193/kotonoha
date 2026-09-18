@@ -5,10 +5,12 @@ const keys = createRemoteJWKSet(new URL('https://www.googleapis.com/oauth2/v3/ce
 export const SESSION_SECONDS = 60 * 60 * 24 * 30;
 const STATE_SECONDS = 600;
 export function authDb() { if (!env.DB) throw new Error('Authentication storage unavailable'); return env.DB; }
-export function authConfig() {
+export function authConfig(req?:Request) {
  if (!env.GOOGLE_CLIENT_ID || !env.GOOGLE_CLIENT_SECRET || !env.APP_ORIGIN) return null;
  try { const url = new URL(env.APP_ORIGIN); if (url.origin !== env.APP_ORIGIN || (url.protocol !== 'https:' && !(url.protocol === 'http:' && ['localhost','127.0.0.1'].includes(url.hostname)))) return null;
- return {clientId:env.GOOGLE_CLIENT_ID, clientSecret:env.GOOGLE_CLIENT_SECRET, origin:url.origin}; } catch { return null; }
+ const requested=req?new URL(req.url).origin:url.origin;
+ const origin=requested===env.PAGES_ORIGIN?requested:url.origin;
+ return {clientId:env.GOOGLE_CLIENT_ID, clientSecret:env.GOOGLE_CLIENT_SECRET, origin}; } catch { return null; }
 }
 export function randomToken() { return base64url(crypto.getRandomValues(new Uint8Array(32))); }
 function base64url(bytes: Uint8Array) { return btoa(String.fromCharCode(...bytes)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,''); }
@@ -40,7 +42,7 @@ export async function revokeSession(req:Request) { const token=readCookie(req,'s
 export function authResponse(body:unknown,status=200) {return Response.json(body,{status,headers:{'Cache-Control':'no-store','Referrer-Policy':'no-referrer'}});}
 function redirect(req:Request,path:string,cookies:string[]=[]) {const headers=new Headers({'Location':path,'Cache-Control':'no-store','Referrer-Policy':'no-referrer'});for(const cookie of cookies)headers.append('Set-Cookie',cookie);return new Response(null,{status:303,headers});}
 export async function startGoogle(req:Request) {
- const config=authConfig();if(!config)return authResponse({error:'Googleログインは設定準備中です。管理者の設定完了後にお試しください。'},503);
+ const config=authConfig(req);if(!config)return authResponse({error:'Googleログインは設定準備中です。管理者の設定完了後にお試しください。'},503);
  if(new URL(req.url).origin!==config.origin)return authResponse({error:'正規のサイトURLからログインしてください。'},400);
  if(req.headers.get('purpose')==='prefetch'||req.headers.get('next-router-prefetch'))return new Response(null,{status:204});
  const state=randomToken(),browser=randomToken(),verifier=randomToken(),nonce=randomToken();
@@ -51,7 +53,7 @@ export async function startGoogle(req:Request) {
  return redirect(req,url.href,[authCookie(req,'oauth',browser,STATE_SECONDS)]);
 }
 export async function finishGoogle(req:Request) {
- const config=authConfig();if(!config)return authResponse({error:'Googleログインは設定準備中です。'},503);
+ const config=authConfig(req);if(!config)return authResponse({error:'Googleログインは設定準備中です。'},503);
  const url=new URL(req.url),state=url.searchParams.get('state'),browser=readCookie(req,'oauth');
  if(url.origin!==config.origin||!state||!/^[A-Za-z0-9_-]{43}$/.test(state)||!browser)return redirect(req,'/?login=expired',[authCookie(req,'oauth','',0)]);
  // Consume the state atomically; callbacks cannot be replayed across requests.
@@ -71,7 +73,7 @@ export async function finishGoogle(req:Request) {
  }catch {return redirect(req,'/?login=failed',[authCookie(req,'oauth','',0)]);}
 }
 export async function logout(req:Request) {
- const origin=authConfig()?.origin??new URL(req.url).origin;
+ const origin=authConfig(req)?.origin??new URL(req.url).origin;
  if(req.headers.get('origin')!==origin)return authResponse({error:'操作元を確認できません。'},403);
  await revokeSession(req);return redirect(req,'/',[authCookie(req,'session','',0),authCookie(req,'oauth','',0)]);
 }

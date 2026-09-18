@@ -15,6 +15,11 @@ globalThis.fetch=async(url,options)=>{
 };
 async function flow(){const start=await startGoogle(new Request(base+'/api/auth/google'));assert.equal(start.status,303);const url=new URL(start.headers.get('location'));assert.equal(url.origin,'https://accounts.google.com');assert.equal(url.searchParams.get('scope'),'openid email');assert.equal(url.searchParams.get('code_challenge_method'),'S256');assert.ok(url.searchParams.get('code_challenge'));const cookie=start.headers.get('set-cookie').split(';')[0];return {url,cookie,callback:new Request(base+'/api/auth/google/callback?code=test-code&state='+url.searchParams.get('state'),{headers:{cookie}})};}
 try{
+ env.PAGES_ORIGIN='https://kotonoha-post.pages.dev';
+ const pagesLogin=await startGoogle(new Request(env.PAGES_ORIGIN+'/api/auth/google'));
+ assert.equal(new URL(pagesLogin.headers.get('location')).searchParams.get('redirect_uri'),env.PAGES_ORIGIN+'/api/auth/google/callback');
+ assert.equal((await startGoogle(new Request('https://untrusted.pages.dev/api/auth/google'))).status,400);
+ assert.equal((await startGoogle(new Request('https://kotonoha-post.pages.dev.evil.example/api/auth/google'))).status,400);
  assert.equal(await getUser(new Request(base,{headers:{'oai-authenticated-user-id':'forged'}})),null);
  assert.equal(await getUser(new Request(base,{headers:{cookie:'__Host-kotonoha_session=forged'}})),null);
  const configId=env.GOOGLE_CLIENT_ID;env.GOOGLE_CLIENT_ID='';assert.equal((await startGoogle(new Request(base+'/api/auth/google'))).status,503);env.GOOGLE_CLIENT_ID=configId;
