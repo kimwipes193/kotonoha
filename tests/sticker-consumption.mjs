@@ -6,14 +6,19 @@ const base='https://diary.example';
 const cookie=authCookie(new Request(base),'session',await newSession('google:alice'),SESSION_SECONDS).split(';')[0];
 async function api(data){const req=new Request(base+'/api/diary',{method:data?'POST':'GET',headers:{cookie,Origin:base,'Content-Type':'application/json'},body:data?JSON.stringify(data):undefined});const r=await(data?POST(req):GET(req));return {status:r.status,data:await r.json()};}
 for(const [id,owner,item] of [['one','google:alice','🌷'],['two','google:alice','🌷'],['paper','google:alice','paper-blue'],['bob','google:bob','🐾']])sql.prepare('INSERT INTO rewards(id,owner,day,kind,item) VALUES(?,?,?,?,?)').run(id,owner,id,'gacha',item);
-const send={action:'send',body:'今日もよい一日でした。',mood:'🌤️',paper:'paper-blue',sticker:'🌷'};
+const layout={x:15,y:65,rotation:-35,scale:1.5};
+const send={stickerLayout:layout,action:'send',body:'今日もよい一日でした。',mood:'🌤️',paper:'paper-blue',sticker:'🌷'};
 assert.equal((await api({...send,body:''})).status,400);
+for(const invalid of [{...layout,x:101},{...layout,y:-1},{...layout,rotation:181},{...layout,scale:3},{...layout,scale:null},{x:15}])assert.equal((await api({...send,stickerLayout:invalid})).status,400);
 assert.equal((await api({...send,sticker:'🐾'})).status,400);
 assert.equal((await api()).data.collection.filter(x=>x==='🌷').length,2);
 assert.equal((await api(send)).status,200);
 let box=(await api()).data;
 assert.equal(box.collection.filter(x=>x==='🌷').length,1);
 assert.equal(box.sent[0].sticker,'🌷');
+assert.deepEqual(JSON.parse(box.sent[0].sticker_layout),layout);
+sql.prepare('UPDATE entries SET receiver=? WHERE id=?').run('google:alice',box.sent[0].id);
+assert.deepEqual(JSON.parse((await api()).data.received[0].sticker_layout),layout);
 assert.equal((await api(send)).status,409);
 assert.equal((await api()).data.collection.filter(x=>x==='🌷').length,1);
 // Simulate concurrent callers that passed the inventory check: the database must enforce stock.

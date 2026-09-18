@@ -1,0 +1,17 @@
+'use client';
+import {useRef,type CSSProperties,type PointerEvent} from 'react';
+import {defaultStickerLayout,moveSticker,type StickerLayout} from '@/lib/sticker-layout';
+import {Localized} from './language';
+export function PlacedSticker({sticker,layout,onChange,disabled=false}:{sticker:string;layout:StickerLayout;onChange?:(layout:StickerLayout)=>void;disabled?:boolean}){
+ const drag=useRef<{pointer:number;x:number;y:number;layout:StickerLayout}|null>(null);
+ if(!sticker)return null;
+ // Position is relative to the usable paper area, keeping even rotated stickers inside it.
+ const size=12*layout.scale,margin=size*Math.SQRT2/2;
+ const style={left:`${margin+(100-2*margin)*layout.x/100}%`,top:`${margin+(100-2*margin)*layout.y/100}%`,width:`${size}%`,transform:`translate(-50%,-50%) rotate(${layout.rotation}deg)`,fontSize:`${size}cqw`} as CSSProperties;
+ function down(e:PointerEvent<HTMLButtonElement>){if(disabled)return;e.preventDefault();e.currentTarget.setPointerCapture(e.pointerId);drag.current={pointer:e.pointerId,x:e.clientX,y:e.clientY,layout};}
+ function move(e:PointerEvent<HTMLButtonElement>){const start=drag.current;if(!start||start.pointer!==e.pointerId||!onChange)return;const rect=e.currentTarget.parentElement!.getBoundingClientRect();const area=1-2*margin/100;onChange(moveSticker(start.layout,start.layout.x+(e.clientX-start.x)/rect.width/area*100,start.layout.y+(e.clientY-start.y)/rect.height/area*100));}
+ return onChange?<Localized><button type="button" className="placed-sticker editable-sticker" style={style} aria-label="ステッカーを移動" title="ドラッグまたは矢印キーで移動" disabled={disabled} onPointerDown={down} onPointerMove={move} onPointerUp={()=>{drag.current=null;}} onPointerCancel={()=>{drag.current=null;}} onLostPointerCapture={()=>{drag.current=null;}} onKeyDown={e=>{const step=e.shiftKey?10:2;const delta:Record<string,[number,number]>={ArrowLeft:[-step,0],ArrowRight:[step,0],ArrowUp:[0,-step],ArrowDown:[0,step]};if(delta[e.key]){e.preventDefault();onChange(moveSticker(layout,layout.x+delta[e.key][0],layout.y+delta[e.key][1]));}}}>{sticker}</button></Localized>:<span className="placed-sticker" style={style} aria-hidden="true">{sticker}</span>;
+}
+export function StickerControls({layout,onChange,onRemove,disabled}:{layout:StickerLayout;onChange:(value:StickerLayout)=>void;onRemove:()=>void;disabled:boolean}){
+ return <Localized><fieldset className="sticker-controls" disabled={disabled}><legend>ステッカーの配置</legend><p>ステッカーをドラッグして好きな場所へ。矢印キーでも動かせます。</p><div className="sticker-sliders"><label>横の位置<input type="range" min="0" max="100" value={layout.x} onChange={e=>onChange({...layout,x:Number(e.target.value)})}/></label><label>縦の位置<input type="range" min="0" max="100" value={layout.y} onChange={e=>onChange({...layout,y:Number(e.target.value)})}/></label><label>回転<input type="range" min="-180" max="180" value={layout.rotation} onChange={e=>onChange({...layout,rotation:Number(e.target.value)})}/><output>{layout.rotation}°</output></label><label>サイズ<input type="range" min="0.5" max="2" step="0.05" value={layout.scale} onChange={e=>onChange({...layout,scale:Number(e.target.value)})}/><output>{Math.round(layout.scale*100)}%</output></label></div><div className="sticker-control-actions"><button type="button" onClick={()=>onChange({...defaultStickerLayout})}>配置をリセット</button><button type="button" onClick={onRemove}>ステッカーを外す</button></div></fieldset></Localized>;
+}

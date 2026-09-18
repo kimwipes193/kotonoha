@@ -1,6 +1,17 @@
 import legalMessages from './legal-messages.json';
 // Columns: Japanese source | English | French | Simplified Chinese | Korean.
 const rows = String.raw`
+ステッカーを移動|Move sticker|Déplacer l'autocollant|移动贴纸|스티커 이동
+ドラッグまたは矢印キーで移動|Drag or use arrow keys to move|Déplacez avec la souris ou les flèches|拖动或使用方向键移动|드래그하거나 방향키로 이동
+ステッカーの配置|Sticker placement|Placement de l'autocollant|贴纸位置|스티커 배치
+ステッカーをドラッグして好きな場所へ。矢印キーでも動かせます。|Drag the sticker anywhere on the paper. Arrow keys work too.|Glissez l'autocollant sur le papier. Les flèches fonctionnent aussi.|将贴纸拖到信纸上的任意位置，也可以使用方向键移动。|스티커를 원하는 곳으로 드래그하세요. 방향키로도 움직일 수 있어요.
+横の位置|Horizontal position|Position horizontale|水平位置|가로 위치
+縦の位置|Vertical position|Position verticale|垂直位置|세로 위치
+回転|Rotation|Rotation|旋转|회전
+サイズ|Size|Taille|大小|크기
+配置をリセット|Reset placement|Réinitialiser la position|重置位置|배치 초기화
+ステッカーを外す|Remove sticker|Retirer l'autocollant|移除贴纸|스티커 떼기
+ステッカーの配置を確認してください。|Please check the sticker placement.|Vérifiez la position de l'autocollant.|请检查贴纸的位置。|스티커 배치를 확인해 주세요.
 帰り道、いつも通り過ぎる花屋さんで、小さな花束を買いました。\n\n誰かのためじゃなく、自分のために。\nそれだけで、いつもの部屋が少し違って見えました。\n\nあなたにも、今日ひとつ、小さなうれしいことがありますように。|On my way home, I bought a little bouquet at the florist I always walk past.\n\nNot for someone else. For me.\nThat alone made my familiar room look a little different.\n\nI hope you find a small moment of happiness today, too.|Sur le chemin du retour, j'ai acheté un petit bouquet chez le fleuriste devant lequel je passe toujours.\n\nPas pour quelqu'un d'autre. Pour moi.\nCela a suffi pour que ma chambre me semble un peu différente.\n\nJ'espère que vous trouverez aussi un petit bonheur aujourd'hui.|回家的路上，我在平时总是路过的花店买了一小束花。\n\n不是为别人，是为自己。\n仅仅这样，熟悉的房间就变得有一点不同。\n\n希望今天，你也能遇到一件小小的开心事。|집에 오는 길에 늘 지나치던 꽃집에서 작은 꽃다발을 샀어요.\n\n누군가를 위해서가 아니라, 나를 위해서.\n그것만으로 늘 보던 방이 조금 달라 보였어요.\n\n당신에게도 오늘 작은 기쁨 하나가 찾아오길 바라요.
 表示言語の設定も、このブラウザーに保存します。|Your display language preference is also saved in this browser.|Votre langue d'affichage est aussi enregistrée dans ce navigateur.|显示语言设置也会保存在此浏览器中。|표시 언어 설정도 이 브라우저에 저장합니다.
 晴れやか|Sunny|Rayonnant|晴朗|맑음

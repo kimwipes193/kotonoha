@@ -25,7 +25,7 @@ try{
  assert.equal(countryName('日本','en'),'Japan');assert.equal(countryName('フランス','ko'),'프랑스');
  assert.equal(translate('所持数 {count} 枚','en',{count:3}),'Owned: 3');
  // Visible JSX copy must have all four translations, including legal and mascot views.
- for(const path of ['app/diary.tsx','app/postal-cat.tsx','app/achievements.tsx','app/loading-cat.tsx','app/not-found.tsx','app/privacy/page.tsx','app/terms/page.tsx']){
+ for(const path of ['app/diary.tsx','app/sticker.tsx','app/postal-cat.tsx','app/achievements.tsx','app/loading-cat.tsx','app/not-found.tsx','app/privacy/page.tsx','app/terms/page.tsx']){
   const ast=ts.createSourceFile(path,readFileSync(path,'utf8'),99,true);
   function check(n){if(ts.isJsxText(n)&&/[ぁ-んァ-ヶ一-龠]/.test(n.text))assert.ok(messages[n.text.trim()],`${path}: ${n.text}`);ts.forEachChild(n,check);}check(ast);
  }
