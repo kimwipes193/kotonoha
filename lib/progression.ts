@@ -16,5 +16,5 @@ export async function syncProgress(database:D1Database,owner:string){
  }
  const titles=await database.prepare('SELECT title AS id,earned FROM titles WHERE owner=? ORDER BY earned').bind(owner).all<{id:string;earned:number}>();
  const claimed=await database.prepare("SELECT id FROM rewards WHERE owner=? AND day=? AND kind='weekly-pats'").bind(owner,week).first();
- return {stats,titles:titles.results,week,weeklyClaimed:!!claimed};
+ return {stats,titles:titles.results.flatMap(t=>{const c=challenges.find(c=>c.id===t.id);return c?[{...t,name:c.name,icon:c.icon}]:[];}),week,weeklyClaimed:!!claimed};
 }

@@ -3,7 +3,7 @@ import type { Progress } from '@/lib/rewards';
 import { useEffect, useState } from 'react';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 
-const remarks=['はい。猫の手、空いてます。','なでても配達速度は変わりません。','……もう一回だけなら。','仕事中です。いちおう。','あと一回で、何か起きる予感。'];
+const remarks=['はい。猫の手、空いてます。','なでても配達速度は変わりません。','……もう一回だけなら。','仕事中です。いちおう。','今日もおつかれさま。'];
 export default function PostalCat({mood,bodyLength,catMentioned,signedIn,progress,onPet,busy}:{mood:string;bodyLength:number;catMentioned:boolean;signedIn:boolean;progress?:Progress;onPet:(id:string)=>Promise<Progress|undefined>;busy:boolean}) {
  const [pats,setPats]=useState(0),[asleep,setAsleep]=useState(false),[secret,setSecret]=useState(false),[found,setFound]=useState(false);
  useEffect(()=>{try{setFound(localStorage.getItem('kotonoha-cat-badge')==='yes');}catch{}},[]);
@@ -20,9 +20,8 @@ export default function PostalCat({mood,bodyLength,catMentioned,signedIn,progres
    {asleep&&<span className="cat-zzz" aria-hidden="true">z Z</span>}
    {pats>0&&<span key={'pat'+pats} className="pet-heart" aria-hidden="true">♡</span>}
   </button>
-  <p className="pet-counter">{signedIn?`今週 ${progress?.stats.weeklyPets??0} / 100 なで・累計 ${progress?.stats.pets??0}`:'ログインして「なでなで」を記録'}</p>
   <div className="cat-caption"><span><b>ぽすと</b><small>特技：大事そうに運ぶ</small></span><span className="pet-hint">なでる？ ↗</span></div>
   {(signedIn?progress?.titles.some(t=>t.id==='pet5'):found)&&<button className="secret-badge" onClick={()=>setSecret(true)}>✦ 名誉なで係の会員証</button>}
-  <Dialog open={secret} onOpenChange={setSecret}><DialogContent className="diary-dialog secret-dialog"><DialogTitle>あ、見つかっちゃった。</DialogTitle><DialogDescription>ぽすとを5回なでた、やさしいあなたへ。</DialogDescription><div className="secret-certificate"><span>ことのは郵便局 非公式</span><strong>名誉なで係</strong><img src="/mascot.png" alt="会員証のぽすと" width="150" height="150"/><p>お給料：猫からの信頼。<br/>勤務時間：気が向いたとき。</p><span className="certificate-number">MEMBER No. 0005</span></div><p className="center-note">{signedIn?'称号は小さなコレクションの台帳に保存されています。':'ログインすると、なでた回数と称号をアカウントに保存できます。'}</p></DialogContent></Dialog>
+  <Dialog open={secret} onOpenChange={setSecret}><DialogContent className="diary-dialog secret-dialog"><DialogTitle>あ、見つかっちゃった。</DialogTitle><DialogDescription>ぽすとから、あなたへ。</DialogDescription><div className="secret-certificate"><span>ことのは郵便局 非公式</span><strong>名誉なで係</strong><img src="/mascot.png" alt="会員証のぽすと" width="150" height="150"/><p>お給料：猫からの信頼。<br/>勤務時間：気が向いたとき。</p><span className="certificate-number">MEMBER No. 0005</span></div><p className="center-note">{signedIn?'称号は小さなコレクションの台帳に保存されています。':'ログインすると、なでた回数と称号をアカウントに保存できます。'}</p></DialogContent></Dialog>
  </section>;
 }

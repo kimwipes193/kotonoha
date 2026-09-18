@@ -26,6 +26,13 @@ export async function getUser(req:Request):Promise<string|null> {
  const session=await authDb().prepare('SELECT owner FROM auth_sessions WHERE token_hash=? AND expires>?').bind(await digest(token),Date.now()).first<{owner:string}>();
  return session?.owner??null;
 }
+// Renew only an existing, unexpired session. Never recreate a logged-out session.
+export async function renewSessionCookie(req:Request):Promise<string|null>{
+ const token=readCookie(req,'session');if(!token)return null;
+ const now=Date.now(),expires=now+SESSION_SECONDS*1000;
+ const row=await authDb().prepare('UPDATE auth_sessions SET expires=? WHERE token_hash=? AND expires>? RETURNING owner').bind(expires,await digest(token),now).first<{owner:string}>();
+ return row?authCookie(req,'session',token,SESSION_SECONDS):null;
+}
 export async function newSession(owner:string) {
  const token=randomToken();await authDb().prepare('INSERT INTO auth_sessions(token_hash,owner,expires) VALUES(?,?,?)').bind(await digest(token),owner,Date.now()+SESSION_SECONDS*1000).run();return token;
 }

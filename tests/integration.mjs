@@ -8,7 +8,7 @@ for(const owner of ['alice','bob'])cookies.set(owner,authCookie(new Request(base
 async function api(owner,data,origin=base){const req=new Request(base+'/api/diary',{method:data?'POST':'GET',headers:{...(owner?{cookie:cookies.get(owner)}:{}),...(data?{'Content-Type':'application/json',Origin:origin}:{})},body:data?JSON.stringify(data):undefined});const r=await (data?POST(req):GET(req));return {status:r.status,data:await r.json()};}
 assert.equal((await api(null)).status,401);
 assert.equal((await api('alice',{action:'gacha'},'https://invalid.example')).status,403);
-const diary={action:'send',body:'今日は公園を歩きました。風が気持ちよくて、小さな花も見つけました。',mood:'🌤️',region:'日本',paper:'plain',sticker:''};
+const diary={action:'send',body:'あ',mood:'🌤️',region:'日本',paper:'plain',sticker:''};
 assert.equal((await api('alice',{...diary,body:'私の連絡先は example@example.com です。'})).status,400);
 assert.equal((await api('alice',diary)).status,200);
 assert.equal((await api('alice',diary)).status,409);

@@ -39,7 +39,7 @@ export async function POST(req:Request){
   if(typeof data.eventId!=='string'||! /^[0-9a-f-]{36}$/i.test(data.eventId))return reply({error:'なで記録を確認できません。'},400);
   await database.prepare('INSERT OR IGNORE INTO pet_events(id,owner,week,created) VALUES(?,?,?,?)').bind(data.eventId,owner,weekKey(new Date(Date.now())),Date.now()).run();
   const progress=await syncProgress(database,owner);
-  return reply({progress,message:progress.weeklyClaimed?'今週の肉球印をコレクションにお届けしました。':'なでなでを記録しました。'});
+  return reply({progress});
  }
  if(data.action==='send'){
   const font=data.font??'sans';if(!fonts.some(f=>f.id===font))return reply({error:'フォントを選んでください。'},400);

@@ -17,5 +17,5 @@ export const challenges=[
  {id:'regions3',name:'国境をこえる便り',description:'3つの国・地域から日記を受け取る',stat:'regions',goal:3,icon:'🌏'},
 ] as const;
 export type ProgressStats={pets:number;weeklyPets:number;sent:number;exchanges:number;stickers:number;reactions:number;regions:number};
-export type Progress={stats:ProgressStats;titles:{id:string;earned:number}[];week:string;weeklyClaimed:boolean};
+export type Progress={stats:ProgressStats;titles:{id:string;earned:number;name:string;icon:string}[];week:string;weeklyClaimed:boolean};
 export function weekKey(now=new Date()) {const d=new Date(now.getTime()+9*3600000);d.setUTCDate(d.getUTCDate()-((d.getUTCDay()+6)%7));return d.toISOString().slice(0,10);}

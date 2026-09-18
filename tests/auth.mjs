@@ -32,6 +32,13 @@ try{
  }
  const f=await flow();const wrongBrowser=new Request(f.callback.url,{headers:{cookie:authCookie(new Request(base),'oauth','a'.repeat(43),600).split(';')[0]}});
  assert.equal((await finishGoogle(wrongBrowser)).headers.get('location'),'/?login=expired');
+ const {renewSessionCookie}=await loadModules();
+ const savedToken=await newSession('google:saved');const savedRequest=new Request(base,{headers:{cookie:authCookie(new Request(base),'session',savedToken,SESSION_SECONDS).split(';')[0]}});
+ const before=Date.now;Date.now=()=>before()+20*86400000;
+ const renewed=await renewSessionCookie(savedRequest);assert.ok(renewed.includes('Max-Age=2592000'));assert.ok(renewed.includes('HttpOnly'));assert.ok(renewed.includes('Secure'));
+ Date.now=()=>before()+40*86400000;assert.equal(await getUser(savedRequest),'google:saved');
+ await logout(new Request(base+'/api/auth/logout',{method:'POST',headers:{cookie:savedRequest.headers.get('cookie'),origin:base}}));assert.equal(await renewSessionCookie(savedRequest),null);Date.now=before;
  const token=await newSession('google:expired-user');sql.prepare('UPDATE auth_sessions SET expires=0').run();assert.equal(await getUser(new Request(base,{headers:{cookie:authCookie(new Request(base),'session',token,SESSION_SECONDS).split(';')[0]}})),null);
+ assert.equal(await renewSessionCookie(new Request(base,{headers:{cookie:authCookie(new Request(base),'session',token,SESSION_SECONDS).split(';')[0]}})),null);
  console.log('PASS: Google authorization, PKCE, signed identity, state/cookie binding, replay protection, invalid claims, expiry, logout, forged headers rejected');
 }finally{globalThis.fetch=realFetch;}
