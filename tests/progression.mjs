@@ -21,7 +21,7 @@ const send={action:'send',body:'今日はのんびり本を読んで過ごしま
 assert.equal((await api({...send,font:'malicious'})).status,400);assert.equal((await api({...send,sticker:'🏅'})).status,400);assert.equal((await api(send)).status,200);assert.equal((await api()).data.sent[0].font,'serif');
 for(let i=0;i<101;i++)sql.prepare('INSERT INTO entries(id,owner,day,slot,body,mood,region,paper,sticker,created,receiver) VALUES(?,?,?,?,?,?,?,?,?,?,?)').run('entry'+i,'other'+i,'2026-01-01',0,'test diary','🌤️',i%2?'フランス':'日本','plain','',Date.now(),'google:alice');
 box=(await api()).data;assert.equal(box.received.length,100);assert.equal(box.progress.stats.exchanges,101);assert.ok(box.progress.titles.some(t=>t.id==='exchange100'));
-for(let i=0;i<10;i++)sql.prepare('INSERT INTO rewards VALUES(?,?,?,?,?)').run('reward'+i,'google:alice','day'+i,'gacha','sticker'+i);
+for(let i=0;i<10;i++)sql.prepare('INSERT INTO rewards(id,owner,day,kind,item) VALUES(?,?,?,?,?)').run('reward'+i,'google:alice','day'+i,'gacha','sticker'+i);
 box=(await api()).data;assert.ok(box.progress.titles.some(t=>t.id==='stickers10'));assert.equal(box.collection.filter(x=>x==='🎀').length,1);
 assert.equal((await syncProgress(env.DB,'google:bob')).stats.pets,0);
 console.log('PASS: weekly boundaries, idempotent pets, repeat weekly rewards, permanent titles, account isolation, fonts, ownership, lifetime counts beyond 100');

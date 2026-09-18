@@ -1,0 +1,33 @@
+import assert from 'node:assert/strict';
+import {createFixture,loadModules} from './fixture.mjs';
+const {sql}=createFixture();
+const {GET,POST,newSession,authCookie,SESSION_SECONDS}=await loadModules(true);
+const base='https://diary.example';
+const cookie=authCookie(new Request(base),'session',await newSession('google:alice'),SESSION_SECONDS).split(';')[0];
+async function api(data){const req=new Request(base+'/api/diary',{method:data?'POST':'GET',headers:{cookie,Origin:base,'Content-Type':'application/json'},body:data?JSON.stringify(data):undefined});const r=await(data?POST(req):GET(req));return {status:r.status,data:await r.json()};}
+for(const [id,owner,item] of [['one','google:alice','🌷'],['two','google:alice','🌷'],['paper','google:alice','paper-blue'],['bob','google:bob','🐾']])sql.prepare('INSERT INTO rewards(id,owner,day,kind,item) VALUES(?,?,?,?,?)').run(id,owner,id,'gacha',item);
+const send={action:'send',body:'今日もよい一日でした。',mood:'🌤️',paper:'paper-blue',sticker:'🌷'};
+assert.equal((await api({...send,body:''})).status,400);
+assert.equal((await api({...send,sticker:'🐾'})).status,400);
+assert.equal((await api()).data.collection.filter(x=>x==='🌷').length,2);
+assert.equal((await api(send)).status,200);
+let box=(await api()).data;
+assert.equal(box.collection.filter(x=>x==='🌷').length,1);
+assert.equal(box.sent[0].sticker,'🌷');
+assert.equal((await api(send)).status,409);
+assert.equal((await api()).data.collection.filter(x=>x==='🌷').length,1);
+// Simulate concurrent callers that passed the inventory check: the database must enforce stock.
+const insert=sql.prepare('INSERT INTO entries(id,owner,day,slot,body,mood,region,paper,sticker,created) VALUES(?,?,?,?,?,?,?,?,?,?)');
+insert.run('last','google:alice','2000-01-01',0,'test','🌤️','日本','paper-blue','🌷',Date.now());
+assert.throws(()=>insert.run('overspend','google:alice','2000-01-02',0,'test','🌤️','日本','plain','🌷',Date.now()),/STICKER_UNAVAILABLE/);
+assert.equal(sql.prepare("SELECT id FROM entries WHERE id='overspend'").get(),undefined);
+box=(await api()).data;
+assert.equal(box.collection.includes('🌷'),false);
+assert.ok(box.discovered.includes('🌷'));
+assert.ok(box.collection.includes('paper-blue'));
+assert.equal(sql.prepare("SELECT COUNT(*) AS n FROM rewards WHERE owner='google:alice' AND item='🌷'").get().n,2);
+assert.equal((await api(send)).status,400);
+assert.throws(()=>insert.run('steal','google:alice','2000-01-03',0,'test','🌤️','日本','plain','🐾',Date.now()),/STICKER_UNAVAILABLE/);
+insert.run('plain','google:alice','2000-01-04',0,'test','🌤️','日本','plain','',Date.now());
+assert.equal(sql.prepare("SELECT consumed_by FROM rewards WHERE id='bob'").get().consumed_by,null);
+console.log('PASS: atomic sticker consumption, failed sends, exhausted stock, acquisition history, reusable paper, owner isolation');

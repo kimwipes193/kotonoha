@@ -23,11 +23,11 @@ export async function GET(req:Request){
  const [sent,received,collection,today,bonus]=await Promise.all([
  database.prepare('SELECT id,body,mood,region,paper,sticker,font,created,receiver IS NOT NULL AS delivered,reaction FROM entries WHERE owner=? ORDER BY created DESC LIMIT 100').bind(owner).all(),
  database.prepare('SELECT id,body,mood,region,paper,sticker,font,created,reaction FROM entries e WHERE receiver=? AND flagged=0 AND NOT EXISTS(SELECT 1 FROM blocks b WHERE b.owner=? AND b.target=e.owner) ORDER BY created DESC LIMIT 100').bind(owner,owner).all(),
- database.prepare("SELECT item FROM rewards WHERE owner=? AND kind<>'bonus'").bind(owner).all(),
+ database.prepare("SELECT item,consumed_by FROM rewards WHERE owner=? AND kind<>'bonus'").bind(owner).all(),
  database.prepare('SELECT COUNT(*) AS count FROM entries WHERE owner=? AND day=?').bind(owner,day).first<{count:number}>(),
  database.prepare('SELECT kind FROM rewards WHERE owner=? AND day=?').bind(owner,day).all<{kind:string}>()
  ]);
- return reply({region,progress,signedIn:true,sent:sent.results,received:received.results,collection:collection.results.map((r:any)=>r.item),today:today?.count??0,bonus:bonus.results.some(r=>r.kind==='bonus'),drawn:bonus.results.some(r=>r.kind==='gacha')});
+ return reply({region,progress,signedIn:true,sent:sent.results,received:received.results,discovered:[...new Set(collection.results.map((r:any)=>r.item))],collection:collection.results.filter((r:any)=>!r.consumed_by).map((r:any)=>r.item),today:today?.count??0,bonus:bonus.results.some(r=>r.kind==='bonus'),drawn:bonus.results.some(r=>r.kind==='gacha')});
  }catch(e){console.error('Diary load failed',e);return reply({error:'日記帳を読み込めませんでした。少し待って再試行してください。'},503);}
 }
 export async function POST(req:Request){
@@ -47,8 +47,8 @@ export async function POST(req:Request){
   const font=data.font??'sans';if(!fonts.some(f=>f.id===font))return reply({error:'フォントを選んでください。'},400);
   const error=checkDiary(data.body);if(error)return reply({error},400);
   if(!moods.includes(data.mood))return reply({error:'気分を選んでください。'},400);
-  const owned=await database.prepare("SELECT item FROM rewards WHERE owner=? AND kind<>'bonus'").bind(owner).all<{item:string}>();
-  const unlocked=owned.results.map(r=>r.item);
+  const owned=await database.prepare("SELECT item,consumed_by FROM rewards WHERE owner=? AND kind<>'bonus'").bind(owner).all<{item:string;consumed_by:string|null}>();
+  const unlocked=owned.results.filter(r=>!r.consumed_by).map(r=>r.item);
   if(!['plain',...unlocked.filter(i=>i.startsWith('paper-'))].includes(data.paper)||!['',...unlocked.filter(i=>!i.startsWith('paper-'))].includes(data.sticker))return reply({error:'持っている便箋とステッカーを選んでください。'},400);
   const count=await database.prepare('SELECT COUNT(*) AS n FROM entries WHERE owner=? AND day=?').bind(owner,day).first<{n:number}>();
   const n=count?.n??0;const bonus=await database.prepare("SELECT id FROM rewards WHERE owner=? AND day=? AND kind='bonus'").bind(owner,day).first();
@@ -76,7 +76,7 @@ export async function POST(req:Request){
   return reply({message:data.action==='react'?'気持ちを届けました。':'この日記を非表示にしました。'});
  }
  return reply({error:'操作を確認してください。'},400);
- }catch(e){console.error('Diary write failed',e);if(String(e).includes('UNIQUE'))return reply({error:'今日の操作はすでに完了しています。画面を更新してください。'},409);return reply({error:'保存できませんでした。内容を残したまま再試行できます。'},503);}
+ }catch(e){console.error('Diary write failed',e);if(String(e).includes('STICKER_UNAVAILABLE'))return reply({error:'このステッカーは使用済みです。別のステッカーを選んでください。'},409);if(String(e).includes('UNIQUE'))return reply({error:'今日の操作はすでに完了しています。画面を更新してください。'},409);return reply({error:'保存できませんでした。内容を残したまま再試行できます。'},503);}
 }
 
 
