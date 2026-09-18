@@ -1,0 +1,27 @@
+import assert from 'node:assert/strict';
+import {createFixture,loadModules} from './fixture.mjs';
+const {sql,env}=createFixture();
+const {GET,POST,newSession,authCookie,SESSION_SECONDS,syncProgress,weekKey}=await loadModules(true);
+const base='https://diary.example';const cookie=authCookie(new Request(base),'session',await newSession('google:alice'),SESSION_SECONDS).split(';')[0];
+async function api(data){const req=new Request(base+'/api/diary',{method:data?'POST':'GET',headers:{cookie,Origin:base,'Content-Type':'application/json'},body:data?JSON.stringify(data):undefined});const r=await(data?POST(req):GET(req));return {status:r.status,data:await r.json()};}
+assert.equal(weekKey(new Date('2026-09-20T14:59:59Z')),'2026-09-14');
+assert.equal(weekKey(new Date('2026-09-20T15:00:00Z')),'2026-09-21');
+assert.equal((await api({action:'pet',eventId:'invalid'})).status,400);
+const eventId=crypto.randomUUID();await api({action:'pet',eventId});await api({action:'pet',eventId});assert.equal((await api()).data.progress.stats.pets,1);
+const week=weekKey();for(let i=0;i<98;i++)sql.prepare('INSERT INTO pet_events VALUES(?,?,?,?)').run(crypto.randomUUID(),'google:alice',week,Date.now());
+assert.equal((await api()).data.progress.weeklyClaimed,false);
+await api({action:'pet',eventId:crypto.randomUUID()});
+let box=(await api()).data;assert.equal(box.progress.stats.pets,100);assert.equal(box.collection.filter(x=>x==='🐾').length,1);assert.ok(box.progress.titles.some(t=>t.id==='pet100'));
+await api();assert.equal((await api()).data.collection.filter(x=>x==='🐾').length,1);
+const now=Date.now;Date.now=()=>now()+7*86400000;
+box=(await api()).data;assert.equal(box.progress.stats.weeklyPets,0);assert.ok(box.progress.titles.some(t=>t.id==='pet100'));
+for(let i=0;i<100;i++)sql.prepare('INSERT INTO pet_events VALUES(?,?,?,?)').run(crypto.randomUUID(),'google:alice',weekKey(new Date(Date.now())),Date.now());
+box=(await api()).data;assert.equal(box.collection.filter(x=>x==='🐾').length,2);assert.equal(box.progress.titles.filter(t=>t.id==='pet100').length,1);Date.now=now;
+const send={action:'send',body:'今日はのんびり本を読んで過ごしました。',mood:'🌤️',region:'日本',paper:'plain',sticker:'🐾',font:'serif'};
+assert.equal((await api({...send,font:'malicious'})).status,400);assert.equal((await api({...send,sticker:'🏅'})).status,400);assert.equal((await api(send)).status,200);assert.equal((await api()).data.sent[0].font,'serif');
+for(let i=0;i<101;i++)sql.prepare('INSERT INTO entries(id,owner,day,slot,body,mood,region,paper,sticker,created,receiver) VALUES(?,?,?,?,?,?,?,?,?,?,?)').run('entry'+i,'other'+i,'2026-01-01',0,'test diary','🌤️',i%2?'フランス':'日本','plain','',Date.now(),'google:alice');
+box=(await api()).data;assert.equal(box.received.length,100);assert.equal(box.progress.stats.exchanges,101);assert.ok(box.progress.titles.some(t=>t.id==='exchange100'));
+for(let i=0;i<10;i++)sql.prepare('INSERT INTO rewards VALUES(?,?,?,?,?)').run('reward'+i,'google:alice','day'+i,'gacha','sticker'+i);
+box=(await api()).data;assert.ok(box.progress.titles.some(t=>t.id==='stickers10'));assert.equal(box.collection.filter(x=>x==='🎀').length,1);
+assert.equal((await syncProgress(env.DB,'google:bob')).stats.pets,0);
+console.log('PASS: weekly boundaries, idempotent pets, repeat weekly rewards, permanent titles, account isolation, fonts, ownership, lifetime counts beyond 100');

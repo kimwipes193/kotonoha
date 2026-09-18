@@ -15,6 +15,13 @@
       "when": 1789644643736,
       "tag": "0001_overjoyed_skullbuster",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1789693466273,
+      "tag": "0002_loving_rictor",
+      "breakpoints": true
     }
   ]
 }

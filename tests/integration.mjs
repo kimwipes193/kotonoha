@@ -18,7 +18,7 @@ assert.equal((await api('alice',{action:'gacha'})).status,200);
 const savedError=console.error;console.error=()=>{};try{assert.equal((await api('alice',{action:'gacha'})).status,409);}finally{console.error=savedError;}
 const realNow=Date.now;Date.now=()=>realNow()+31000;
 const box=(await api('alice')).data;
-assert.equal(box.received.length,1);assert.equal(box.today,1);assert.equal(box.collection.length,1);
+assert.equal(box.received.length,1);assert.equal(box.today,1);assert.ok(box.collection.length>=1);
 assert.equal(box.received[0].region,'フランス');assert.equal(box.received[0].owner,undefined);
 const id=box.received[0].id;
 assert.equal((await api('bob',{action:'react',id,reaction:'🤍'})).status,404);

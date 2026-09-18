@@ -1,6 +1,6 @@
 export const moods = ['☀️','🌤️','☁️','🌧️','🌙'];
 export const regions = ['日本','韓国','台湾','アメリカ','カナダ','イギリス','フランス','ドイツ','オーストラリア','その他'];
-export const items = ['🌷','🍋','🐈','🦋','🌻','🍒','paper-blue','paper-pink'];
+export const items = ['🌷','🍋','🐈','🦋','🌻','🍒','paper-blue','paper-pink','🍮','🍩','🥐','🍙','☕','🫖','🍓','🍄','🐌','🐧','🦦','🐳','🌈','🪐','🌼','🎈'];
 export function dayKey(now = new Date()) { return new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Tokyo'}).format(now); }
 export function checkDiary(value: unknown): string | null {
  if(typeof value !== 'string' || value.trim().length<10 || value.length>1000) return '日記は10〜1,000文字で書いてください。';
