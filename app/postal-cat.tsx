@@ -15,7 +15,7 @@ export default function PostalCat({mood,bodyLength,catMentioned,signedIn,progres
 
  const saying=asleep?'勤務中のまばたきが、ちょっと長め。':pats>0?remarks[pats%remarks.length]:catMentioned?'「ねこ」って書いた？ 呼びました？':bodyLength>=800?'大作ですね。両手で運びます。':bodyLength>=10?'うんうん。ちゃんと、預かるよ。':mood==='🌧️'?'雨の日は、ここで雨宿り。':mood==='🌙'?'今日は省エネ。それも立派な一日。':'白紙もいいけど、お話も聞きたい。';
  return <section className={'cat-office '+(asleep?'is-asleep':'')} aria-label="配達係ぽすとの部屋">
-  <div className="office-top"><span>POST OFFICE / 001</span><button className="duty-sign" onClick={()=>{setAsleep(!asleep);setHappy(false);}} aria-pressed={asleep}>{asleep?'休憩中 zZ':'勤務中（たぶん）'}</button></div>
+  <div className="office-top"><span>POST OFFICE / 001</span><button className="duty-sign" onClick={()=>{setAsleep(!asleep);setHappy(false);}} aria-pressed={asleep}><span key={String(asleep)} className="duty-sign-hanger"><span className="duty-sign-board">{asleep?'休憩中 zZ':'勤務中（たぶん）'}</span></span></button></div>
   <h2>きもちの配達、<br/>猫の手も借りて。</h2>
   <p className="cat-speech" role="status" aria-live="polite">{saying}</p>
   <button className="cat-pet" disabled={petting||busy} onClick={pat} aria-label="配達係ぽすとをなでる" title="なでてみる？">
