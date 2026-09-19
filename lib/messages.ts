@@ -1,6 +1,16 @@
 import legalMessages from './legal-messages.json';
 // Columns: Japanese source | English | French | Simplified Chinese | Korean.
 const rows = String.raw`
+あなたの言葉、封筒にそっと。|Your words, tucked into an envelope.|Vos mots, glissés dans une enveloppe.|把你的话，轻轻装进信封。|당신의 말을 봉투에 살며시.
+日記を保存し、ぽすとに預けました。|Your diary is saved and in Posto's care.|Votre journal est enregistré et confié à Posto.|日记已保存，并交给波斯托保管。|일기를 저장하고 포스토에게 맡겼어요.
+封筒を開けて日記を読む|Open the envelope and read|Ouvrir l'enveloppe et lire|打开信封阅读日记|봉투를 열어 일기 읽기
+封筒を開けています…|Opening your letter…|Ouverture de la lettre…|正在打开信封…|봉투를 여는 중…
+とん、とタップで開封。|A little tap to open.|Un petit clic pour ouvrir.|轻轻一点，拆开来信。|톡, 눌러서 열어보세요.
+どこかの誰かが、今日を分けてくれました。|Someone, somewhere, shared a little of their day.|Quelqu'un, quelque part, partage un peu de sa journée.|远方的某个人，与你分享了今天。|어딘가의 누군가가 오늘을 나누어 주었어요.
+あなた宛てのお便りです。|A letter for you.|Une lettre pour vous.|有一封给你的信。|당신에게 온 편지예요.
+封筒をタップすると、日記がひらきます。|Tap the envelope to reveal the diary.|Touchez l'enveloppe pour découvrir le journal.|轻点信封，即可打开日记。|봉투를 누르면 일기가 열려요.
+まだ開けていないお便り|An unopened letter|Une lettre à découvrir|尚未拆开的来信|아직 열지 않은 편지
+タップして封筒を開く|Tap to open the envelope|Touchez pour ouvrir l'enveloppe|轻点打开信封|눌러서 봉투 열기
 ステッカーを移動|Move sticker|Déplacer l'autocollant|移动贴纸|스티커 이동
 ドラッグまたは矢印キーで移動|Drag or use arrow keys to move|Déplacez avec la souris ou les flèches|拖动或使用方向键移动|드래그하거나 방향키로 이동
 ステッカーの配置|Sticker placement|Placement de l'autocollant|贴纸位置|스티커 배치
