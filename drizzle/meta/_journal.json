@@ -43,6 +43,13 @@
       "when": 1789786432681,
       "tag": "0005_odd_susan_delgado",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1789831347302,
+      "tag": "0006_organic_vivisector",
+      "breakpoints": true
     }
   ]
 }

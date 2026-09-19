@@ -1,10 +1,4 @@
 {
-  "更新日：2026年9月19日": [
-    "Updated: September 19, 2026",
-    "Mise à jour : 19 septembre 2026",
-    "更新日期：2026年9月19日",
-    "업데이트: 2026년 9월 19일"
-  ],
   "ことのはは、匿名の相手と日記を交換するサービスです。運営窓口は kimwipes193@gmail.com です。": [
     "Kotonoha is a service for exchanging diaries anonymously. Contact: kimwipes193@gmail.com.",
     "Kotonoha permet d'échanger des journaux anonymement. Contact : kimwipes193@gmail.com.",
@@ -149,10 +143,16 @@
     "应用和数据库由 Cloudflare 运行，身份验证使用 Google。这些服务可能处理通信所需的 IP 等信息。不会将从 Google 获得的信息用于广告或出售。 广告投放尚在筹备中。仅当您点击翻译按钮时，日记正文才会由 Cloudflare Workers AI 处理，翻译结果将被保存。",
     "앱과 데이터베이스는 Cloudflare에서 운영하며 인증은 Google을 이용합니다. 이들 서비스는 통신에 필요한 IP 등의 정보를 처리할 수 있습니다. Google에서 받은 정보를 광고에 이용하거나 판매하지 않습니다. 광고 배포는 준비 중입니다. 번역 버튼을 누를 때만 일기 본문을 Cloudflare Workers AI로 처리하며 번역 결과를 저장합니다."
   ],
-  "通常の日記は日本時間の1日につき1通です。無料ガチャは1日1回、全24種類がそれぞれ約4.17%で出現し、重複する場合があります。アイテムはサービス内でのみ使用できます。投函成功時にステッカーを1枚消費し、便箋は繰り返し使えます。行動のごほうびは別途獲得できます。一部のごほうびは週ごとに繰り返し獲得できます。称号は一度獲得すると残ります。広告による追加投稿は現在準備中です。自動翻訳は原文の正確さや意味の再現を保証しません。利用上限や混雑により翻訳できない場合があります。": [
-    "The standard limit is one diary per Japan-calendar day. The free daily draw offers 24 items with about a 4.17% chance each; duplicates are possible. Items are only usable in this service. A successful post consumes one sticker; paper is reusable. Actions can earn additional rewards, some repeatable weekly. Earned titles remain. Additional posts through ads are in preparation. Machine translation does not guarantee accuracy or preservation of meaning and may be unavailable due to usage limits or demand.",
-    "La limite habituelle est d'un journal par jour au Japon. Le tirage gratuit quotidien propose 24 objets, chacun avec environ 4,17 % de chances ; les doublons sont possibles. Les objets sont réservés au service. Un envoi réussi consomme un autocollant ; le papier est réutilisable. Des actions donnent des récompenses, parfois renouvelables chaque semaine. Les titres obtenus restent acquis. Les publications supplémentaires via des publicités sont en préparation. La traduction automatique ne garantit ni l’exactitude ni la fidélité au sens et peut être indisponible en raison des limites d’utilisation ou de l’affluence.",
-    "普通日记每天限一封，以日本时间为准。每日免费抽取一次，共24种物品，各约4.17%概率，可能重复。物品仅限本服务使用。投递成功消耗一张贴纸，信纸可重复使用。通过行动可获得额外奖励，部分奖励可每周重复获得，已获得称号会保留。 观看广告增加投稿次数的功能尚在筹备中。机器翻译不保证准确性或完整传达原意，可能因使用限额或繁忙而无法使用。",
-    "일반 일기는 일본 시간 기준 하루 한 통입니다. 무료 뽑기는 하루 한 번, 24종이 각 약 4.17% 확률로 나오며 중복될 수 있습니다. 아이템은 서비스 안에서만 사용합니다. 투함 성공 시 스티커 한 장을 사용하고 편지지는 계속 쓸 수 있습니다. 행동 보상을 별도로 받을 수 있으며 일부는 매주 반복 획득할 수 있습니다. 획득한 칭호는 유지됩니다. 광고를 통한 추가 작성은 준비 중입니다. 기계 번역은 정확성이나 의미 전달을 보장하지 않으며 사용 한도나 혼잡으로 이용하지 못할 수 있습니다."
+  "通常の日記は日本時間の1日につき1通です。無料ガチャは1日1回、全24種類がそれぞれ約4.17%で出現し、重複する場合があります。アイテムはサービス内でのみ使用できます。ステッカーは1通に最大5枚貼れます。投函成功時に貼った枚数だけ消費し、便箋は繰り返し使えます。行動のごほうびは別途獲得できます。一部のごほうびは週ごとに繰り返し獲得できます。称号は一度獲得すると残ります。広告による追加投稿は現在準備中です。自動翻訳は原文の正確さや意味の再現を保証しません。利用上限や混雑により翻訳できない場合があります。": [
+    "The standard limit is one diary per Japan-calendar day. The free daily draw offers 24 items with about a 4.17% chance each; duplicates are possible. Items are only usable in this service. Up to five stickers can be attached per diary. A successful post consumes each attached sticker; paper is reusable. Actions can earn additional rewards, some repeatable weekly. Earned titles remain. Additional posts through ads are in preparation. Machine translation does not guarantee accuracy or preservation of meaning and may be unavailable due to usage limits or demand.",
+    "La limite habituelle est d'un journal par jour au Japon. Le tirage gratuit quotidien propose 24 objets, chacun avec environ 4,17 % de chances ; les doublons sont possibles. Les objets sont réservés au service. Vous pouvez coller jusqu’à cinq autocollants par journal. Un envoi réussi consomme les autocollants collés ; le papier est réutilisable. Des actions donnent des récompenses, parfois renouvelables chaque semaine. Les titres obtenus restent acquis. Les publications supplémentaires via des publicités sont en préparation. La traduction automatique ne garantit ni l’exactitude ni la fidélité au sens et peut être indisponible en raison des limites d’utilisation ou de l’affluence.",
+    "普通日记每天限一封，以日本时间为准。每日免费抽取一次，共24种物品，各约4.17%概率，可能重复。物品仅限本服务使用。每封日记最多可贴5张贴纸。投递成功后按实际张数消耗，信纸可重复使用。通过行动可获得额外奖励，部分奖励可每周重复获得，已获得称号会保留。 观看广告增加投稿次数的功能尚在筹备中。机器翻译不保证准确性或完整传达原意，可能因使用限额或繁忙而无法使用。",
+    "일반 일기는 일본 시간 기준 하루 한 통입니다. 무료 뽑기는 하루 한 번, 24종이 각 약 4.17% 확률로 나오며 중복될 수 있습니다. 아이템은 서비스 안에서만 사용합니다. 일기 한 통에 스티커를 최대 5장 붙일 수 있습니다. 투함 성공 시 붙인 수량만큼 사용하고 편지지는 계속 쓸 수 있습니다. 행동 보상을 별도로 받을 수 있으며 일부는 매주 반복 획득할 수 있습니다. 획득한 칭호는 유지됩니다. 광고를 통한 추가 작성은 준비 중입니다. 기계 번역은 정확성이나 의미 전달을 보장하지 않으며 사용 한도나 혼잡으로 이용하지 못할 수 있습니다."
+  ],
+  "更新日：2026年9月20日": [
+    "Updated: September 20, 2026",
+    "Mise à jour : 20 septembre 2026",
+    "更新日期：2026年9月20日",
+    "업데이트: 2026년 9월 20일"
   ]
 }

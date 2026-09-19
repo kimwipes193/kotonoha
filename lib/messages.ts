@@ -1,6 +1,9 @@
 import legalMessages from './legal-messages.json';
 // Columns: Japanese source | English | French | Simplified Chinese | Korean.
 const rows = String.raw`
+ステッカーは1通に5枚まで。投函が成功すると貼った枚数だけ消費します。便箋は繰り返し使えます。|Up to five stickers per diary. Each attached sticker is used only after a successful post. Paper is reusable.|Jusqu’à cinq autocollants par journal. Les autocollants collés sont consommés après un envoi réussi. Le papier est réutilisable.|每封日记最多5张贴纸。投递成功后按实际张数消耗。信纸可重复使用。|일기 한 통에 스티커 최대 5장. 투함 성공 시 붙인 수량만큼 사용해요. 편지지는 계속 쓸 수 있어요.
+ステッカー{number}を外す|Remove sticker {number}|Retirer l’autocollant {number}|移除贴纸{number}|스티커 {number} 제거
+ステッカーは5枚までです。配置を確認してください。|Use up to five stickers and check their placement.|Utilisez au maximum cinq autocollants et vérifiez leur position.|最多可贴5张贴纸，请检查位置。|스티커는 최대 5장이에요. 배치를 확인해 주세요.
 ドラッグで移動。タップして、四隅を動かすと回転・拡大縮小できます。|Drag to move. Tap, then drag a corner to rotate and resize.|Faites glisser pour déplacer. Touchez puis faites glisser un coin pour tourner et redimensionner.|拖动可移动。点击后拖动四角即可旋转和缩放。|드래그해서 이동하세요. 탭한 뒤 모서리를 드래그하면 회전하고 크기를 바꿀 수 있어요.
 角をドラッグして回転・拡大縮小|Drag a corner to rotate and resize|Faites glisser un coin pour tourner et redimensionner|拖动角点旋转和缩放|모서리를 드래그해서 회전 및 크기 조절
 左上の角で回転・拡大縮小|Rotate and resize from top left|Tourner et redimensionner depuis le coin supérieur gauche|左上角旋转和缩放|왼쪽 위 모서리에서 회전 및 크기 조절

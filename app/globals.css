@@ -99,3 +99,16 @@ html:not([lang="ja"]) .send-button{white-space:normal;height:auto;min-height:44p
 /* Die-cut white rim follows only the artwork, leaving editing handles crisp. */
 .sticker-art,.collectible.owned .collectible-icon{filter:drop-shadow(.018em 0 0 white) drop-shadow(-.018em 0 0 white) drop-shadow(0 .018em 0 white) drop-shadow(0 -.018em 0 white) drop-shadow(.013em .013em 0 white) drop-shadow(-.013em -.013em 0 white) drop-shadow(.013em -.013em 0 white) drop-shadow(-.013em .013em 0 white) drop-shadow(0 .025em .025em #30233838)}
 .sticker-art{display:block;line-height:1;pointer-events:none}
+
+/* Flat, ink-outlined wooden sign, matching Posto's illustration. */
+.duty-sign:before{background:#ffd681;border:2px solid #493647;box-shadow:none}
+.duty-sign-hanger:before{border-color:#604853;box-shadow:none;border-radius:5px}
+.duty-sign-board{background:#f9d594;border:2px solid #493647;border-radius:8px 11px 8px 10px;box-shadow:2px 3px 0 #493647;text-shadow:none;color:#493647;font-weight:850}
+.duty-sign-board:before,.duty-sign-board:after{top:6px;width:15px;height:4px;background:transparent;border-top:2px solid #dba76a;border-bottom:1px solid #dba76a;border-radius:50%;box-shadow:none}
+.duty-sign-board:after{top:auto;bottom:6px;width:22px;transform:rotate(-5deg)}
+.legal-page{max-width:800px;margin:40px auto;padding:32px 30px 64px;font-size:16px;line-height:2;color:var(--ink);overflow-wrap:anywhere}
+.legal-page h1{font-size:clamp(28px,4vw,38px);font-weight:850;line-height:1.5;margin:28px 0 16px}
+.legal-page h2{font-size:clamp(21px,3vw,26px);font-weight:800;line-height:1.5;margin:48px 0 20px;padding-bottom:12px;border-bottom:2px solid #eadbc9}
+.legal-page p{margin:0 0 24px}.legal-page a{text-decoration:underline;text-underline-offset:4px}.legal-page .language-picker{margin-bottom:20px}
+@media(max-width:600px){.legal-page{margin:12px auto;padding:24px 22px 48px}.legal-page h2{margin-top:38px}}
+.editable-sticker.sticker-selected{z-index:5}

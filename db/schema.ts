@@ -1,7 +1,7 @@
 import { sqliteTable, text, integer, uniqueIndex, index } from 'drizzle-orm/sqlite-core';
 export const entries = sqliteTable('entries', {
  id: text('id').primaryKey(), owner: text('owner').notNull(), day: text('day').notNull(), slot: integer('slot').notNull(),
- stickerLayout: text('sticker_layout'), font: text('font').notNull().default('sans'), body: text('body').notNull(), mood: text('mood').notNull(), region: text('region').notNull(), paper: text('paper').notNull(), sticker: text('sticker').notNull(),
+ stickers: text('stickers'), stickerLayout: text('sticker_layout'), font: text('font').notNull().default('sans'), body: text('body').notNull(), mood: text('mood').notNull(), region: text('region').notNull(), paper: text('paper').notNull(), sticker: text('sticker').notNull(),
  created: integer('created').notNull(), receiver: text('receiver'), receivedFor: text('received_for'), reaction: text('reaction'), flagged: integer('flagged').notNull().default(0),
 }, t => [uniqueIndex('entries_daily_slot').on(t.owner,t.day,t.slot),uniqueIndex('entries_received_for').on(t.receivedFor),index('entries_receiver').on(t.receiver),index('entries_pool').on(t.flagged,t.receiver,t.created)]);
 export const rewards = sqliteTable('rewards',{id:text('id').primaryKey(),owner:text('owner').notNull(),day:text('day').notNull(),kind:text('kind').notNull(),item:text('item').notNull(),consumedBy:text('consumed_by')},t=>[uniqueIndex('rewards_daily').on(t.owner,t.day,t.kind)]);

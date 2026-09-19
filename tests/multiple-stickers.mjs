@@ -1,0 +1,23 @@
+import assert from 'node:assert/strict';
+import {createFixture,loadModules} from './fixture.mjs';
+const {sql}=createFixture();const {GET,POST,newSession,authCookie,SESSION_SECONDS,readStickers}=await loadModules(true);
+const base='https://diary.example';const cookie=authCookie(new Request(base),'session',await newSession('google:alice'),SESSION_SECONDS).split(';')[0];
+async function api(data){const r=await(data?POST:GET)(new Request(base+'/api/diary',{method:data?'POST':'GET',headers:{cookie,Origin:base},body:data?JSON.stringify(data):undefined}));return {status:r.status,data:await r.json()};}
+const grant=sql.prepare('INSERT INTO rewards(id,owner,day,kind,item) VALUES(?,?,?,?,?)');for(let i=0;i<7;i++)grant.run('a'+i,'google:alice','day'+i,'gacha',i<4?'🌷':'🍋');grant.run('other','google:bob','day','gacha','🌷');
+const placements=Array.from({length:5},(_,i)=>({sticker:i<3?'🌷':'🍋',layout:{x:i*20,y:80-i*10,rotation:i*30,scale:.5+i*.3}}));
+const send={action:'send',body:'今日は花がきれいでした。',mood:'🌤️',paper:'plain',stickers:placements};
+assert.equal((await api({...send,stickers:[...placements,placements[0]]})).status,400);
+assert.equal((await api({...send,stickers:Array(5).fill(placements[0])})).status,400);
+assert.equal((await api({...send,stickers:[{...placements[0],layout:{x:999}}]})).status,400);
+assert.equal(sql.prepare('SELECT count(*) n FROM rewards WHERE consumed_by IS NOT NULL').get().n,0);
+assert.equal((await api(send)).status,200);
+const sent=(await api()).data.sent[0];assert.deepEqual(readStickers(sent),placements);assert.equal((await api()).data.collection.filter(x=>x==='🌷').length,1);assert.equal((await api()).data.collection.filter(x=>x==='🍋').length,1);
+sql.prepare('UPDATE entries SET receiver=? WHERE id=?').run('google:alice',sent.id);assert.deepEqual(readStickers((await api()).data.received[0]),placements);
+assert.equal((await api({...send,stickers:[placements[0]]})).status,409);assert.equal(sql.prepare('SELECT count(*) n FROM rewards WHERE consumed_by IS NOT NULL').get().n,5);
+const insert=sql.prepare("INSERT INTO entries(id,owner,day,slot,body,mood,region,paper,sticker,stickers,created) VALUES(?,'google:alice',?,0,'test','🌤️','日本','plain','🌷',?,0)");
+assert.throws(()=>insert.run('overspend','2000-01-01',JSON.stringify([placements[0],placements[0]])),/STICKER_UNAVAILABLE/);assert.equal(sql.prepare("SELECT consumed_by FROM rewards WHERE id='a3'").get().consumed_by,null);
+insert.run('last','2000-01-02',JSON.stringify([placements[0],placements[4]]));assert.equal(sql.prepare('SELECT count(*) n FROM rewards WHERE owner=? AND consumed_by IS NOT NULL').get('google:alice').n,7);
+assert.equal(sql.prepare("SELECT consumed_by FROM rewards WHERE id='other'").get().consumed_by,null);
+assert.equal(readStickers({sticker:'🌷',sticker_layout:JSON.stringify(placements[0].layout)}).length,1);
+assert.deepEqual(readStickers({sticker:'',stickers:'[]'}),[]);
+console.log('PASS: five independent placements, repeated sticker quantities, actual consumption, atomic rollback, daily limit and legacy rendering');

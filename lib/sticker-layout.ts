@@ -17,3 +17,6 @@ export function transformSticker(layout:StickerLayout,start:{x:number;y:number},
  const center=stickerCenter(layout),margin=6*scale*Math.SQRT2,area=100-2*margin;
  return moveSticker({...layout,scale,rotation},(center.x-margin)/area*100,(center.y-margin)/area*100);
 }
+export type StickerPlacement={sticker:string;layout:StickerLayout};
+export function validStickerPlacements(value:unknown):value is StickerPlacement[]{return Array.isArray(value)&&value.length<=5&&value.every(p=>p&&typeof p.sticker==='string'&&p.sticker.length>0&&p.sticker.length<=32&&!p.sticker.startsWith('paper-')&&validStickerLayout(p.layout));}
+export function readStickers(entry:{stickers?:string|null;sticker:string;sticker_layout?:string|null}):StickerPlacement[]{try{const parsed=JSON.parse(entry.stickers??'null');if(validStickerPlacements(parsed))return parsed;}catch{}return entry.sticker?[{sticker:entry.sticker,layout:readStickerLayout(entry.sticker_layout)}]:[];}

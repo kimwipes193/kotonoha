@@ -1,7 +1,7 @@
 import { Localized, LanguagePicker } from '../language';
 export default function Privacy() {
- return <Localized><main style={{maxWidth:760,margin:'40px auto',padding:24,lineHeight:1.9}}>
-  <LanguagePicker/><a href="/">← ことのはに戻る</a><h1>プライバシーポリシー</h1><p>更新日：2026年9月19日</p>
+ return <Localized><main className="legal-page">
+  <LanguagePicker/><a href="/">← ことのはに戻る</a><h1>プライバシーポリシー</h1><p>更新日：2026年9月20日</p>
   <p>ことのはは、匿名の相手と日記を交換するサービスです。運営窓口は kimwipes193@gmail.com です。</p>
   <h2>取得する情報と目的</h2><p>Googleログインでは、本人確認のためGoogleのユーザー識別子とメールアドレスの確認情報を受け取ります。サービスにはGoogleの識別子を保存し、名前やメールアドレスを日記データとして保存しません。Gmailのメール本文や連絡先にはアクセスしません。</p>
   <p>日記本文、気分、IPアドレスから判定した国・地域、便箋、ステッカー、投稿日時、交換先との対応、リアクション、獲得アイテム・称号、なでた回数と操作記録、日記の書体、通報・ブロック情報を、日記の保存・交換、利用回数の管理、不正利用への対応に使用します。</p>
