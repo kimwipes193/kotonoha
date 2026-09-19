@@ -1,6 +1,12 @@
 import legalMessages from './legal-messages.json';
 // Columns: Japanese source | English | French | Simplified Chinese | Korean.
 const rows = String.raw`
+ドラッグで移動。タップして、四隅を動かすと回転・拡大縮小できます。|Drag to move. Tap, then drag a corner to rotate and resize.|Faites glisser pour déplacer. Touchez puis faites glisser un coin pour tourner et redimensionner.|拖动可移动。点击后拖动四角即可旋转和缩放。|드래그해서 이동하세요. 탭한 뒤 모서리를 드래그하면 회전하고 크기를 바꿀 수 있어요.
+角をドラッグして回転・拡大縮小|Drag a corner to rotate and resize|Faites glisser un coin pour tourner et redimensionner|拖动角点旋转和缩放|모서리를 드래그해서 회전 및 크기 조절
+左上の角で回転・拡大縮小|Rotate and resize from top left|Tourner et redimensionner depuis le coin supérieur gauche|左上角旋转和缩放|왼쪽 위 모서리에서 회전 및 크기 조절
+右上の角で回転・拡大縮小|Rotate and resize from top right|Tourner et redimensionner depuis le coin supérieur droit|右上角旋转和缩放|오른쪽 위 모서리에서 회전 및 크기 조절
+左下の角で回転・拡大縮小|Rotate and resize from bottom left|Tourner et redimensionner depuis le coin inférieur gauche|左下角旋转和缩放|왼쪽 아래 모서리에서 회전 및 크기 조절
+右下の角で回転・拡大縮小|Rotate and resize from bottom right|Tourner et redimensionner depuis le coin inférieur droit|右下角旋转和缩放|오른쪽 아래 모서리에서 회전 및 크기 조절
 端末の設定で動きを控えています。|Motion is reduced by your device settings.|Votre appareil limite les animations.|已根据设备设置减少动画。|기기 설정에 따라 움직임을 줄이고 있어요.
 アニメーションで開封|Open with animation|Ouvrir avec animation|播放开信动画|애니메이션으로 열기
 すぐに読む|Read now|Lire maintenant|直接阅读|바로 읽기
