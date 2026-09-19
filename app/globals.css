@@ -95,3 +95,7 @@ html:not([lang="ja"]) .send-button{white-space:normal;height:auto;min-height:44p
 .sticker-handle span{width:12px;height:12px;border:2px solid #675282;border-radius:3px;background:#fffaf1;box-shadow:0 1px 3px #30203b22;pointer-events:none}.sticker-handle:focus-visible{outline:2px solid #675282;border-radius:8px}.sticker-handle:active span{background:#efc779}
 .sticker-handle.nw{left:-8px;top:-8px}.sticker-handle.ne{left:calc(100% + 8px);top:-8px}.sticker-handle.sw{left:-8px;top:calc(100% + 8px)}.sticker-handle.se{left:calc(100% + 8px);top:calc(100% + 8px)}
 .sticker-tools{margin:12px 0 18px}.sticker-tools p{font-size:12px;color:#716674;line-height:1.7}.sticker-control-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:8px;font-size:12px}.sticker-control-actions button{padding:6px 12px;border:1px solid #b8a898;border-radius:20px;background:white}.sticker-control-actions button:disabled{opacity:.5}
+
+/* Die-cut white rim follows only the artwork, leaving editing handles crisp. */
+.sticker-art,.collectible.owned .collectible-icon{filter:drop-shadow(.018em 0 0 white) drop-shadow(-.018em 0 0 white) drop-shadow(0 .018em 0 white) drop-shadow(0 -.018em 0 white) drop-shadow(.013em .013em 0 white) drop-shadow(-.013em -.013em 0 white) drop-shadow(.013em -.013em 0 white) drop-shadow(-.013em .013em 0 white) drop-shadow(0 .025em .025em #30233838)}
+.sticker-art{display:block;line-height:1;pointer-events:none}
