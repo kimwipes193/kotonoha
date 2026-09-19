@@ -70,6 +70,14 @@ node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js d1
 
 ## 残っている外部連携
 
-広告配信・視聴完了検証と自由文の自動翻訳は未接続です。広告の追加投稿は準備中のままで、不正に追加権限を与えません。無料ガチャは動作します。
+広告配信・視聴完了検証は未接続です。広告の追加投稿は準備中のままで、不正に追加権限を与えません。無料ガチャは動作します。
 
 参考：[Google OpenID Connect](https://developers.google.com/identity/openid-connect/openid-connect)、[Cloudflare GitHub Actions](https://developers.cloudflare.com/workers/ci-cd/external-cicd/github-actions/)、[GitHub Pagesの範囲](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages)
+
+## 日記の翻訳
+
+公開用設定は Cloudflare Workers AI の `AI` binding を追加します。翻訳は `@cf/google/gemma-4-26b-a4b-it` を使用し、ログイン中のユーザーが自分の日記・受信した日記を明示的に翻訳したときのみ呼び出します。対応言語は日本語、英語、フランス語、簡体字中国語、韓国語です。
+
+新規翻訳は UTC の1日につきユーザー10回、サイト全体50回まで（失敗も含む）。保存済みの結果は回数を消費しません。原文は変更しません。日記本文・翻訳をログに出さず、キャッシュの取得前にも閲覧権限と非表示状態を確認します。翻訳機能の追加による有料プランへの変更は行っていません。
+
+端末が動きを減らす設定の場合も、封筒の「アニメーションで開封」ボタンから今回の演出だけ再生できます。「すぐに読む」では演出を省略できます。開封済みの手紙には再開封ボタンがあります。

@@ -1,4 +1,5 @@
 import { validStickerLayout, defaultStickerLayout } from '@/lib/sticker-layout';
+import { translateDiary } from '@/lib/diary-translation';
 import { fonts, weekKey } from '@/lib/rewards';
 import { syncProgress } from '@/lib/progression';
 import { env } from 'cloudflare:workers';
@@ -38,6 +39,7 @@ export async function POST(req:Request){
  const raw=await req.text();if(raw.length>8000)return reply({error:'入力が長すぎます。'},400);
  let data:any;try{data=JSON.parse(raw);}catch{return reply({error:'入力を確認してください。'},400);}
  const database=db(),day=dayKey(),id=crypto.randomUUID();
+ if(data.action==='translate')return translateDiary(database,(env as unknown as {AI?:Parameters<typeof translateDiary>[1]}).AI,owner,data);
  if(data.action==='pet'){
   if(typeof data.eventId!=='string'||! /^[0-9a-f-]{36}$/i.test(data.eventId))return reply({error:'なで記録を確認できません。'},400);
   await database.prepare('INSERT OR IGNORE INTO pet_events(id,owner,week,created) VALUES(?,?,?,?)').bind(data.eventId,owner,weekKey(new Date(Date.now())),Date.now()).run();

@@ -1,6 +1,19 @@
 import legalMessages from './legal-messages.json';
 // Columns: Japanese source | English | French | Simplified Chinese | Korean.
 const rows = String.raw`
+端末の設定で動きを控えています。|Motion is reduced by your device settings.|Votre appareil limite les animations.|已根据设备设置减少动画。|기기 설정에 따라 움직임을 줄이고 있어요.
+アニメーションで開封|Open with animation|Ouvrir avec animation|播放开信动画|애니메이션으로 열기
+すぐに読む|Read now|Lire maintenant|直接阅读|바로 읽기
+もう一度、封筒から開く|Open the envelope again|Rouvrir l’enveloppe|再次打开信封|봉투 다시 열기
+翻訳先|Translate into|Traduire en|翻译为|번역 언어
+翻訳中…|Translating…|Traduction…|翻译中…|번역 중…
+この言語で読む|Read in this language|Lire dans cette langue|用此语言阅读|이 언어로 읽기
+見本はあらかじめ用意した翻訳です。|This sample uses a prepared translation.|Cet exemple utilise une traduction préparée.|此示例使用预先准备的翻译。|견본은 미리 준비된 번역을 사용해요.
+翻訳すると本文をCloudflare AIで処理します。機械翻訳には誤りが含まれることがあります。|Translation processes the text with Cloudflare AI. Machine translations may contain errors.|La traduction traite le texte avec Cloudflare AI. Elle peut contenir des erreurs.|翻译时正文将由 Cloudflare AI 处理。机器翻译可能存在错误。|번역 시 본문을 Cloudflare AI로 처리합니다. 기계 번역에는 오류가 있을 수 있어요.
+言葉のお着替え中。少しお待ちください。|Giving these words a new outfit. One moment.|Les mots changent de tenue. Un instant.|文字正在换装，请稍等。|말들이 옷을 갈아입고 있어요. 잠시만요.
+翻訳する言語を選んでください。|Choose a translation language.|Choisissez la langue de traduction.|请选择翻译语言。|번역할 언어를 선택해 주세요.
+翻訳につながりませんでした。原文のまま読めます。時間をおいてお試しください。|Translation is unavailable. You can read the original and try again later.|La traduction est indisponible. Lisez l’original et réessayez plus tard.|暂时无法翻译。您可以阅读原文，稍后重试。|번역에 연결하지 못했어요. 원문을 읽거나 나중에 다시 시도해 주세요.
+今日の翻訳の受付はおしまいです。原文を読むか、明日またお試しください。|Today’s translation limit has been reached. Read the original or try tomorrow.|La limite de traduction du jour est atteinte. Lisez l’original ou réessayez demain.|今日翻译次数已用完。请阅读原文或明天再试。|오늘의 번역 한도에 도달했어요. 원문을 읽거나 내일 다시 시도해 주세요.
 あなたの言葉、封筒にそっと。|Your words, tucked into an envelope.|Vos mots, glissés dans une enveloppe.|把你的话，轻轻装进信封。|당신의 말을 봉투에 살며시.
 日記を保存し、ぽすとに預けました。|Your diary is saved and in Posto's care.|Votre journal est enregistré et confié à Posto.|日记已保存，并交给波斯托保管。|일기를 저장하고 포스토에게 맡겼어요.
 封筒を開けて日記を読む|Open the envelope and read|Ouvrir l'enveloppe et lire|打开信封阅读日记|봉투를 열어 일기 읽기

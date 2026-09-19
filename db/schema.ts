@@ -17,3 +17,5 @@ export const oauthStates = sqliteTable('oauth_states', {
 
 export const petEvents=sqliteTable('pet_events',{id:text('id').notNull(),owner:text('owner').notNull(),week:text('week').notNull(),created:integer('created').notNull()},t=>[uniqueIndex('pet_event_unique').on(t.owner,t.id),index('pet_owner_week').on(t.owner,t.week)]);
 export const titles=sqliteTable('titles',{owner:text('owner').notNull(),title:text('title').notNull(),earned:integer('earned').notNull()},t=>[uniqueIndex('title_unique').on(t.owner,t.title)]);
+export const diaryTranslations=sqliteTable('diary_translations',{entry:text('entry').notNull(),target:text('target').notNull(),body:text('body').notNull()},t=>[uniqueIndex('translation_entry_target').on(t.entry,t.target)]);
+export const translationUsage=sqliteTable('translation_usage',{key:text('key').primaryKey(),count:integer('count').notNull()});
