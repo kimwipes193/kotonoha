@@ -112,3 +112,23 @@ html:not([lang="ja"]) .send-button{white-space:normal;height:auto;min-height:44p
 .legal-page p{margin:0 0 24px}.legal-page a{text-decoration:underline;text-underline-offset:4px}.legal-page .language-picker{margin-bottom:20px}
 @media(max-width:600px){.legal-page{margin:12px auto;padding:24px 22px 48px}.legal-page h2{margin-top:38px}}
 .editable-sticker.sticker-selected{z-index:5}
+/* Mobile header grows with its account row instead of clipping beneath navigation. */
+@media(max-width:960px){
+ .workspace{display:block!important}
+ .sidebar{position:sticky;top:0;z-index:30;align-self:start;box-shadow:0 3px 8px #211f3014;padding-top:max(12px,env(safe-area-inset-top,0px))}
+ .main-content{scroll-margin-top:100px}
+}
+@media(max-width:700px){
+ .masthead{height:auto;min-height:80px;padding:18px 20px 14px;display:flex;flex-direction:column;align-items:stretch;gap:16px}
+ .brand{align-self:flex-start;flex:none;gap:12px;line-height:1.2;font-size:26px}
+ .brand-icon{flex:0 0 40px;width:40px;height:40px}
+ .brand small{font-size:9px;line-height:1.5;margin-top:4px}
+ .account-controls{margin:0;width:100%;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center}
+ .account-controls .language-picker{min-height:40px;max-width:100%;font-size:13px}
+ .account-controls .language-picker select{max-width:110px;min-width:0}
+ .account-controls .session-saved{max-width:none;font-size:11px;line-height:1.5;text-align:center;overflow-wrap:anywhere}
+ .account-controls form{min-width:0}.account-controls form button{min-height:40px;padding:6px 8px;white-space:nowrap;font-size:12px}
+ .sidebar{padding:10px 12px;padding-top:max(10px,env(safe-area-inset-top,0px))}
+ .main-nav{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}
+ .main-nav [role=tab]{min-width:0;width:100%;height:100%;min-height:48px;overflow-wrap:anywhere}
+}
