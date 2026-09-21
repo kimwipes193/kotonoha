@@ -4,7 +4,8 @@ type TranslationAI={run:(model:string,input:Record<string,unknown>)=>Promise<unk
 export async function translateDiary(database:D1Database,ai:TranslationAI|undefined,owner:string,data:{id?:unknown;target?:unknown}){
  const respond=(body:unknown,status=200)=>Response.json(body,{status,headers:{'Cache-Control':'no-store'}});
  if(typeof data.id!=='string'||data.id.length>80||typeof data.target!=='string'||!Object.hasOwn(translationLanguages,data.target))return respond({error:'翻訳する言語を選んでください。'},400);
- const entry=data.id==='sample'?{body:translationSample}:await database.prepare('SELECT body FROM entries e WHERE id=? AND flagged=0 AND (owner=? OR receiver=?) AND NOT EXISTS(SELECT 1 FROM blocks b WHERE (b.owner=? AND b.target=e.owner) OR (b.target=? AND b.owner=e.owner))').bind(data.id,owner,owner,owner,owner).first<{body:string}>();
+ let entry=data.id==='sample'?{body:translationSample}:await database.prepare('SELECT body FROM entries e WHERE id=? AND flagged=0 AND (owner=? OR receiver=?) AND NOT EXISTS(SELECT 1 FROM blocks b WHERE (b.owner=? AND b.target=e.owner) OR (b.target=? AND b.owner=e.owner))').bind(data.id,owner,owner,owner,owner).first<{body:string}>();
+ if(!entry)entry=await database.prepare("SELECT e.body FROM friend_entries e JOIN friendships f ON f.id=e.friendship WHERE e.id=? AND e.cancelled=0 AND f.status='accepted' AND (e.owner=? OR (e.target=? AND e.matched IS NOT NULL)) AND NOT EXISTS(SELECT 1 FROM blocks b WHERE (b.owner=f.a AND b.target=f.b) OR(b.owner=f.b AND b.target=f.a))").bind(data.id,owner,owner).first<{body:string}>();
  if(!entry)return respond({error:'この日記は操作できません。'},404);
  const cached=await database.prepare('SELECT body FROM diary_translations WHERE entry=? AND target=?').bind(data.id,data.target).first<{body:string}>();
  if(cached)return respond({text:cached.body,target:data.target});

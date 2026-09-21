@@ -1,3 +1,4 @@
+import {friendState,friendAction} from '@/lib/friends';
 import {validDrawing,hasDrawing} from '@/lib/drawing';
 import { validStickerLayout, defaultStickerLayout, validStickerPlacements } from '@/lib/sticker-layout';
 import { translateDiary } from '@/lib/diary-translation';
@@ -30,7 +31,7 @@ export async function GET(req:Request){
  database.prepare('SELECT COUNT(*) AS count FROM entries WHERE owner=? AND day=?').bind(owner,day).first<{count:number}>(),
  database.prepare('SELECT kind FROM rewards WHERE owner=? AND day=?').bind(owner,day).all<{kind:string}>()
  ]);
- return reply({region,progress,signedIn:true,sent:sent.results,received:received.results,discovered:[...new Set(collection.results.map((r:any)=>r.item))],collection:collection.results.filter((r:any)=>!r.consumed_by).map((r:any)=>r.item),today:today?.count??0,bonus:bonus.results.some(r=>r.kind==='bonus'),drawn:bonus.results.some(r=>r.kind==='gacha')});
+ return reply({...await friendState(database,owner),region,progress,signedIn:true,sent:sent.results,received:received.results,discovered:[...new Set(collection.results.map((r:any)=>r.item))],collection:collection.results.filter((r:any)=>!r.consumed_by).map((r:any)=>r.item),today:today?.count??0,bonus:bonus.results.some(r=>r.kind==='bonus'),drawn:bonus.results.some(r=>r.kind==='gacha')});
  }catch(e){console.error('Diary load failed',e);return reply({error:'日記帳を読み込めませんでした。少し待って再試行してください。'},503);}
 }
 export async function POST(req:Request){
@@ -40,6 +41,7 @@ export async function POST(req:Request){
  const raw=await req.text();if(raw.length>150000)return reply({error:'入力が長すぎます。'},400);
  let data:any;try{data=JSON.parse(raw);}catch{return reply({error:'入力を確認してください。'},400);}
  const database=db(),day=dayKey(),id=crypto.randomUUID();
+ if(typeof data.action==='string'&&(data.action.startsWith('friend-')||data.action==='profile-save'))return await friendAction(database,owner,data,requestCountry(req));
  if(data.action==='translate')return translateDiary(database,(env as unknown as {AI?:Parameters<typeof translateDiary>[1]}).AI,owner,data);
  if(data.action==='pet'){
   if(typeof data.eventId!=='string'||! /^[0-9a-f-]{36}$/i.test(data.eventId))return reply({error:'なで記録を確認できません。'},400);
@@ -77,6 +79,7 @@ export async function POST(req:Request){
    await database.prepare('UPDATE entries SET reaction=? WHERE id=? AND receiver=?').bind(data.reaction,data.id,owner).run();
   }else if(data.action==='block'){
    await database.prepare('INSERT OR IGNORE INTO blocks(id,owner,target) VALUES(?,?,?)').bind(id,owner,entry.owner).run();
+   await database.batch([database.prepare("UPDATE friendships SET status='removed' WHERE (a=? AND b=?) OR(a=? AND b=?)").bind(owner,entry.owner,entry.owner,owner),database.prepare('UPDATE friend_entries SET cancelled=1 WHERE (owner=? AND target=?) OR(owner=? AND target=?)').bind(owner,entry.owner,entry.owner,owner)]);
   }else{
    if(!['個人情報','攻撃的な内容','不適切な内容','その他'].includes(data.reason))return reply({error:'通報理由を選んでください。'},400);
    await database.batch([database.prepare('INSERT OR IGNORE INTO reports(id,owner,entry,reason,created) VALUES(?,?,?,?,?)').bind(id,owner,data.id,data.reason,Date.now()),database.prepare('UPDATE entries SET flagged=1 WHERE id=?').bind(data.id)]);
@@ -84,7 +87,7 @@ export async function POST(req:Request){
   return reply({message:data.action==='react'?'気持ちを届けました。':'この日記を非表示にしました。'});
  }
  return reply({error:'操作を確認してください。'},400);
- }catch(e){console.error('Diary write failed',e);if(String(e).includes('STICKER_UNAVAILABLE'))return reply({error:'このステッカーは使用済みです。別のステッカーを選んでください。'},409);if(String(e).includes('UNIQUE'))return reply({error:'今日の操作はすでに完了しています。画面を更新してください。'},409);return reply({error:'保存できませんでした。内容を残したまま再試行できます。'},503);}
+ }catch(e){console.error('Diary write failed',(e as Error).message);if(String(e).includes('FRIEND_WAITING'))return reply({error:'相手が日記を開くまで、次のお便りは待っていてください。'},409);if(String(e).includes('FRIEND_UNAVAILABLE'))return reply({error:'フレンドを確認してください。'},403);if(String(e).includes('STICKER_UNAVAILABLE'))return reply({error:'このステッカーは使用済みです。別のステッカーを選んでください。'},409);if(String(e).includes('UNIQUE'))return reply({error:'今日の操作はすでに完了しています。画面を更新してください。'},409);return reply({error:'保存できませんでした。内容を残したまま再試行できます。'},503);}
 }
 
 

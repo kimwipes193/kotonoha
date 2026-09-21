@@ -1,6 +1,60 @@
 import legalMessages from './legal-messages.json';
 // Columns: Japanese source | English | French | Simplified Chinese | Korean.
 const rows = String.raw`
+プロフィールのアイコン、ニックネーム、誕生日（月日）、フレンドコードと承認関係を保存します。プロフィールは承認済みフレンドにのみ表示し、匿名交換には含めません。フレンド宛ての日記は双方の投函後に相手へ表示し、開封日時も記録します。誕生日はお祝いと特典の付与に使用します。|We store your profile icon, nickname, birthday (month and day), friend code and accepted friendships. Only accepted friends see your profile; anonymous exchanges do not include it. Friend diaries become visible after both send, and opening times are recorded. Birthdays are used for greetings and gifts.|Nous conservons votre icône, surnom, anniversaire (mois et jour), code ami et liens acceptés. Seuls vos amis acceptés voient votre profil, absent des échanges anonymes. Les journaux entre amis deviennent visibles après les deux envois et les ouvertures sont enregistrées. Les anniversaires servent aux vœux et cadeaux.|我们保存头像、昵称、生日（月日）、好友码和已同意的好友关系。个人资料仅向已通过的好友展示，不用于匿名交换。双方投递后才展示好友日记，并记录打开时间。生日用于祝福和赠礼。|프로필 아이콘, 닉네임, 생일(월일), 친구 코드와 승인 관계를 저장해요. 프로필은 승인된 친구에게만 표시하고 익명 교환에는 포함하지 않아요. 친구 일기는 양쪽이 투함한 후 표시되며 열람 시간도 기록해요. 생일은 축하와 선물에 사용해요.
+フレンド|Friends|Amis|好友|친구
+Googleでログインすると、プロフィールとフレンド機能を利用できます。|Sign in with Google to use profiles and friends.|Connectez-vous avec Google pour utiliser les profils et les amis.|使用Google登录即可使用个人资料和好友功能。|Google로 로그인하면 프로필과 친구 기능을 사용할 수 있어요.
+知っている誰かと、ひとことずつ。|A little letter to someone you know.|Un petit mot à quelqu’un que vous connaissez.|与熟悉的人，交换点滴。|아는 사람과 한마디씩 나눠요.
+あなたのプロフィール|Your profile|Votre profil|你的个人资料|내 프로필
+アイコン・ニックネーム・誕生日は、承認したフレンドだけに表示されます。匿名交換には表示されません。|Only accepted friends can see your icon, nickname and birthday. Anonymous exchanges stay anonymous.|Seuls vos amis acceptés voient votre icône, surnom et anniversaire. Les échanges anonymes restent anonymes.|头像、昵称和生日仅向已通过的好友展示，不会在匿名交换中显示。|아이콘, 닉네임, 생일은 승인한 친구에게만 표시돼요. 익명 교환에는 표시되지 않아요.
+アイコン|Icon|Icône|头像|아이콘
+ニックネーム|Nickname|Surnom|昵称|닉네임
+誕生日（月-日）|Birthday (MM-DD)|Anniversaire (MM-JJ)|生日（月-日）|생일 (월-일)
+年は保存しません。例：04-15。未設定でも利用できます。|No year is stored. Example: 04-15. Optional.|L’année n’est pas enregistrée. Exemple : 04-15. Facultatif.|不保存年份。例如04-15，可以留空。|연도는 저장하지 않아요. 예: 04-15. 비워 두어도 괜찮아요.
+プロフィールを保存|Save profile|Enregistrer le profil|保存资料|프로필 저장
+あなたのフレンドコード|Your friend code|Votre code ami|你的好友码|내 친구 코드
+コードを相手に教えて、申請を承認するとフレンドになります。|Share your code and accept a request to become friends.|Partagez votre code et acceptez une demande pour devenir amis.|分享好友码，通过申请后成为好友。|코드를 알려 주고 요청을 승인하면 친구가 돼요.
+フレンドを追加|Add a friend|Ajouter un ami|添加好友|친구 추가
+相手のフレンドコード|Their friend code|Son code ami|对方的好友码|상대방 친구 코드
+申請を送る|Send request|Envoyer une demande|发送申请|요청 보내기
+承認待ち|Awaiting acceptance|En attente|等待通过|승인 대기 중
+フレンド申請が届いています|Friend request received|Demande d’amitié reçue|收到好友申请|친구 요청이 도착했어요
+承認する|Accept|Accepter|通过|승인
+申請を取り消す|Cancel request|Annuler la demande|取消申请|요청 취소
+見送る|Decline|Refuser|婉拒|거절
+フレンドとの交換日記|Diaries with friends|Journaux entre amis|好友交换日记|친구와 교환일기
+フレンド宛ては全体で1日1通。双方が投函すると開封できます。日付が違っても交換でき、相手が開封するまでは次の投函を待ちます。|One friend letter per day in total. Both must send before reading. Different dates are fine. Wait for your friend to open your letter before sending another.|Un envoi à un ami par jour au total. Chacun doit envoyer avant de lire. Les dates peuvent différer. Attendez l’ouverture par votre ami avant le prochain envoi.|好友日记每天总共一封，双方投递后才能打开。可交换不同日期的日记，对方打开前无法再次投递。|친구에게는 하루에 총 한 통. 서로 보내야 읽을 수 있어요. 날짜가 달라도 교환할 수 있으며 상대가 열 때까지 다음 투함은 기다려 주세요.
+まだフレンドはいません。|No friends yet.|Pas encore d’amis.|还没有好友。|아직 친구가 없어요.
+お便りが待っています|A letter is waiting|Une lettre vous attend|有信件在等待|편지가 기다리고 있어요
+このフレンドに書く|Write to this friend|Écrire à cet ami|给这位好友写日记|이 친구에게 쓰기
+フレンド解除|Remove friend|Retirer cet ami|解除好友|친구 해제
+あなたから|From you|De vous|你寄出的|내가 보낸 일기
+フレンドから|From your friend|De votre ami|好友寄来的|친구가 보낸 일기
+交換の成立待ち|Waiting for exchange|En attente d’échange|等待交换成立|교환 성립 대기
+相手が開封しました|Opened by your friend|Ouvert par votre ami|对方已打开|상대가 열었어요
+相手の開封待ち|Waiting to be opened|En attente d’ouverture|等待对方打开|상대방 열람 대기
+お届け先|Recipient|Destinataire|收件人|받는 사람
+匿名の誰か|Someone anonymous|Une personne anonyme|匿名的某个人|익명의 누군가
+フレンド宛て：双方が投函すると開封できます。相手が開封するまでは次の投函を待ちます。|For a friend: both must send before reading. Wait for them to open your letter before sending another.|Pour un ami : chacun doit envoyer avant de lire. Attendez son ouverture avant un nouvel envoi.|寄给好友：双方投递后才能打开，对方打开前请等待。|친구에게: 서로 투함해야 열 수 있어요. 상대가 열 때까지 다음 투함은 기다려 주세요.
+相手の開封を待っています|Waiting for your friend to open|En attente de l’ouverture par votre ami|等待对方打开|상대방 열람을 기다리고 있어요
+お誕生日おめでとう。今日は、あなたが主役です。|Happy birthday. Today is your day!|Joyeux anniversaire. Aujourd’hui, c’est votre journée !|生日快乐，今天你是主角！|생일 축하해요. 오늘은 당신이 주인공이에요.
+ぽすとから、お祝いのステッカーを5枚。コレクションをのぞいてみてね。|Five birthday stickers from Posto. Take a look in your collection!|Cinq autocollants d’anniversaire de Posto. Regardez votre collection !|ぽすと送你5张庆生贴纸，去收藏看看吧！|포스토가 축하 스티커 5장을 보냈어요. 컬렉션을 확인해 보세요.
+ぽすとのお祝いケーキ|Posto’s birthday cake|Gâteau d’anniversaire de Posto|ぽすとの庆生蛋糕|포스토의 생일 케이크
+プロフィールを保存しました。|Profile saved.|Profil enregistré.|资料已保存。|프로필을 저장했어요.
+プロフィールを確認してください。|Please check your profile.|Vérifiez votre profil.|请检查个人资料。|프로필을 확인해 주세요.
+フレンドコードを確認してください。|Please check the friend code.|Vérifiez le code ami.|请检查好友码。|친구 코드를 확인해 주세요.
+この相手には申請できません。|You cannot send this request.|Cette demande ne peut pas être envoyée.|无法向此用户发送申请。|이 상대에게 요청할 수 없어요.
+フレンドと申請は合計50件までです。|Up to 50 friends and requests in total.|50 amis et demandes au total maximum.|好友和申请总计最多50个。|친구와 요청은 합계 50개까지예요.
+フレンド申請を送りました。|Friend request sent.|Demande envoyée.|好友申请已发送。|친구 요청을 보냈어요.
+フレンドを確認してください。|Please check the friend.|Vérifiez cet ami.|请检查好友。|친구를 확인해 주세요.
+この申請は承認できません。|This request cannot be accepted.|Cette demande ne peut pas être acceptée.|无法通过此申请。|이 요청을 승인할 수 없어요.
+フレンドになりました。|You are now friends.|Vous êtes maintenant amis.|你们已成为好友。|이제 친구가 되었어요.
+フレンド・申請を解除しました。|Friend or request removed.|Ami ou demande retiré.|已解除好友或申请。|친구 또는 요청을 해제했어요.
+交換が成立すると読めます。|Read after both letters are sent.|Lecture après les deux envois.|交换成立后即可阅读。|교환이 성립하면 읽을 수 있어요.
+日記の設定を確認してください。|Please check the diary settings.|Vérifiez les paramètres du journal.|请检查日记设置。|일기 설정을 확인해 주세요.
+持っている便箋を選んでください。|Choose paper you own.|Choisissez un papier que vous possédez.|请选择已拥有的信纸。|보유한 편지지를 선택해 주세요.
+フレンド宛ての日記を預かりました。|Your friend letter is safely stored.|Votre lettre pour votre ami est conservée.|已收好寄给好友的日记。|친구에게 보낼 일기를 맡았어요.
+相手が日記を開くまで、次のお便りは待っていてください。|Wait until your friend opens your diary before sending again.|Attendez que votre ami ouvre le journal avant d’envoyer à nouveau.|请等对方打开日记后再投递。|상대가 일기를 열 때까지 다음 편지는 기다려 주세요.
 絵ができるまで、ひとやすみ。|Watch a little drawing come to life.|Regardez le dessin prendre vie.|歇一会儿，看画慢慢出现。|그림이 완성될 때까지 잠깐 쉬어 가요.
 できあがり。気持ちも、いっしょに。|All done, with a little feeling inside.|Terminé, avec un peu de tendresse.|完成了，心意也一起送达。|완성. 마음도 함께 담았어요.
 完成した絵を見る|Show finished drawing|Voir le dessin terminé|查看完成的画|완성된 그림 보기
