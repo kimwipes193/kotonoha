@@ -3,7 +3,7 @@ import {useEffect,useRef,useState,type PointerEvent} from 'react';
 import {MAX_POINTS,MAX_STROKES,type Stroke} from '@/lib/drawing';
 import {Localized} from './language';
 
-function paint(canvas:HTMLCanvasElement,strokes:Stroke[]){
+export function paint(canvas:HTMLCanvasElement,strokes:Stroke[]){
  const ctx=canvas.getContext('2d');if(!ctx)return;
  ctx.clearRect(0,0,600,400);ctx.lineCap='round';ctx.lineJoin='round';
  for(const s of strokes){ctx.globalCompositeOperation=s.erase?'destination-out':'source-over';ctx.strokeStyle=s.color;ctx.fillStyle=s.color;ctx.lineWidth=s.width;ctx.beginPath();const [x,y]=s.points[0];ctx.moveTo(x,y);if(s.points.length===1){ctx.arc(x,y,s.width/2,0,Math.PI*2);ctx.fill();}else{for(const p of s.points.slice(1))ctx.lineTo(...p);ctx.stroke();}}

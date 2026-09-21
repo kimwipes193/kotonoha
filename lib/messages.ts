@@ -1,6 +1,10 @@
 import legalMessages from './legal-messages.json';
 // Columns: Japanese source | English | French | Simplified Chinese | Korean.
 const rows = String.raw`
+絵ができるまで、ひとやすみ。|Watch a little drawing come to life.|Regardez le dessin prendre vie.|歇一会儿，看画慢慢出现。|그림이 완성될 때까지 잠깐 쉬어 가요.
+できあがり。気持ちも、いっしょに。|All done, with a little feeling inside.|Terminé, avec un peu de tendresse.|完成了，心意也一起送达。|완성. 마음도 함께 담았어요.
+完成した絵を見る|Show finished drawing|Voir le dessin terminé|查看完成的画|완성된 그림 보기
+もう一度、描くところを見る|Replay the drawing|Revoir le dessin se créer|重播绘画过程|그리는 과정 다시 보기
 更新日：2026年9月21日|Updated: September 21, 2026|Mise à jour : 21 septembre 2026|更新日期：2026年9月21日|업데이트: 2026년 9월 21일
 手書き・絵日記の線や色も日記と一緒に保存し、交換相手に表示します。手書き部分は自動テキストチェック・翻訳の対象外です。|Handwritten strokes and colors are saved with your diary and shown to your exchange partner. Handwriting is not checked by the text filter or translated.|Les traits et couleurs sont enregistrés avec votre journal et montrés au destinataire. Les dessins ne sont ni vérifiés par le filtre textuel ni traduits.|手绘线条和颜色会随日记保存并向交换对象展示。手写部分不进行自动文字检查或翻译。|손글씨의 선과 색도 일기와 함께 저장되어 교환 상대에게 보여요. 손글씨는 자동 텍스트 검사 및 번역 대상이 아니에요.
 文字|Text|Texte|文字|글자

@@ -147,3 +147,5 @@ html:not([lang="ja"]) .send-button{white-space:normal;height:auto;min-height:44p
 .drawing-surface{display:block;width:100%;height:auto;aspect-ratio:3/2;max-width:100%}.editable-drawing{border:1px dashed #bfb9ad;border-radius:12px;cursor:crosshair;background:#ffffff50}
 .brush-mode .diary-input{opacity:.65}.drawing-tools p{font-size:12px;margin:8px 0}
 .book-card .drawing-surface{max-height:150px;object-fit:contain}
+
+.drawing-playback-controls{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin:10px 0 20px;font-size:12px;color:#746d75}.drawing-playback-controls button{border:1px solid #242132;border-radius:20px;padding:9px 13px;min-height:40px;background:#fff2ca;color:#242132}.drawing-playback-controls button:hover{background:#ffe28e}

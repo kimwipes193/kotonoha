@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {transformSync} from 'esbuild';
+const source=readFileSync('lib/drawing-playback.ts','utf8').replace(/^import type.*$/m,'');
+const {drawingFrame,drawingDuration}=await import('data:text/javascript;base64,'+Buffer.from(transformSync(source,{loader:'ts',format:'esm'}).code).toString('base64'));
+const ink={color:'#242132',width:4,erase:false,points:[[0,0],[10,10],[20,20],[30,30]]};
+const eraser={color:'#ffffff',width:20,erase:true,points:[[15,15],[25,25]]};
+const strokes=[ink,eraser];const saved=JSON.stringify(strokes);
+assert.deepEqual(drawingFrame(strokes,0),[]);
+assert.deepEqual(drawingFrame(strokes,.5),[{...ink,points:ink.points.slice(0,3)}]);
+assert.deepEqual(drawingFrame(strokes,5/6),[ink,{...eraser,points:[[15,15]]}]);
+assert.strictEqual(drawingFrame(strokes,1),strokes);
+assert.strictEqual(drawingFrame(strokes,2),strokes);
+assert.equal(JSON.stringify(strokes),saved);
+assert.equal(drawingDuration(strokes),2500);
+assert.equal(drawingDuration([{...ink,points:Array(8000).fill([1,1])}]),10000);
+assert.deepEqual(drawingFrame([],0.5),[]);
+console.log('PASS: progressive drawing, eraser order, exact final frame, immutable strokes and bounded duration');
