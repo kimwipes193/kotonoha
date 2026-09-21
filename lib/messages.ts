@@ -1,6 +1,24 @@
 import legalMessages from './legal-messages.json';
 // Columns: Japanese source | English | French | Simplified Chinese | Korean.
 const rows = String.raw`
+更新日：2026年9月21日|Updated: September 21, 2026|Mise à jour : 21 septembre 2026|更新日期：2026年9月21日|업데이트: 2026년 9월 21일
+手書き・絵日記の線や色も日記と一緒に保存し、交換相手に表示します。手書き部分は自動テキストチェック・翻訳の対象外です。|Handwritten strokes and colors are saved with your diary and shown to your exchange partner. Handwriting is not checked by the text filter or translated.|Les traits et couleurs sont enregistrés avec votre journal et montrés au destinataire. Les dessins ne sont ni vérifiés par le filtre textuel ni traduits.|手绘线条和颜色会随日记保存并向交换对象展示。手写部分不进行自动文字检查或翻译。|손글씨의 선과 색도 일기와 함께 저장되어 교환 상대에게 보여요. 손글씨는 자동 텍스트 검사 및 번역 대상이 아니에요.
+文字|Text|Texte|文字|글자
+筆・絵日記|Draw|Dessiner|绘画日记|그림일기
+筆|Pen|Stylo|画笔|펜
+消しゴム|Eraser|Gomme|橡皮擦|지우개
+元に戻す|Undo|Annuler|撤销|실행 취소
+やり直す|Redo|Rétablir|重做|다시 실행
+色|Color|Couleur|颜色|색상
+太さ|Width|Épaisseur|粗细|굵기
+日記の書き方|Writing mode|Mode d’écriture|书写模式|작성 모드
+ペンの色|Pen color|Couleur du stylo|画笔颜色|펜 색상
+ペンと消しゴムの太さ|Pen and eraser width|Épaisseur du stylo et de la gomme|画笔和橡皮擦粗细|펜과 지우개 굵기
+手書き・絵日記|Handwritten diary drawing|Dessin du journal manuscrit|手写绘画日记|손글씨 그림일기
+画数の上限です。元に戻すと描き直せます。|Drawing limit reached. Undo to draw again.|Limite atteinte. Annulez pour redessiner.|已达笔画上限，撤销后可以继续画。|획 수 한도에 도달했어요. 실행 취소 후 다시 그릴 수 있어요.
+手書きデータを確認してください。|Please check the drawing data.|Veuillez vérifier les données du dessin.|请检查手绘数据。|손글씨 데이터를 확인해 주세요.
+手書き部分は翻訳されません。|Handwriting is not translated.|L’écriture manuscrite n’est pas traduite.|手写部分不会被翻译。|손글씨 부분은 번역되지 않아요.
+文字は1,000文字まで・絵だけでもOK・1日1通・日本時間の午前0時にリセット|Up to 1,000 characters or just a drawing · One letter per day · Resets at midnight Japan time|1 000 caractères maximum ou un dessin seul · Un journal par jour · Réinitialisation à minuit au Japon|最多1,000字，也可只画画 · 每天一封 · 日本时间零点重置|최대 1,000자 또는 그림만 가능 · 하루 한 통 · 일본 시간 자정 초기화
 ステッカーは1通に5枚まで。投函が成功すると貼った枚数だけ消費します。便箋は繰り返し使えます。|Up to five stickers per diary. Each attached sticker is used only after a successful post. Paper is reusable.|Jusqu’à cinq autocollants par journal. Les autocollants collés sont consommés après un envoi réussi. Le papier est réutilisable.|每封日记最多5张贴纸。投递成功后按实际张数消耗。信纸可重复使用。|일기 한 통에 스티커 최대 5장. 투함 성공 시 붙인 수량만큼 사용해요. 편지지는 계속 쓸 수 있어요.
 ステッカー{number}を外す|Remove sticker {number}|Retirer l’autocollant {number}|移除贴纸{number}|스티커 {number} 제거
 ステッカーは5枚までです。配置を確認してください。|Use up to five stickers and check their placement.|Utilisez au maximum cinq autocollants et vérifiez leur position.|最多可贴5张贴纸，请检查位置。|스티커는 최대 5장이에요. 배치를 확인해 주세요.

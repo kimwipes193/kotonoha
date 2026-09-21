@@ -1,3 +1,4 @@
+import {validDrawing,hasDrawing} from '@/lib/drawing';
 import { validStickerLayout, defaultStickerLayout, validStickerPlacements } from '@/lib/sticker-layout';
 import { translateDiary } from '@/lib/diary-translation';
 import { fonts, weekKey } from '@/lib/rewards';
@@ -23,8 +24,8 @@ export async function GET(req:Request){
  const owner=await getUser(req); if(!owner)return reply({error:'保存・交換にはログインが必要です。',signedIn:false,region},401);
  await match(owner); const database=db(); const day=dayKey(); const progress=await syncProgress(database,owner);
  const [sent,received,collection,today,bonus]=await Promise.all([
- database.prepare('SELECT id,body,mood,region,paper,sticker,sticker_layout,stickers,font,created,receiver IS NOT NULL AS delivered,reaction FROM entries WHERE owner=? ORDER BY created DESC LIMIT 100').bind(owner).all(),
- database.prepare('SELECT id,body,mood,region,paper,sticker,sticker_layout,stickers,font,created,reaction FROM entries e WHERE receiver=? AND flagged=0 AND NOT EXISTS(SELECT 1 FROM blocks b WHERE b.owner=? AND b.target=e.owner) ORDER BY created DESC LIMIT 100').bind(owner,owner).all(),
+ database.prepare('SELECT id,body,mood,region,paper,sticker,sticker_layout,stickers,drawing,font,created,receiver IS NOT NULL AS delivered,reaction FROM entries WHERE owner=? ORDER BY created DESC LIMIT 100').bind(owner).all(),
+ database.prepare('SELECT id,body,mood,region,paper,sticker,sticker_layout,stickers,drawing,font,created,reaction FROM entries e WHERE receiver=? AND flagged=0 AND NOT EXISTS(SELECT 1 FROM blocks b WHERE b.owner=? AND b.target=e.owner) ORDER BY created DESC LIMIT 100').bind(owner,owner).all(),
  database.prepare("SELECT item,consumed_by FROM rewards WHERE owner=? AND kind<>'bonus'").bind(owner).all(),
  database.prepare('SELECT COUNT(*) AS count FROM entries WHERE owner=? AND day=?').bind(owner,day).first<{count:number}>(),
  database.prepare('SELECT kind FROM rewards WHERE owner=? AND day=?').bind(owner,day).all<{kind:string}>()
@@ -36,7 +37,7 @@ export async function POST(req:Request){
  try{
  const owner=await getUser(req);if(!owner)return reply({error:'保存・交換にはログインしてください。'},401);
  if(req.headers.get('origin')!==new URL(req.url).origin)return reply({error:'操作元を確認できません。'},403);
- const raw=await req.text();if(raw.length>8000)return reply({error:'入力が長すぎます。'},400);
+ const raw=await req.text();if(raw.length>150000)return reply({error:'入力が長すぎます。'},400);
  let data:any;try{data=JSON.parse(raw);}catch{return reply({error:'入力を確認してください。'},400);}
  const database=db(),day=dayKey(),id=crypto.randomUUID();
  if(data.action==='translate')return translateDiary(database,(env as unknown as {AI?:Parameters<typeof translateDiary>[1]}).AI,owner,data);
@@ -51,7 +52,8 @@ export async function POST(req:Request){
   const placements=data.stickers===undefined?(data.sticker?[{sticker:data.sticker,layout:stickerLayout}]:[]):data.stickers;
   if(!validStickerPlacements(placements))return reply({error:'ステッカーは5枚までです。配置を確認してください。'},400);
   const font=data.font??'sans';if(!fonts.some(f=>f.id===font))return reply({error:'フォントを選んでください。'},400);
-  const error=checkDiary(data.body);if(error)return reply({error},400);
+  const drawing=data.drawing??[];if(!validDrawing(drawing))return reply({error:'手書きデータを確認してください。'},400);
+  const error=checkDiary(data.body,hasDrawing(drawing));if(error)return reply({error},400);
   if(!moods.includes(data.mood))return reply({error:'気分を選んでください。'},400);
   const owned=await database.prepare("SELECT item,consumed_by FROM rewards WHERE owner=? AND kind<>'bonus'").bind(owner).all<{item:string;consumed_by:string|null}>();
   const unlocked=owned.results.filter(r=>!r.consumed_by).map(r=>r.item);
@@ -59,7 +61,7 @@ export async function POST(req:Request){
   const count=await database.prepare('SELECT COUNT(*) AS n FROM entries WHERE owner=? AND day=?').bind(owner,day).first<{n:number}>();
   const n=count?.n??0;const bonus=await database.prepare("SELECT id FROM rewards WHERE owner=? AND day=? AND kind='bonus'").bind(owner,day).first();
   if(n>= (bonus?2:1))return reply({error:'今日の交換は完了しています。また明日、待っています。'},409);
-  await database.prepare('INSERT INTO entries(id,owner,day,slot,body,mood,region,paper,sticker,sticker_layout,stickers,font,created) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)').bind(id,owner,day,n,data.body.trim(),data.mood,requestCountry(req),data.paper,placements[0]?.sticker??'',JSON.stringify(placements[0]?.layout??stickerLayout),JSON.stringify(placements),font,Date.now()).run();
+  await database.prepare('INSERT INTO entries(id,owner,day,slot,body,mood,region,paper,sticker,sticker_layout,stickers,drawing,font,created) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)').bind(id,owner,day,n,data.body.trim(),data.mood,requestCountry(req),data.paper,placements[0]?.sticker??'',JSON.stringify(placements[0]?.layout??stickerLayout),JSON.stringify(placements),drawing.length?JSON.stringify(drawing):null,font,Date.now()).run();
   return reply({message:'日記を預かりました。相手が見つかるまで、少しお待ちください。'});
  }
  if(data.action==='gacha'){

@@ -1,0 +1,21 @@
+import assert from 'node:assert/strict';
+import {createFixture,loadModules} from './fixture.mjs';
+const {sql}=createFixture();const {GET,POST,newSession,authCookie,SESSION_SECONDS,validDrawing}=await loadModules(true);
+const base='https://diary.example';
+const cookie=authCookie(new Request(base),'session',await newSession('google:alice'),SESSION_SECONDS).split(';')[0];
+async function api(data){const r=await(data?POST:GET)(new Request(base+'/api/diary',{method:data?'POST':'GET',headers:{cookie,Origin:base},body:data?JSON.stringify(data):undefined}));return {status:r.status,data:await r.json()};}
+const drawing=[{color:'#242132',width:4,erase:false,points:[[0,0],[600,400]]},{color:'#ffffff',width:20,erase:true,points:[[200,100],[220,110]]}];
+const send={action:'send',body:'',drawing,mood:'🌤️',paper:'plain',stickers:[]};
+assert.equal((await api({...send,drawing:[]})).status,400);
+assert.equal((await api({...send,drawing:[drawing[1]]})).status,400);
+assert.equal((await api({...send,drawing:[{...drawing[0],color:'url(https://example.com)'}]})).status,400);
+assert.equal((await api({...send,drawing:[{...drawing[0],points:Array(8001).fill([1,1])}]})).status,400);
+assert.equal((await api({...send,body:'https://example.com'})).status,400);
+assert.equal(validDrawing([{...drawing[0],width:0}]),false);
+assert.equal(validDrawing([{...drawing[0],points:[[Infinity,1]]}]),false);
+assert.equal((await api(send)).status,200);
+const sent=(await api()).data.sent[0];assert.deepEqual(JSON.parse(sent.drawing),drawing);assert.equal(sent.body,'');
+sql.prepare('UPDATE entries SET receiver=? WHERE id=?').run('google:alice',sent.id);
+assert.deepEqual(JSON.parse((await api()).data.received[0].drawing),drawing);
+assert.equal((await api(send)).status,409);
+console.log('PASS: drawing-only diary, eraser data, owner/receiver round trip, bounds, unsafe text and daily limit');

@@ -50,6 +50,13 @@
       "when": 1789831347302,
       "tag": "0006_organic_vivisector",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1789982139666,
+      "tag": "0007_whole_warbound",
+      "breakpoints": true
     }
   ]
 }
