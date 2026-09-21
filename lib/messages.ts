@@ -1,6 +1,17 @@
 import legalMessages from './legal-messages.json';
 // Columns: Japanese source | English | French | Simplified Chinese | Korean.
 const rows = String.raw`
+わたしのプロフィール帳|My friendship book|Mon carnet d’amitié|我的个人资料册|나의 프로필북
+なかよしのしるし、ここにぺたり。|A little keepsake of our friendship.|Un petit souvenir de notre amitié.|把友谊的印记贴在这里。|친해진 기념으로 여기에 붙여요.
+写真を準備しています…|Preparing photo…|Préparation de la photo…|正在准备照片…|사진 준비 중…
+写真フォルダから選ぶ|Choose a photo|Choisir une photo|从相册选择|사진첩에서 고르기
+プロフィール写真を選ぶ|Choose profile photo|Choisir la photo de profil|选择头像照片|프로필 사진 선택
+写真はまんなかを正方形に切り取ります。|The center is cropped into a square.|Le centre est recadré en carré.|照片中心会裁剪为正方形。|사진 가운데를 정사각형으로 잘라요.
+保存するまで、写真は送信されません。|Your photo is not uploaded until you save.|La photo n’est envoyée qu’après l’enregistrement.|保存前不会上传照片。|저장하기 전에는 사진이 전송되지 않아요.
+絵文字アイコンもえらべるよ|Or pick an emoji|Ou choisissez un emoji|也可以选择表情头像|이모지 아이콘도 고를 수 있어요
+なんて呼んだらいい？|What should we call you?|Comment vous appeler ?|怎么称呼你？|뭐라고 부르면 좋을까요?
+写真は15MB以下で選んでください。|Choose a photo under 15 MB.|Choisissez une photo de moins de 15 Mo.|请选择15MB以下的照片。|15MB 이하의 사진을 선택해 주세요.
+写真を読み込めませんでした。JPEG・PNGなど別の写真をお試しください。|Unable to read this photo. Try a JPEG or PNG image.|Photo illisible. Essayez une image JPEG ou PNG.|无法读取照片，请尝试JPEG或PNG等其他照片。|사진을 읽지 못했어요. JPEG나 PNG 등 다른 사진을 선택해 주세요.
 プロフィールのアイコン、ニックネーム、誕生日（月日）、フレンドコードと承認関係を保存します。プロフィールは承認済みフレンドにのみ表示し、匿名交換には含めません。フレンド宛ての日記は双方の投函後に相手へ表示し、開封日時も記録します。誕生日はお祝いと特典の付与に使用します。|We store your profile icon, nickname, birthday (month and day), friend code and accepted friendships. Only accepted friends see your profile; anonymous exchanges do not include it. Friend diaries become visible after both send, and opening times are recorded. Birthdays are used for greetings and gifts.|Nous conservons votre icône, surnom, anniversaire (mois et jour), code ami et liens acceptés. Seuls vos amis acceptés voient votre profil, absent des échanges anonymes. Les journaux entre amis deviennent visibles après les deux envois et les ouvertures sont enregistrées. Les anniversaires servent aux vœux et cadeaux.|我们保存头像、昵称、生日（月日）、好友码和已同意的好友关系。个人资料仅向已通过的好友展示，不用于匿名交换。双方投递后才展示好友日记，并记录打开时间。生日用于祝福和赠礼。|프로필 아이콘, 닉네임, 생일(월일), 친구 코드와 승인 관계를 저장해요. 프로필은 승인된 친구에게만 표시하고 익명 교환에는 포함하지 않아요. 친구 일기는 양쪽이 투함한 후 표시되며 열람 시간도 기록해요. 생일은 축하와 선물에 사용해요.
 フレンド|Friends|Amis|好友|친구
 Googleでログインすると、プロフィールとフレンド機能を利用できます。|Sign in with Google to use profiles and friends.|Connectez-vous avec Google pour utiliser les profils et les amis.|使用Google登录即可使用个人资料和好友功能。|Google로 로그인하면 프로필과 친구 기능을 사용할 수 있어요.

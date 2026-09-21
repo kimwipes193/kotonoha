@@ -1,3 +1,4 @@
+import {validProfilePhoto} from './profile-image';
 import {dayKey,checkDiary,moods} from './diary-rules';
 import {validDrawing,hasDrawing} from './drawing';
 import {validStickerPlacements} from './sticker-layout';
@@ -21,7 +22,7 @@ export async function friendAction(database:D1Database,owner:string,data:any,reg
  const fail=(error:string,status=400)=>out({error},status);
  await ensureProfile(database,owner);
  if(data.action==='profile-save'){
-  if(typeof data.nickname!=='string'||data.nickname.trim().length<1||data.nickname.length>24||checkDiary(data.nickname)||!profileIcons.includes(data.icon)||!validBirthday(data.birthday))return fail('プロフィールを確認してください。');
+  if(typeof data.nickname!=='string'||data.nickname.trim().length<1||data.nickname.length>24||checkDiary(data.nickname)||(!profileIcons.includes(data.icon)&&!validProfilePhoto(data.icon))||!validBirthday(data.birthday))return fail('プロフィールを確認してください。');
   await database.prepare('UPDATE profiles SET nickname=?,icon=?,birthday=? WHERE owner=?').bind(data.nickname.trim(),data.icon,data.birthday,owner).run();return out({message:'プロフィールを保存しました。'});
  }
  if(data.action==='friend-request'){

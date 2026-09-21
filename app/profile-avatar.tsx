@@ -1,0 +1,1 @@
+export default function ProfileAvatar({icon}:{icon?:string}){return <span className="profile-avatar" data-i18n-skip>{icon?.startsWith('data:image/jpeg;base64,')?<img src={icon} alt="" width={256} height={256}/>:<span aria-hidden="true">{icon||'🐈'}</span>}</span>;}

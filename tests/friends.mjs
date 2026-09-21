@@ -1,16 +1,18 @@
 import assert from 'node:assert/strict';
 import {createFixture,loadModules} from './fixture.mjs';
-const {sql}=createFixture();const {GET,POST,newSession,authCookie,SESSION_SECONDS,validBirthday}=await loadModules(true);const base='https://diary.example';
+const {sql}=createFixture();const {GET,POST,newSession,authCookie,SESSION_SECONDS,validBirthday,validProfilePhoto}=await loadModules(true);const base='https://diary.example';
 const cookies={};for(const user of ['alice','bob','eve'])cookies[user]=authCookie(new Request(base),'session',await newSession('google:'+user),SESSION_SECONDS).split(';')[0];
 async function api(user,data){const r=await(data?POST:GET)(new Request(base+'/api/diary',{method:data?'POST':'GET',headers:{cookie:cookies[user],Origin:base},body:data?JSON.stringify(data):undefined}));return{status:r.status,data:await r.json()};}
 assert.ok(validBirthday('02-29'));assert.equal(validBirthday('02-30'),false);assert.equal(validBirthday('13-01'),false);
+const photo='data:image/jpeg;base64,'+Buffer.from([255,216,255,192,0,11,8,1,0,1,0,1,1,17,0,255,218,0,8,1,1,0,0,63,0,1,255,217]).toString('base64');
+assert.ok(validProfilePhoto(photo));assert.equal(validProfilePhoto('https://example.com/a.jpg'),false);assert.equal(validProfilePhoto('data:image/svg+xml;base64,PHN2Zz4='),false);assert.equal(validProfilePhoto('data:image/jpeg;base64,'+'A'.repeat(100001)),false);assert.equal(validProfilePhoto(photo.replace('/9j/','/9j/4QAC/')),false);
 const a=(await api('alice')).data,b=(await api('bob')).data;const day=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Tokyo'}).format(new Date());
-assert.equal((await api('alice',{action:'profile-save',nickname:'秘密のねこ',icon:'🐈',birthday:day.slice(5)})).status,200);
+assert.equal((await api('alice',{action:'profile-save',nickname:'秘密のねこ',icon:photo,birthday:day.slice(5)})).status,200);
 assert.equal((await api('alice',{action:'friend-request',code:b.profile.code})).status,200);let bob=(await api('bob')).data;const f=bob.friends[0];assert.equal(f.nickname,null);assert.equal(f.birthday,null);assert.equal(f.icon,null);
 assert.equal((await api('alice',{action:'friend-accept',friendship:f.id})).status,400);
 assert.equal((await api('eve',{action:'friend-accept',friendship:f.id})).status,404);
 assert.equal((await api('bob',{action:'friend-accept',friendship:f.id})).status,200);
-assert.equal((await api('bob')).data.friends[0].nickname,'秘密のねこ');
+assert.equal((await api('bob')).data.friends[0].nickname,'秘密のねこ');assert.equal((await api('bob')).data.friends[0].icon,photo);assert.equal((await api('eve')).data.friends.length,0);
 const send={action:'friend-send',friendship:f.id,body:'今日もおつかれさま。',mood:'🌤️',paper:'plain',stickers:[]};
 assert.equal((await api('alice',send)).status,200);
 assert.equal(sql.prepare("SELECT COUNT(*) n FROM rewards WHERE owner='google:alice' AND item='🎂'").get().n,5);
