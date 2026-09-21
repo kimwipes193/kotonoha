@@ -1,0 +1,23 @@
+import assert from 'node:assert/strict';
+import{readFileSync}from'node:fs';import{transformSync}from'esbuild';
+const {validProfilePhoto,normalizeProfilePhoto}=await import('data:text/javascript;base64,'+Buffer.from(transformSync(readFileSync('lib/profile-image.ts','utf8'),{loader:'ts',format:'esm'}).code).toString('base64'));
+const jpeg=[255,216,255,192,0,11,8,1,0,1,0,1,1,17,0,255,218,0,8,1,1,0,0,63,0,1,255,217];
+const data=b=>'data:image/jpeg;base64,'+Buffer.from(b).toString('base64');
+const exif=[255,225,0,10,69,120,105,102,0,0,0,0];const xmp=[255,225,0,5,88,77,80];const comment=[255,254,0,5,65,66,67];
+const original=data(jpeg),safari=data([...jpeg.slice(0,2),...exif,...xmp,...comment,...jpeg.slice(2)]);
+assert.equal(validProfilePhoto(safari),false);assert.equal(normalizeProfilePhoto(safari),original);assert.equal(validProfilePhoto(normalizeProfilePhoto(safari)),true);assert.equal(normalizeProfilePhoto(original),original);
+assert.throws(()=>normalizeProfilePhoto('data:image/svg+xml;base64,PHN2Zz4='));assert.throws(()=>normalizeProfilePhoto(data([255,216,255,225,255,255])));
+const large=[...jpeg];large[9]=2;assert.throws(()=>normalizeProfilePhoto(data(large)));
+assert.throws(()=>normalizeProfilePhoto('data:image/jpeg;base64,'+'A'.repeat(500001)));
+console.log('PASS: browser JPEG metadata normalization, EXIF/XMP removal, preserved image payload, malformed input and dimension bounds');
+
+const moduleText=readFileSync('lib/profile-image.ts','utf8')+'\n'+readFileSync('lib/read-profile-photo.ts','utf8').replace(/^import .*$/m,'');
+const {readProfilePhoto}=await import('data:text/javascript;base64,'+Buffer.from(transformSync(moduleText,{loader:'ts',format:'esm'}).code).toString('base64'));
+let fallbackReads=0,revoked=0;let savedImage;
+globalThis.Image=class{naturalWidth=4000;naturalHeight=3000;set src(value){if(!value)return;queueMicrotask(()=>value.startsWith('blob:')?this.onerror():this.onload());}};
+globalThis.FileReader=class{readAsDataURL(){fallbackReads++;this.result='data:image/jpeg;base64,test';this.onload();}};
+URL.createObjectURL=()=> 'blob:test';URL.revokeObjectURL=()=>revoked++;
+const canvas={width:0,height:0,getContext:()=>({fillRect(){},drawImage(...args){savedImage=args;}}),toDataURL:()=>safari};
+globalThis.document={createElement:()=>canvas};
+assert.equal(await readProfilePhoto({}),original);assert.equal(fallbackReads,1);assert.equal(revoked,1);assert.deepEqual(savedImage.slice(1),[500,0,3000,3000,0,0,256,256]);assert.equal(canvas.width,0);assert.equal(canvas.height,0);
+console.log('PASS: failed blob URL falls back to file reader; crop, metadata removal and resource cleanup');

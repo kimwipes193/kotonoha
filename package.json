@@ -12,7 +12,7 @@
     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate",
-    "test": "node tests/rules.mjs && node tests/auth.mjs && node tests/integration.mjs && node tests/progression.mjs && node tests/sticker-consumption.mjs && node tests/same-day-matching.mjs && node tests/languages.mjs && node tests/translation.mjs && node tests/sticker-gestures.mjs && node tests/multiple-stickers.mjs && node tests/drawing.mjs && node tests/drawing-playback.mjs && node tests/friends.mjs",
+    "test": "node tests/rules.mjs && node tests/auth.mjs && node tests/integration.mjs && node tests/progression.mjs && node tests/sticker-consumption.mjs && node tests/same-day-matching.mjs && node tests/languages.mjs && node tests/translation.mjs && node tests/sticker-gestures.mjs && node tests/multiple-stickers.mjs && node tests/drawing.mjs && node tests/drawing-playback.mjs && node tests/friends.mjs && node tests/profile-image.mjs",
     "typecheck": "tsc --noEmit",
     "prepare:cloudflare": "node scripts/prepare-cloudflare.mjs",
     "deploy:cloudflare": "node scripts/deploy-cloudflare.mjs"
