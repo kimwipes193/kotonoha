@@ -12,6 +12,8 @@ try{
  for(const [key,values] of Object.entries(messages)){assert.equal(values.length,4,key);assert.ok(values.every(v=>v.trim().length>0),key);for(const locale of locales)assert.ok(translate(key,locale).length>0,key);}
  assert.equal(detectLocale(['fr-CA','en']),'fr');assert.equal(detectLocale(['zh-TW']),'zh-CN');assert.equal(detectLocale(['de','ko-KR']),'ko');assert.equal(detectLocale(['de']),'en');assert.equal(validLocale('invalid'),false);
  for(const locale of locales){
+  const pageTitle=createElement(function PageTitle(){return null;},{headingKey:'きょうの日記'});
+  assert.equal(localizeTree(pageTitle,locale).props.headingKey,'きょうの日記','semantic heading key must not be translated');
   const draft='今日の日記';
   const view=createElement('section',null,createElement('h1',null,'今日の日記'),createElement('p',{'data-i18n-skip':true},draft),createElement('textarea',{defaultValue:draft,placeholder:'今日の日記'}),createElement('option',{value:'個人情報'},'個人情報'));
   const localized=localizeTree(view,locale);assert.ok(Children.only(localized));
