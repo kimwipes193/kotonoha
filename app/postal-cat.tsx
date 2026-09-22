@@ -1,4 +1,5 @@
 'use client';
+import PostoPlayground from './posto-playground';
 import {translate} from '@/lib/messages';
 import { Localized,useLanguage } from './language';
 
@@ -25,11 +26,11 @@ export default function PostalCat({birthday=false,birthdayGift=false,mood,bodyLe
   <div className="office-top"><span>POST OFFICE / 001</span><button className="duty-sign" onClick={()=>{setAsleep(!asleep);setHappy(false);}} aria-pressed={asleep}><span key={String(asleep)} className="duty-sign-hanger"><span className="duty-sign-board">{asleep?'休憩中 zZ':'勤務中（たぶん）'}</span></span></button></div>
   <h2>きもちの配達、<br/>猫の手も借りて。</h2>
   <p className="cat-speech" aria-label={saying} data-i18n-skip><span aria-hidden="true">{typed}<span className="typing-caret"/></span></p>
-  <button className="cat-pet" disabled={petting||busy} onClick={pat} aria-label="配達係ぽすとをなでる" title="なでてみる？">
+  <PostoPlayground><button className="cat-pet" disabled={petting||busy} onClick={pat} aria-label="配達係ぽすとをなでる" title="なでてみる？">
    <img key={String(asleep)+String(happy)+pats} className={happy&&!asleep?'cat-art is-patted':'cat-art'} src={asleep?'/mascot-sleep.png':(happy||birthday)?'/mascot-happy.png':'/mascot.png'} alt={asleep?'目を閉じて丸くなり、手紙を枕に眠るぽすと':happy?'うれしそうに目を細め、前足を上げるぽすと':'片耳が折れた、とぼけ顔の黒猫の配達係ぽすと'} width="512" height="512"/>
    {asleep&&<span className="cat-zzz" aria-hidden="true">z Z</span>}
    {pats>0&&<span key={'pat'+pats} className="pet-heart" aria-hidden="true">♡</span>}
-  </button>
+  </button></PostoPlayground>
   {birthday&&<p className="birthday-cheer">🎉 🎂 🎉</p>}{birthday&&birthdayGift&&<p className="birthday-gift">ぽすとから、お祝いのステッカーを5枚。コレクションをのぞいてみてね。</p>}<div className="cat-caption"><span><b>ぽすと</b><small>特技：大事そうに運ぶ</small></span><span className="pet-hint">なでる？ ↗</span></div>
   {(signedIn?progress?.titles.some(t=>t.id==='pet5'):found)&&<button className="secret-badge" onClick={()=>setSecret(true)} aria-label="名誉なで係の会員証">✦</button>}
   <Dialog open={secret} onOpenChange={setSecret}><DialogContent className="diary-dialog secret-dialog"><DialogTitle>あ、見つかっちゃった。</DialogTitle><DialogDescription>ぽすとから、あなたへ。</DialogDescription><div className="secret-certificate"><span>ことのは郵便局 非公式</span><strong>名誉なで係</strong><img src="/mascot-happy.png" alt="笑顔で前足を上げる会員証のぽすと" width="150" height="150"/><p>お給料：猫からの信頼。<br/>勤務時間：気が向いたとき。</p><span className="certificate-number">MEMBER No. 0005</span></div><p className="center-note">{signedIn?'称号は小さなコレクションの台帳に保存されています。':'ログインすると、なでた回数と称号をアカウントに保存できます。'}</p></DialogContent></Dialog>

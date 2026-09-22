@@ -1,0 +1,38 @@
+/* A tiny tactile world, confined to the mascot's desk. */
+.posto-stage{position:relative;margin:14px -5px 8px;padding:16px 0 22px;isolation:isolate;border-radius:48% 48% 22px 22px;background:#ffe5c4;transition:background .6s;--cat-lean:0deg}
+.posto-stage .posto-orbit{position:absolute;inset:22px 10px 18px;border:1px dashed #af74495c;border-radius:50%;transform:rotate(-18deg);pointer-events:none}
+.posto-stage .posto-puppet{position:relative;z-index:1;transition:transform .35s cubic-bezier(.2,.8,.2,1);transform-origin:50% 90%}
+.posto-stage.playing-yarn .posto-puppet{transform:rotate(var(--cat-lean)) translateY(-4px)}
+.posto-stage .posto-charm{position:absolute;z-index:3;top:12px;width:44px;height:44px;border:1.5px solid var(--ink);border-radius:15px;display:grid;place-items:center;box-shadow:2px 3px 0 #211f3020;background:#fffaf0;color:var(--ink)}
+.posto-stage .plane-launch{left:3px;transform:rotate(-12deg)}
+.posto-stage .sky-switch{right:3px;transform:rotate(12deg);background:#ffe29a}
+.posto-stage .posto-charm:hover{transform:translateY(-4px) rotate(0);box-shadow:3px 6px 0 #211f3020}
+.posto-stage .posto-charm:active{transform:scale(.88)}
+.posto-stage .posto-yarn{position:absolute;right:10px;bottom:10px;width:48px;height:48px;z-index:4;border:0;background:#fff6;border-radius:50%;font-size:33px;display:grid;place-items:center;touch-action:none;cursor:grab;user-select:none;transition:background .2s}
+.posto-stage .posto-yarn:active{cursor:grabbing;background:#fff9}
+.posto-stage.playing-yarn .posto-yarn span{animation:yarn-wiggle .3s ease-in-out 2}
+.posto-stage .posto-stars{position:absolute;inset:0;overflow:hidden;border-radius:inherit;pointer-events:none;color:#ae753e}
+.posto-stage .posto-stars i{position:absolute;font-style:normal;transition:color .6s,transform .6s;font-size:18px}
+.posto-stage .posto-stars i:nth-child(1){left:20%;top:28%}.posto-stage .posto-stars i:nth-child(2){right:15%;top:45%;font-size:28px}.posto-stage .posto-stars i:nth-child(3){left:12%;bottom:15%;font-size:13px}.posto-stage .posto-stars i:nth-child(4){left:52%;top:5%;font-size:30px}.posto-stage .posto-stars i:nth-child(5){right:27%;bottom:8%}
+.posto-stage.night-sky{background:#302d4b}
+.posto-stage.night-sky .posto-stars{color:#ffe29a}
+.posto-stage.night-sky .posto-stars i{transform:rotate(35deg) scale(1.25)}
+.posto-stage.night-sky .posto-orbit{border-color:#ffe29a70}
+.posto-stage .posto-flight{position:absolute;left:15px;top:25px;z-index:5;color:#fff;pointer-events:none;filter:drop-shadow(0 2px 1px #211f3060);animation:posto-airmail 1.8s cubic-bezier(.25,.65,.3,1) both}
+.posto-flight svg{fill:#fff7df;stroke:var(--ink);stroke-width:1.2}
+.posto-flight span{position:absolute;color:#fff7df;left:-15px;top:30px}.posto-flight span:last-child{left:-25px;top:40px}
+@keyframes posto-airmail{0%{transform:translate(0,0) rotate(5deg);opacity:0}12%{opacity:1}40%{transform:translate(90px,80px) rotate(65deg)}65%{transform:translate(25px,150px) rotate(190deg);opacity:1}100%{transform:translate(180px,-25px) rotate(345deg) scale(.4);opacity:0}}
+@keyframes yarn-wiggle{0%,100%{rotate:-12deg}50%{rotate:12deg}}
+@keyframes feeling-pop{0%{transform:scale(.75) rotate(-12deg)}55%{transform:scale(1.2) rotate(8deg)}100%{transform:scale(1) rotate(0)}}
+@keyframes paper-arrival{from{opacity:.65;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:no-preference){
+ .moods button.active{animation:feeling-pop .45s cubic-bezier(.2,.8,.2,1)}
+ .main-nav [role=tab][data-state=active] svg{animation:feeling-pop .45s ease-out}
+ .main-content>[role=tabpanel]{animation:paper-arrival .4s ease-out}
+ .brand:hover .brand-icon{rotate:-14deg;translate:0 -3px}.brand-icon{transition:rotate .25s,translate .25s}
+ .gacha-panel:hover>svg{animation:yarn-wiggle .7s ease-in-out}
+ .collectible.owned:hover .collectible-icon{animation:feeling-pop .5s ease-out}
+ .sample-row>button:hover .sample-flower{display:inline-block;animation:feeling-pop .5s ease-out}
+}
+@media(prefers-reduced-motion:reduce){.posto-stage .posto-flight{left:45%;top:8px;opacity:1;animation:none}.posto-stage.playing-yarn .posto-puppet{transform:none}.posto-stage .posto-stars i{transform:none}}
+.cat-office.is-asleep .posto-stage.playing-yarn .posto-puppet{transform:none}

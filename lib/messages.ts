@@ -418,6 +418,9 @@ Googleログインに失敗しました。もう一度お試しください。|G
 プライバシーポリシー|Privacy policy|Politique de confidentialité|隐私政策|개인정보 처리방침
 利用規約|Terms of use|Conditions d'utilisation|使用条款|이용약관
 ← ことのはに戻る|← Back to Kotonoha|← Retour à Kotonoha|← 返回 Kotonoha|← 코토노하로 돌아가기
+紙ひこうきを飛ばす|Fly a paper plane|Faire voler un avion en papier|放飞纸飞机|종이비행기 날리기
+ぽすとの空を切り替える|Change Posto’s sky|Changer le ciel de Posto|切换波斯托的天空|포스토의 하늘 바꾸기
+毛糸玉で遊ぶ（ドラッグ・矢印キー）|Play with yarn (drag or arrow keys)|Jouer avec la pelote (glisser ou touches fléchées)|玩毛线球（拖动或方向键）|털실 공 놀이 (드래그 또는 방향키)
 閉じる|Close|Fermer|关闭|닫기
 言語|Language|Langue|语言|언어
 所持数 {count} 枚|Owned: {count}|En stock : {count}|持有 {count} 张|보유 {count}장
