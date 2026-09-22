@@ -209,3 +209,5 @@ html:not([lang="ja"]) .send-button{white-space:normal;height:auto;min-height:44p
 button:focus-visible,a:focus-visible,select:focus-visible{outline-color:#8f7aa8}.font-picker select,.profile-card input{border-color:#bdb7cb}.letter,.read-letter{border-color:var(--ink)}.message:not(.error),.friend-compose-note,.post-loading{background:#fff4d3;border-color:#c9b77d}
 
 .drawing-actions .drawing-history{display:inline-grid;place-items:center;width:44px;height:44px;padding:7px;color:var(--ink)}.drawing-history:disabled{opacity:.3}.editable-drawing:focus-visible{outline:2px solid var(--ring);outline-offset:3px}
+
+.doughnut-counter svg{display:block;height:1em;width:auto;min-width:1.6em;overflow:visible}.my-profile-wordmark{width:112px;height:20px;object-fit:contain}

@@ -1,11 +1,12 @@
 'use client';
 
 import {useEffect,useState,type ReactNode} from 'react';
+import {digitPaths,digitCell,digitTop,digitHeight} from './doughnut-digits';
 
 export function LoadingScreen({progress=0,opening=false}:{progress?:number;opening?:boolean}){
  return <div className={'arrival-screen'+(opening?' is-opening':'')}>
   <svg className="arrival-frame" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true"><rect x="3" y="3" width="994" height="594" rx="30" pathLength="100" strokeDasharray="100" strokeDashoffset={100-progress}/></svg>
-  <div className="arrival-center"><img src="/kotonoha-chika.svg" alt="ことのは" width="360" height="80"/><span className="arrival-subtitle">ONE DAY, ONE CONNECTION.</span><div className="arrival-progress" role="progressbar" aria-label="Loading" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress}><span>LOADING</span><strong>{String(progress).padStart(3,'0')}</strong><small>%</small></div></div>
+  <div className="arrival-center"><img src="/kotonoha-chika.svg" alt="ことのは" width="360" height="80"/><span className="arrival-subtitle">ONE DAY, ONE CONNECTION.</span><div className="arrival-progress" role="progressbar" aria-label="Loading" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress}><span>LOADING</span><strong className="doughnut-counter"><svg viewBox={`0 ${digitTop} ${digitCell*3} ${digitHeight}`} aria-hidden="true">{String(Math.round(progress)).padStart(3,'0').split('').map((digit,i)=><path key={i} fill="currentColor" transform={`translate(${i*digitCell},0)`} d={digitPaths[digit]}/>)}</svg></strong><small>%</small></div></div>
  </div>;
 }
 
