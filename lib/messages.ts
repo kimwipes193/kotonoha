@@ -161,6 +161,7 @@ Googleでログインすると、プロフィールとフレンド機能を利�
 匿名でつながる|Connect anonymously|Un lien anonyme|匿名相连|익명으로 연결
 今日の日記|Today's diary|Journal du jour|今天的日记|오늘의 일기
 交換日記帳|Diary mailbox|Carnet d'échanges|交换日记本|교환 일기장
+コレクション|Collection|Collection|收藏|컬렉션
 小さなコレクション|Little collection|Petite collection|小小收藏|작은 컬렉션
 上手に書くの、|Perfect writing?|Bien écrire ?|不必写得完美，|잘 쓰려는 마음은,
 お休みしませんか。|Give it a day off.|Faites une pause.|今天先放个假吧。|잠깐 쉬어도 괜찮아요.
