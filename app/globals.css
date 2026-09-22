@@ -171,3 +171,28 @@ html:not([lang="ja"]) .send-button{white-space:normal;height:auto;min-height:44p
 @media(prefers-reduced-motion:reduce){.typing-caret{animation:none;display:none}.gift-box{display:none}.gift-reveal-prize,.gift-spark{animation:none;opacity:1;transform:none}}
 
 .brand-wordmark{display:block;width:4.15em;height:1.15em;object-fit:contain;object-position:left center}
+/* The post office opens like a letter: trace, expand, reveal. */
+.arrival-screen{position:fixed;inset:0;z-index:200;background:#78b8bd;color:white;display:grid;place-items:center;overflow:hidden;transition:opacity .7s .12s;pointer-events:all}
+.arrival-frame{position:absolute;inset:8%;width:84%;height:84%;overflow:visible;transform-origin:center;transition:transform .8s cubic-bezier(.65,0,.2,1),opacity .7s}
+.arrival-frame rect{fill:none;stroke:white;stroke-width:3;vector-effect:non-scaling-stroke;stroke-linecap:round;transition:stroke-dashoffset .65s cubic-bezier(.2,.7,.3,1)}
+.arrival-center{display:flex;align-items:center;flex-direction:column;gap:23px;max-width:70vw;transition:opacity .35s,transform .7s}
+.arrival-center>img{width:clamp(210px,31vw,430px);height:auto;filter:brightness(0) invert(1)}
+.arrival-subtitle{font:10px/1.5 monospace;letter-spacing:3px;text-align:center}
+.arrival-progress{display:flex;align-items:baseline;gap:12px;margin-top:24px;font-family:monospace;font-variant-numeric:tabular-nums}
+.arrival-progress>span{font-size:11px;letter-spacing:2px}.arrival-progress strong{font-size:clamp(42px,6vw,70px);font-weight:400;line-height:1}.arrival-progress small{font-size:14px}
+.arrival-screen.is-opening{opacity:0;pointer-events:none}.arrival-screen.is-opening .arrival-frame{transform:scale(1.45);opacity:0}.arrival-screen.is-opening .arrival-center{opacity:0;transform:scale(1.08)}
+.arrival-content{opacity:1;transition:opacity .7s .18s}.arrival-loading>.arrival-content{opacity:0}.arrival-opening>.arrival-content{animation:arrival-content-in .85s ease both}
+@keyframes arrival-content-in{from{opacity:0}to{opacity:1}}
+.footer-wordmark{width:110px;height:30px;object-fit:contain}.cat-caption .posto-name{width:76px;height:28px;object-fit:contain;object-position:left center}.cat-caption .pet-hint{display:flex;align-items:center;gap:2px;border:0}.pet-hint img{width:70px;height:24px;object-fit:contain}.pet-hint>span{font-size:15px}
+/* Soft enamel buttons with a small press and a springy icon. */
+.sidebar .main-nav [role=tab]{--nav-tint:#ffe29a;position:relative;isolation:isolate;overflow:hidden;border:1.5px solid #ffffff85;border-bottom-width:3px;border-radius:19px;background:#393549;box-shadow:0 4px 0 #12101d;color:#fff;padding-top:15px;padding-bottom:15px;transform:none;transition:transform .25s cubic-bezier(.2,1.5,.4,1),box-shadow .25s,background .25s,color .25s}
+.sidebar .main-nav [role=tab]:nth-child(2){--nav-tint:#bce4df}.sidebar .main-nav [role=tab]:nth-child(3){--nav-tint:#ffcdba}.sidebar .main-nav [role=tab]:nth-child(4){--nav-tint:#dacef2}
+.sidebar .main-nav [role=tab]::before{content:'';position:absolute;inset:0;background:var(--nav-tint);border-radius:inherit;z-index:-1;transform:translateY(105%);transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+.sidebar .main-nav [role=tab][data-state=active]{color:var(--ink);background:var(--nav-tint);border-color:var(--nav-tint);box-shadow:0 4px 0 #12101d;font-weight:800;transform:none}
+.sidebar .main-nav [role=tab]:focus-visible{outline:3px solid white;outline-offset:4px}
+.sidebar .main-nav [role=tab]:active{transform:translateY(4px) scale(.97);box-shadow:0 0 0 #12101d}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){.sidebar .main-nav [role=tab]:hover{transform:translateY(-3px) rotate(-1deg);color:var(--ink)}.sidebar .main-nav [role=tab]:hover::before{transform:translateY(0)}.sidebar .main-nav [role=tab]:hover svg{animation:nav-icon-hop .5s ease}.sidebar .main-nav [role=tab]:active{transform:translateY(4px) scale(.97)}}
+@keyframes nav-icon-hop{0%,100%{transform:rotate(0) translateY(0)}40%{transform:rotate(-16deg) translateY(-5px)}70%{transform:rotate(10deg) translateY(-2px)}}
+@media(max-width:960px){.sidebar .main-nav{padding-bottom:4px!important}.sidebar .main-nav [role=tab]{padding:10px 6px;border-radius:15px;min-height:54px;min-width:0}}
+@media(max-width:700px){.sidebar .main-nav [role=tab]{font-size:11px;padding:9px 3px;gap:5px}.sidebar .main-nav [role=tab] svg{width:19px;height:19px}.arrival-frame{inset:5% 6%;width:88%;height:90%}.arrival-center{gap:18px}.arrival-subtitle{font-size:8px;letter-spacing:2px}.arrival-progress{margin-top:18px}}
+@media(prefers-reduced-motion:reduce){.arrival-screen.is-opening .arrival-frame,.arrival-screen.is-opening .arrival-center{transform:none}.arrival-opening>.arrival-content{animation:none}.sidebar .main-nav [role=tab]:active{transform:none}}
