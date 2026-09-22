@@ -14,4 +14,4 @@ The generated source has transparency. Browser PNG preserves alpha; Apple PNG us
 
 ## Page titles
 
-Japanese primary page headings use outlines from the installed chika-Regular.ttf for hiragana and umeboshi_natural.ttf for kanji and katakana. No font binary is distributed. Other UI languages keep live text and existing fonts. Menu labels are unchanged.
+Japanese primary page headings use outlines from the installed chika-Regular.ttf for hiragana and katakana, and umeboshi_natural.ttf for kanji. English primary headings also use umeboshi_natural.ttf. No font binary is distributed. French, Chinese and Korean keep live text and existing fonts. Menu labels are unchanged.
