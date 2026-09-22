@@ -1,6 +1,11 @@
 import legalMessages from './legal-messages.json';
 // Columns: Japanese source | English | French | Simplified Chinese | Korean.
 const rows = String.raw`
+前のプロフィール|Previous profile|Profil précédent|上一个资料页|이전 프로필
+次のプロフィール|Next profile|Profil suivant|下一个资料页|다음 프로필
+プロフィール帳|Profile book|Carnet de profils|个人资料册|프로필북
+プロフィールを編集|Edit profile|Modifier le profil|编辑个人资料|프로필 수정
+誕生日|Birthday|Anniversaire|生日|생일
 更新日：2026年9月22日|Updated: September 22, 2026|Mise à jour : 22 septembre 2026|更新日期：2026年9月22日|업데이트: 2026년 9월 22일
 プロフィールとフレンド追加|Profile and add friends|Profil et ajout d’amis|个人资料与添加好友|프로필 및 친구 추가
 プロフィール|Profile|Profil|个人资料|프로필
