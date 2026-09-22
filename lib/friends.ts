@@ -1,3 +1,4 @@
+import {messageAction} from './friend-messages';
 import {validProfilePhoto} from './profile-image';
 import {dayKey,checkDiary,moods} from './diary-rules';
 import {validDrawing,hasDrawing} from './drawing';
@@ -9,13 +10,18 @@ export function isBirthday(birthday:string,day=dayKey()){return birthday===day.s
 export async function ensureProfile(database:D1Database,owner:string){await database.prepare("INSERT OR IGNORE INTO profiles(owner,code) VALUES(?,?)").bind(owner,crypto.randomUUID().replaceAll('-','').slice(0,16).toUpperCase()).run();return (await database.prepare('SELECT code,nickname,icon,birthday FROM profiles WHERE owner=?').bind(owner).first<{code:string;nickname:string;icon:string;birthday:string}>())!;}
 export async function friendState(database:D1Database,owner:string){
  const profile=await ensureProfile(database,owner);
- const relations=await database.prepare("SELECT f.id,f.status,f.requester=? AS outgoing,p.code,CASE WHEN f.status='accepted' THEN p.nickname END nickname,CASE WHEN f.status='accepted' THEN p.icon END icon,CASE WHEN f.status='accepted' THEN p.birthday END birthday FROM friendships f JOIN profiles p ON p.owner=CASE WHEN f.a=? THEN f.b ELSE f.a END WHERE (f.a=? OR f.b=?) AND f.status IN ('pending','accepted') AND NOT EXISTS(SELECT 1 FROM blocks b WHERE (b.owner=f.a AND b.target=f.b) OR(b.owner=f.b AND b.target=f.a)) ORDER BY f.created DESC").bind(owner,owner,owner,owner).all();
+ const relations=await database.prepare(`SELECT f.id,f.status,f.requester=? AS outgoing,p.code,
+ CASE WHEN f.status='accepted' THEN (SELECT body FROM friend_messages WHERE friendship=f.id ORDER BY created DESC,id DESC LIMIT 1) END lastMessageBody,
+ CASE WHEN f.status='accepted' THEN (SELECT created FROM friend_messages WHERE friendship=f.id ORDER BY created DESC,id DESC LIMIT 1) END lastMessageCreated,
+ CASE WHEN f.status='accepted' THEN (SELECT owner FROM friend_messages WHERE friendship=f.id ORDER BY created DESC,id DESC LIMIT 1) END lastMessageOwner,
+ CASE WHEN f.status='accepted' THEN (SELECT MAX(e.created) FROM friend_entries e WHERE e.friendship=f.id AND e.cancelled=0 AND (e.owner=? OR e.matched IS NOT NULL)) END lastDiaryCreated,
+ CASE WHEN f.status='accepted' THEN (SELECT COUNT(*) FROM friend_messages WHERE friendship=f.id AND target=? AND read_at IS NULL) ELSE 0 END unread,CASE WHEN f.status='accepted' THEN p.nickname END nickname,CASE WHEN f.status='accepted' THEN p.icon END icon,CASE WHEN f.status='accepted' THEN p.birthday END birthday FROM friendships f JOIN profiles p ON p.owner=CASE WHEN f.a=? THEN f.b ELSE f.a END WHERE (f.a=? OR f.b=?) AND f.status IN ('pending','accepted') AND NOT EXISTS(SELECT 1 FROM blocks b WHERE (b.owner=f.a AND b.target=f.b) OR(b.owner=f.b AND b.target=f.a)) ORDER BY f.created DESC`).bind(owner,owner,owner,owner,owner,owner).all();
  const letters=await database.prepare("SELECT e.id,e.friendship,e.owner=? AS mine,e.day,e.created,e.matched IS NOT NULL AS ready,e.read_at,e.cancelled,CASE WHEN e.owner=? OR e.matched IS NOT NULL THEN e.body END body,CASE WHEN e.owner=? OR e.matched IS NOT NULL THEN e.drawing END drawing,e.mood,e.region,e.paper,e.sticker,e.stickers,e.font FROM friend_entries e JOIN friendships f ON f.id=e.friendship WHERE (e.owner=? OR e.target=?) AND f.status='accepted' AND e.cancelled=0 AND NOT EXISTS(SELECT 1 FROM blocks b WHERE (b.owner=f.a AND b.target=f.b) OR (b.owner=f.b AND b.target=f.a)) AND (e.owner=? OR e.matched IS NOT NULL) ORDER BY e.created DESC LIMIT 200").bind(owner,owner,owner,owner,owner,owner).all();
  const pending=await database.prepare('SELECT id FROM friend_entries WHERE owner=? AND read_at IS NULL AND cancelled=0 LIMIT 1').bind(owner).first();
  const today=await database.prepare('SELECT id FROM friend_entries WHERE owner=? AND day=? LIMIT 1').bind(owner,dayKey()).first();
  const birthdayGift=await database.prepare("SELECT id FROM rewards WHERE owner=? AND day=? AND kind='birthday-0'").bind(owner,dayKey().slice(0,4)).first();
  const incoming=await database.prepare('SELECT friendship FROM friend_entries WHERE target=? AND matched IS NULL AND cancelled=0').bind(owner).all();
- return {friendIncoming:incoming.results.map(r=>r.friendship),profile:{...profile,isBirthday:isBirthday(profile.birthday),birthdayGift:!!birthdayGift},friends:relations.results,friendLetters:letters.results,friendWaiting:!!pending,friendToday:!!today};
+ return {friendIncoming:incoming.results.map(r=>r.friendship),profile:{...profile,isBirthday:isBirthday(profile.birthday),birthdayGift:!!birthdayGift},friends:relations.results.map(({lastMessageOwner,...f})=>({...f,lastMessageMine:lastMessageOwner===owner})),friendLetters:letters.results,friendWaiting:!!pending,friendToday:!!today};
 }
 export async function friendAction(database:D1Database,owner:string,data:any,region:string){
  const out=(body:unknown,status=200)=>Response.json(body,{status,headers:{'Cache-Control':'no-store'}});
@@ -47,6 +53,7 @@ export async function friendAction(database:D1Database,owner:string,data:any,reg
  }
  if(relation.status!=='accepted')return fail('フレンドを確認してください。',403);
  const blocked=await database.prepare('SELECT id FROM blocks WHERE (owner=? AND target=?) OR(owner=? AND target=?)').bind(owner,target,target,owner).first();if(blocked)return fail('フレンドを確認してください。',403);
+ const messageResponse=await messageAction(database,owner,target,relation.id,data);if(messageResponse)return messageResponse;
  if(data.action==='friend-read'){
   const letter=await database.prepare('SELECT id FROM friend_entries WHERE id=? AND friendship=? AND target=? AND matched IS NOT NULL AND cancelled=0').bind(data.id,relation.id,owner).first();if(!letter)return fail('交換が成立すると読めます。',403);
   await database.prepare('UPDATE friend_entries SET read_at=COALESCE(read_at,?) WHERE id=?').bind(Date.now(),data.id).run();return out({message:''});

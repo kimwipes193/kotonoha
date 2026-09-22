@@ -154,5 +154,11 @@
     "Mise à jour : 20 septembre 2026",
     "更新日期：2026年9月20日",
     "업데이트: 2026년 9월 20일"
+  ],
+  "フレンドとのメッセージ本文、送受信者の対応、送信日時、既読日時を保存し、承認済みフレンド同士の会話と未読・既読表示に使用します。メッセージには自動削除期限を設けていません。フレンド解除・ブロック後は会話を閲覧できなくなりますが、保存済みメッセージは自動削除されません。": [
+    "We store friend message text, sender and recipient associations, sent times and read times to provide conversations and unread/read indicators between accepted friends. Messages have no automatic expiry. Removing or blocking a friend prevents access to the conversation but does not automatically delete stored messages.",
+    "Nous conservons le texte des messages entre amis, les correspondances entre expéditeurs et destinataires, les dates d’envoi et de lecture pour les conversations entre amis acceptés et les indicateurs de lecture. Les messages n’expirent pas automatiquement. Supprimer ou bloquer un ami empêche l’accès à la conversation sans supprimer automatiquement les messages enregistrés.",
+    "我们保存好友消息正文、收发双方的关联、发送及已读时间，用于已确认好友之间的会话和未读、已读显示。消息没有自动删除期限。删除或屏蔽好友后无法查看会话，但已保存的消息不会自动删除。",
+    "승인된 친구 간의 대화와 읽음 표시를 위해 메시지 내용, 발신자와 수신자 관계, 전송 및 읽은 시간을 저장합니다. 메시지에는 자동 삭제 기한이 없습니다. 친구를 삭제하거나 차단하면 대화를 볼 수 없지만 저장된 메시지가 자동 삭제되지는 않습니다."
   ]
 }

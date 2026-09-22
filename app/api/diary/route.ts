@@ -87,7 +87,7 @@ export async function POST(req:Request){
   return reply({message:data.action==='react'?'気持ちを届けました。':'この日記を非表示にしました。'});
  }
  return reply({error:'操作を確認してください。'},400);
- }catch(e){console.error('Diary write failed',(e as Error).message);if(String(e).includes('FRIEND_WAITING'))return reply({error:'相手が日記を開くまで、次のお便りは待っていてください。'},409);if(String(e).includes('FRIEND_UNAVAILABLE'))return reply({error:'フレンドを確認してください。'},403);if(String(e).includes('STICKER_UNAVAILABLE'))return reply({error:'このステッカーは使用済みです。別のステッカーを選んでください。'},409);if(String(e).includes('UNIQUE'))return reply({error:'今日の操作はすでに完了しています。画面を更新してください。'},409);return reply({error:'保存できませんでした。内容を残したまま再試行できます。'},503);}
+ }catch(e){console.error('Diary write failed',(e as Error).message);if(String(e).includes('DM_RATE_LIMIT'))return reply({error:'少し待ってからメッセージを送ってください。'},429);if(String(e).includes('FRIEND_WAITING'))return reply({error:'相手が日記を開くまで、次のお便りは待っていてください。'},409);if(String(e).includes('FRIEND_UNAVAILABLE'))return reply({error:'フレンドを確認してください。'},403);if(String(e).includes('STICKER_UNAVAILABLE'))return reply({error:'このステッカーは使用済みです。別のステッカーを選んでください。'},409);if(String(e).includes('UNIQUE'))return reply({error:'今日の操作はすでに完了しています。画面を更新してください。'},409);return reply({error:'保存できませんでした。内容を残したまま再試行できます。'},503);}
 }
 
 

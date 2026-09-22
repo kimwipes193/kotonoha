@@ -1,6 +1,32 @@
 import legalMessages from './legal-messages.json';
 // Columns: Japanese source | English | French | Simplified Chinese | Korean.
 const rows = String.raw`
+更新日：2026年9月22日|Updated: September 22, 2026|Mise à jour : 22 septembre 2026|更新日期：2026年9月22日|업데이트: 2026년 9월 22일
+プロフィールとフレンド追加|Profile and add friends|Profil et ajout d’amis|个人资料与添加好友|프로필 및 친구 추가
+プロフィール|Profile|Profil|个人资料|프로필
+会話一覧|Conversations|Conversations|会话列表|대화 목록
+メッセージ|Messages|Messages|消息|메시지
+メッセージに戻る|Back to messages|Retour aux messages|返回消息|메시지로 돌아가기
+日記のお便り|A diary letter|Une lettre de journal|日记来信|일기 편지
+あなた: |You: |Vous : |你：|나:
+メッセージを送ってみよう|Say hello|Envoyez un petit mot|发条消息吧|메시지를 보내 보세요
+未読メッセージ|Unread messages|Messages non lus|未读消息|읽지 않은 메시지
+お便りが待っています|A letter is waiting|Une lettre vous attend|有一封来信在等你|편지가 기다리고 있어요
+フレンドと、言葉や日記を送り合おう。|Share messages and diaries with friends.|Échangez des messages et des journaux entre amis.|与好友互发消息和日记。|친구와 메시지와 일기를 주고받아요.
+会話一覧に戻る|Back to conversations|Retour aux conversations|返回会话列表|대화 목록으로 돌아가기
+会話の設定|Conversation settings|Options de la conversation|会话设置|대화 설정
+以前のやり取り|Earlier messages|Messages précédents|更早的消息|이전 대화
+新しいメッセージ|New messages|Nouveaux messages|新消息|새 메시지
+メッセージを入力…|Write a message…|Écrire un message…|输入消息…|메시지 입력…
+あなたから|From you|De votre part|你发送的|내가 보낸 편지
+既読|Read|Lu|已读|읽음
+送信|Send|Envoyer|发送|보내기
+再読み込み|Reload|Recharger|重新加载|다시 불러오기
+メッセージを読み込めませんでした。|Could not load messages.|Impossible de charger les messages.|无法加载消息。|메시지를 불러오지 못했어요.
+メッセージを確認してください。|Please check the message.|Vérifiez le message.|请检查消息。|메시지를 확인해 주세요.
+メッセージは1〜1,000文字で書いてください。|Write 1–1,000 characters.|Écrivez entre 1 et 1 000 caractères.|请输入1至1000个字符。|1~1,000자로 작성해 주세요.
+履歴を確認してください。|Please reload the conversation.|Veuillez recharger la conversation.|请重新加载会话。|대화를 다시 불러와 주세요.
+少し待ってからメッセージを送ってください。|Please wait before sending more messages.|Patientez avant d’envoyer d’autres messages.|请稍等再发送消息。|잠시 후에 메시지를 보내 주세요.
 きょうの日記|Today’s diary|Journal du jour|今天的日记|오늘의 일기
 本日の受付|Today’s post|Courrier du jour|今日收件|오늘의 접수
 おしまい|Closed|Terminé|已结束|마감

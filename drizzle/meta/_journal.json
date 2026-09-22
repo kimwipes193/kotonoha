@@ -64,6 +64,13 @@
       "when": 1789983807759,
       "tag": "0008_same_dreaming_celestial",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1790084740975,
+      "tag": "0009_first_barracuda",
+      "breakpoints": true
     }
   ]
 }
