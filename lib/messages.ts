@@ -1,6 +1,19 @@
 import legalMessages from './legal-messages.json';
 // Columns: Japanese source | English | French | Simplified Chinese | Korean.
 const rows = String.raw`
+きょうの日記|Today’s diary|Journal du jour|今天的日记|오늘의 일기
+本日の受付|Today’s post|Courrier du jour|今日收件|오늘의 접수
+おしまい|Closed|Terminé|已结束|마감
+匿名に戻す|Back to anonymous|Retour à l’anonyme|返回匿名|익명으로 돌아가기
+原文|Original|Texte original|原文|원문
+{name}のプロフィール帳|{name}’s profile book|Le carnet de {name}|{name}的资料册|{name}의 프로필북
+わたし|My|Moi|我|나
+誕生日（4桁）|Birthday (4 digits)|Anniversaire (4 chiffres)|生日（4位数字）|생일 (4자리)
+例：4月15日は0415。未設定でも利用できます。|Example: April 15 is 0415. Optional.|Exemple : le 15 avril s’écrit 0415. Facultatif.|例如4月15日输入0415，可以留空。|예: 4월 15일은 0415. 비워 두어도 괜찮아요.
+コピー|Copy|Copier|复制|복사
+コピー済み|Copied|Copié|已复制|복사 완료
+コピーできませんでした。コードを選択してコピーしてください。|Copy failed. Select and copy the code.|Copie impossible. Sélectionnez puis copiez le code.|复制失败，请选中好友码后复制。|복사하지 못했어요. 코드를 선택해서 복사해 주세요.
+全{count}種類・各約{chance}%|{count} varieties · About {chance}% each|{count} modèles · Environ {chance} % chacun|共{count}种 · 每种约{chance}%|총 {count}종 · 각 약 {chance}%
 わたしのプロフィール帳|My friendship book|Mon carnet d’amitié|我的个人资料册|나의 프로필북
 なかよしのしるし、ここにぺたり。|A little keepsake of our friendship.|Un petit souvenir de notre amitié.|把友谊的印记贴在这里。|친해진 기념으로 여기에 붙여요.
 写真を準備しています…|Preparing photo…|Préparation de la photo…|正在准备照片…|사진 준비 중…

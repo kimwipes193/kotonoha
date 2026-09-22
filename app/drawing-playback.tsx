@@ -28,5 +28,5 @@ export default function DrawingPlayback({drawing}:{drawing:string}){
   return()=>{cancelAnimationFrame(frame.current);motion.removeEventListener('change',changed);};
  },[strokes,run]);
  function finish(){cancelAnimationFrame(frame.current);if(canvas.current)paint(canvas.current,strokes);setPlaying(false);}
- return <Localized><div className="drawing-playback"><canvas ref={canvas} width={600} height={400} className="drawing-surface" role="img" aria-label="手書き・絵日記"/><div className="drawing-playback-controls"><span role="status">{playing?'絵ができるまで、ひとやすみ。':'できあがり。気持ちも、いっしょに。'}</span>{playing?<button type="button" onClick={finish}>完成した絵を見る</button>:<button type="button" onClick={()=>setRun(n=>n+1)}>もう一度、描くところを見る</button>}</div></div></Localized>;
+ return <Localized><div className="drawing-playback"><canvas ref={canvas} width={600} height={400} className="drawing-surface" role="img" aria-label="手書き・絵日記"/><div className="drawing-playback-controls">{playing?<button type="button" onClick={finish}>完成した絵を見る</button>:<button type="button" onClick={()=>setRun(n=>n+1)}>もう一度、描くところを見る</button>}</div></div></Localized>;
 }

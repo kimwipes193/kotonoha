@@ -7,7 +7,9 @@ assert.ok(validBirthday('02-29'));assert.equal(validBirthday('02-30'),false);ass
 const photo='data:image/jpeg;base64,'+Buffer.from([255,216,255,192,0,11,8,1,0,1,0,1,1,17,0,255,218,0,8,1,1,0,0,63,0,1,255,217]).toString('base64');
 assert.ok(validProfilePhoto(photo));assert.equal(validProfilePhoto('https://example.com/a.jpg'),false);assert.equal(validProfilePhoto('data:image/svg+xml;base64,PHN2Zz4='),false);assert.equal(validProfilePhoto('data:image/jpeg;base64,'+'A'.repeat(100001)),false);assert.equal(validProfilePhoto(photo.replace('/9j/','/9j/4QAC/')),false);
 const a=(await api('alice')).data,b=(await api('bob')).data;const day=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Tokyo'}).format(new Date());
-assert.equal((await api('alice',{action:'profile-save',nickname:'秘密のねこ',icon:photo,birthday:day.slice(5)})).status,200);
+assert.equal((await api('alice',{action:'profile-save',nickname:'秘密のねこ',icon:photo,birthday:day.slice(5).replace('-','')})).status,200);
+assert.equal((await api('alice')).data.profile.birthday,day.slice(5));
+assert.equal((await api('alice',{action:'profile-save',nickname:'test',icon:'🐈',birthday:'0230'})).status,400);
 assert.equal((await api('alice',{action:'friend-request',code:b.profile.code})).status,200);let bob=(await api('bob')).data;const f=bob.friends[0];assert.equal(f.nickname,null);assert.equal(f.birthday,null);assert.equal(f.icon,null);
 assert.equal((await api('alice',{action:'friend-accept',friendship:f.id})).status,400);
 assert.equal((await api('eve',{action:'friend-accept',friendship:f.id})).status,404);
