@@ -7,7 +7,7 @@ export async function messageAction(database:D1Database,owner:string,target:stri
   const photo=data.photo??null;
   if(photo!==null&&!validProfilePhoto(photo,1280,350000))return out({error:'写真を確認してください。'},400);
   if(typeof data.body!=='string'||(!data.body.trim()&&!photo)||data.body.length>1000)return out({error:'メッセージは1〜1,000文字で書いてください。'},400);
-  const error=data.body.trim()?checkDiary(data.body):null;if(error)return out({error},400);
+  const error=data.body.trim()?checkDiary(data.body,false,1000):null;if(error)return out({error},400);
   const previous=await database.prepare('SELECT id,friendship,body,photo FROM friend_messages WHERE owner=? AND client_id=?').bind(owner,data.clientId).first<{id:string;friendship:string;body:string;photo:string|null}>();
   if(previous){if(previous.friendship!==friendship||previous.body!==data.body.trim()||previous.photo!==photo)return out({error:'メッセージを確認してください。'},409);return out({id:previous.id});}
   const id=crypto.randomUUID();

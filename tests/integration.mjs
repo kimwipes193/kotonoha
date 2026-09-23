@@ -13,7 +13,8 @@ for(const code of ['XX','T1','ZZ','invalid',null]){const req=new Request(base);O
 assert.equal((await api('alice',{action:'gacha'},'https://invalid.example')).status,403);
 const diary={action:'send',body:'あ',mood:'🌤️',region:'日本',paper:'plain',sticker:''};
 assert.equal((await api('alice',{...diary,body:'私の連絡先は example@example.com です。'})).status,400);
-assert.equal((await api('alice',diary)).status,200);
+assert.equal((await api('alice',{...diary,body:'あ'.repeat(201)})).status,400);
+assert.equal((await api('alice',{...diary,body:'あ'.repeat(200)})).status,200);
 assert.equal((await api('alice',diary)).status,409);
 assert.equal((await api('bob',{...diary,region:'偽の国'})).status,200);
 assert.equal((await api('alice')).data.received.length,0);

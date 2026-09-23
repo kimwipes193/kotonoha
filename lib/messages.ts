@@ -152,7 +152,7 @@ Googleでログインすると、プロフィールとフレンド機能を利�
 画数の上限です。元に戻すと描き直せます。|Drawing limit reached. Undo to draw again.|Limite atteinte. Annulez pour redessiner.|已达笔画上限，撤销后可以继续画。|획 수 한도에 도달했어요. 실행 취소 후 다시 그릴 수 있어요.
 手書きデータを確認してください。|Please check the drawing data.|Veuillez vérifier les données du dessin.|请检查手绘数据。|손글씨 데이터를 확인해 주세요.
 手書き部分は翻訳されません。|Handwriting is not translated.|L’écriture manuscrite n’est pas traduite.|手写部分不会被翻译。|손글씨 부분은 번역되지 않아요.
-文字は1,000文字まで・絵だけでもOK・1日1通・日本時間の午前0時にリセット|Up to 1,000 characters or just a drawing · One letter per day · Resets at midnight Japan time|1 000 caractères maximum ou un dessin seul · Un journal par jour · Réinitialisation à minuit au Japon|最多1,000字，也可只画画 · 每天一封 · 日本时间零点重置|최대 1,000자 또는 그림만 가능 · 하루 한 통 · 일본 시간 자정 초기화
+文字は200文字まで・絵だけでもOK・1日1通・日本時間の午前0時にリセット|Up to 200 characters or just a drawing · One letter per day · Resets at midnight Japan time|200 caractères maximum ou un dessin seul · Un journal par jour · Réinitialisation à minuit au Japon|最多200字，也可只画画 · 每天一封 · 日本时间零点重置|최대 200자 또는 그림만 가능 · 하루 한 통 · 일본 시간 자정 초기화
 ステッカーは1通に5枚まで。投函が成功すると貼った枚数だけ消費します。便箋は繰り返し使えます。|Up to five stickers per diary. Each attached sticker is used only after a successful post. Paper is reusable.|Jusqu’à cinq autocollants par journal. Les autocollants collés sont consommés après un envoi réussi. Le papier est réutilisable.|每封日记最多5张贴纸。投递成功后按实际张数消耗。信纸可重复使用。|일기 한 통에 스티커 최대 5장. 투함 성공 시 붙인 수량만큼 사용해요. 편지지는 계속 쓸 수 있어요.
 ステッカー{number}を外す|Remove sticker {number}|Retirer l’autocollant {number}|移除贴纸{number}|스티커 {number} 제거
 ステッカーは5枚までです。配置を確認してください。|Use up to five stickers and check their placement.|Utilisez au maximum cinq autocollants et vérifiez leur position.|最多可贴5张贴纸，请检查位置。|스티커는 최대 5장이에요. 배치를 확인해 주세요.
@@ -245,7 +245,7 @@ IPから自動判定|Detected from IP|Détection par IP|根据 IP 自动识别|I
 Googleでログイン|Sign in with Google|Se connecter avec Google|使用 Google 登录|Google로 로그인
 ログイン設定を確認中…|Checking sign-in…|Vérification de la connexion…|正在检查登录设置…|로그인 설정 확인 중…
 Googleログインは設定準備中|Google sign-in isn't ready yet|Connexion Google en préparation|Google 登录尚未就绪|Google 로그인 준비 중
-1〜1,000文字・1日1通・日本時間の午前0時にリセット|1–1,000 characters · 1 diary/day · Resets at midnight Japan time (UTC+9)|1 à 1 000 caractères · 1 journal/jour · Réinitialisation à minuit au Japon (UTC+9)|1～1,000 字符 · 每天一封 · 日本时间（UTC+9）午夜重置|1~1,000자 · 하루 한 통 · 일본 시간(UTC+9) 자정에 초기화
+1〜200文字・1日1通・日本時間の午前0時にリセット|1–200 characters · 1 diary/day · Resets at midnight Japan time (UTC+9)|1 à 200 caractères · 1 journal/jour · Réinitialisation à minuit au Japon (UTC+9)|1～200 字符 · 每天一封 · 日本时间（UTC+9）午夜重置|1~200자 · 하루 한 통 · 일본 시간(UTC+9) 자정에 초기화
 ／ 下書きはこの端末に保存されます。ログイン後は、このブラウザーで状態を保持します。|/ Drafts stay on this device. This browser keeps you signed in.|/ Brouillons conservés sur cet appareil. Ce navigateur garde votre connexion.|/ 草稿保存在此设备。登录后将在此浏览器保持登录。|/ 초안은 이 기기에 저장됩니다. 로그인 후 이 브라우저에서 상태를 유지합니다.
 まだ見ぬ誰かの、|Someone you haven't met,|Quelqu'un que vous ne connaissez pas,|未曾谋面的某个人，|아직 만나지 못한 누군가의,
 なんでもない一日。|an ordinary little day.|une journée toute simple.|平凡的一天。|평범한 하루.
@@ -464,7 +464,7 @@ Googleログインに失敗しました。もう一度お試しください。|G
 このステッカーは使用済みです。別のステッカーを選んでください。|This sticker was already used. Choose another.|Cet autocollant a déjà été utilisé. Choisissez-en un autre.|此贴纸已使用，请选择其他贴纸。|이미 사용한 스티커예요. 다른 스티커를 골라 주세요.
 今日の操作はすでに完了しています。画面を更新してください。|This action is already complete today. Reload the page.|Cette action est déjà effectuée aujourd'hui. Rechargez la page.|今天已完成此操作，请刷新页面。|오늘 이미 완료한 작업이에요. 새로고침해 주세요.
 保存できませんでした。内容を残したまま再試行できます。|Couldn't save. Your text is kept so you can retry.|Enregistrement impossible. Votre texte est conservé pour réessayer.|保存失败，内容仍保留，可以重试。|저장하지 못했어요. 내용을 유지한 채 다시 시도할 수 있어요.
-日記は1〜1,000文字で書いてください。|Please write 1–1,000 characters.|Écrivez entre 1 et 1 000 caractères.|请填写 1～1,000 个字符。|1~1,000자로 작성해 주세요.
+日記は1〜200文字で書いてください。|Please write 1–200 characters.|Écrivez entre 1 et 200 caractères.|请填写 1～200 个字符。|1~200자로 작성해 주세요.
 連絡先・住所・本名につながる情報を取り除いてください。|Remove information that could reveal contact details, addresses or real names.|Retirez les informations révélant des coordonnées, adresses ou noms réels.|请删除涉及联系方式、地址或真实姓名的信息。|연락처, 주소, 실명을 알 수 있는 정보를 지워 주세요.
 相手を傷つける表現を見直してください。|Please reconsider words that could hurt someone.|Veuillez revoir les expressions pouvant blesser.|请修改可能伤害他人的表达。|상대에게 상처 줄 수 있는 표현을 고쳐 주세요.
 どこか|Somewhere|Quelque part|某处|어딘가
