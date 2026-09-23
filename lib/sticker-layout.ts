@@ -7,16 +7,16 @@ export function validStickerLayout(value:unknown):value is StickerLayout{
 }
 export function readStickerLayout(value?:string|null):StickerLayout{try{const parsed=JSON.parse(value||'null');return validStickerLayout(parsed)?parsed:defaultStickerLayout;}catch{return defaultStickerLayout;}}
 export function moveSticker(layout:StickerLayout,x:number,y:number):StickerLayout{return {...layout,x:Math.max(0,Math.min(100,x)),y:Math.max(0,Math.min(100,y))};}
-export function stickerCenter(layout:StickerLayout){const margin=6*layout.scale*Math.SQRT2;return {x:margin+(100-2*margin)*layout.x/100,y:margin+(100-2*margin)*layout.y/100};}
+export function stickerCenter(layout:StickerLayout,aspect=1){const margin=6*layout.scale*Math.SQRT2,vertical=margin*aspect;return {x:margin+(100-2*margin)*layout.x/100,y:vertical+(100-2*vertical)*layout.y/100};}
 // Preserve the paper-space center while scaling; clamp only at the paper edges.
-export function transformSticker(layout:StickerLayout,start:{x:number;y:number},current:{x:number;y:number}):StickerLayout{
+export function transformSticker(layout:StickerLayout,start:{x:number;y:number},current:{x:number;y:number},aspect=1):StickerLayout{
  const distance=Math.hypot(start.x,start.y);if(distance<.001)return layout;
  const scale=Math.max(.5,Math.min(2,layout.scale*Math.hypot(current.x,current.y)/distance));
  const angle=(Math.atan2(current.y,current.x)-Math.atan2(start.y,start.x))*180/Math.PI;
  const rotation=((layout.rotation+angle+180)%360+360)%360-180;
- const center=stickerCenter(layout),margin=6*scale*Math.SQRT2,area=100-2*margin;
- return moveSticker({...layout,scale,rotation},(center.x-margin)/area*100,(center.y-margin)/area*100);
+ const center=stickerCenter(layout,aspect),margin=6*scale*Math.SQRT2,area=100-2*margin;
+ return moveSticker({...layout,scale,rotation},(center.x-margin)/area*100,(center.y-margin*aspect)/(100-2*margin*aspect)*100);
 }
-export type StickerPlacement={sticker:string;layout:StickerLayout};
-export function validStickerPlacements(value:unknown):value is StickerPlacement[]{return Array.isArray(value)&&value.length<=5&&value.every(p=>p&&typeof p.sticker==='string'&&p.sticker.length>0&&p.sticker.length<=32&&!p.sticker.startsWith('paper-')&&validStickerLayout(p.layout));}
+export type StickerPlacement={sticker:string;layout:StickerLayout;target?:'text'|'drawing'};
+export function validStickerPlacements(value:unknown):value is StickerPlacement[]{return Array.isArray(value)&&value.length<=5&&value.every(p=>p&&typeof p.sticker==='string'&&(p.target===undefined||p.target==='text'||p.target==='drawing')&&p.sticker.length>0&&p.sticker.length<=32&&!p.sticker.startsWith('paper-')&&validStickerLayout(p.layout));}
 export function readStickers(entry:{stickers?:string|null;sticker:string;sticker_layout?:string|null}):StickerPlacement[]{try{const parsed=JSON.parse(entry.stickers??'null');if(validStickerPlacements(parsed))return parsed;}catch{}return entry.sticker?[{sticker:entry.sticker,layout:readStickerLayout(entry.sticker_layout)}]:[];}

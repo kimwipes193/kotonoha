@@ -160,5 +160,11 @@
     "Nous conservons le texte des messages entre amis, les correspondances entre expéditeurs et destinataires, les dates d’envoi et de lecture pour les conversations entre amis acceptés et les indicateurs de lecture. Les messages n’expirent pas automatiquement. Supprimer ou bloquer un ami empêche l’accès à la conversation sans supprimer automatiquement les messages enregistrés.",
     "我们保存好友消息正文、收发双方的关联、发送及已读时间，用于已确认好友之间的会话和未读、已读显示。消息没有自动删除期限。删除或屏蔽好友后无法查看会话，但已保存的消息不会自动删除。",
     "승인된 친구 간의 대화와 읽음 표시를 위해 메시지 내용, 발신자와 수신자 관계, 전송 및 읽은 시간을 저장합니다. 메시지에는 자동 삭제 기한이 없습니다. 친구를 삭제하거나 차단하면 대화를 볼 수 없지만 저장된 메시지가 자동 삭제되지는 않습니다."
+  ],
+  "プロフィール帳の好きな食べ物・色・場所・作品、背景・配色、ステッカーの配置も保存し、承認済みフレンドにのみ表示します。匿名の日記交換には含めません。": [
+    "We also store favorite foods, colors, places and works, background and color choices, and sticker placements in profile books. They are shown only to accepted friends and are not included in anonymous diary exchanges.",
+    "Nous enregistrons aussi les aliments, couleurs, lieux et œuvres préférés, le fond, la palette et la disposition des stickers du carnet. Ces éléments sont visibles uniquement par les amis acceptés et ne figurent pas dans les échanges anonymes.",
+    "我们还保存资料册中喜欢的食物、颜色、地方、作品，以及背景、配色和贴纸位置。这些信息仅向已确认好友展示，不包含在匿名日记交换中。",
+    "프로필북의 좋아하는 음식·색·장소·작품, 배경·배색, 스티커 배치도 저장하며 승인된 친구에게만 표시합니다. 익명 일기 교환에는 포함하지 않습니다."
   ]
 }

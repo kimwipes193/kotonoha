@@ -15,3 +15,9 @@ for(const x of [0,100])for(const y of [0,100])for(const rotation of [-179,179]){
 }
 assert.deepEqual(moveSticker(base,-10,110),{...base,x:0,y:100});
 console.log('PASS: corner gesture rotation and scaling, fixed center, scale bounds, angle wrapping and paper bounds');
+for(const aspect of [1.5,1/1.5]){
+ const turned=transformSticker(base,{x:10,y:0},{x:0,y:15},aspect);
+ for(const axis of ['x','y'])assert.ok(Math.abs(stickerCenter(base,aspect)[axis]-stickerCenter(turned,aspect)[axis])<.00001);
+ for(const y of [0,100]){const layout={...base,y,scale:2};const center=stickerCenter(layout,aspect);const margin=6*layout.scale*Math.SQRT2*aspect;assert.ok(center.y>=margin-.001&&center.y<=100-margin+.001);}
+}
+console.log('PASS: landscape drawings and portrait profiles preserve sticker centers and edge margins');

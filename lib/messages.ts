@@ -1,6 +1,27 @@
 import legalMessages from './legal-messages.json';
 // Columns: Japanese source | English | French | Simplified Chinese | Korean.
 const rows = String.raw`
+更新日：2026年9月23日|Updated: September 23, 2026|Mise à jour : 23 septembre 2026|更新日期：2026年9月23日|업데이트: 2026년 9월 23일
+キャンセル|Cancel|Annuler|取消|취소
+好きな食べ物|Favorite food|Plat préféré|喜欢的食物|좋아하는 음식
+好きな色|Favorite color|Couleur préférée|喜欢的颜色|좋아하는 색
+好きな場所|Favorite place|Lieu préféré|喜欢的地方|좋아하는 장소
+好きな作品|Favorite book, film or show|Œuvre préférée|喜欢的作品|좋아하는 작품
+わたしらしく飾る|Make it yours|À votre image|装饰出你的风格|나답게 꾸미기
+背景|Background|Fond|背景|배경
+星くず|Stardust|Étoiles|星星|별빛
+ギンガム|Gingham|Vichy|格纹|깅엄
+水玉|Polka dots|Pois|波点|도트
+お手紙|Letter paper|Papier à lettres|信纸|편지지
+ラベンダー|Lavender|Lavande|薰衣草紫|라벤더
+ミント|Mint|Menthe|薄荷绿|민트
+クリーム|Cream|Crème|奶油色|크림
+プロフィールには獲得済みステッカーを繰り返し使えます。枚数は消費しません。|Collected stickers are reusable on your profile without using up your stock.|Les stickers obtenus sont réutilisables sur votre profil sans consommer votre stock.|个人资料可重复使用已获得的贴纸，不消耗数量。|획득한 스티커는 프로필에서 수량 소모 없이 반복 사용할 수 있어요.
+プロフィール帳は承認済みフレンドにのみ公開されます。|Your profile book is visible only to accepted friends.|Votre carnet est visible uniquement par vos amis acceptés.|资料册仅对已确认的好友公开。|프로필북은 승인된 친구에게만 공개돼요.
+プロフィールの飾りと好きなものを確認してください。|Please check your profile decorations and favorites.|Vérifiez la décoration et les favoris du profil.|请检查个人资料装饰和喜好。|프로필 장식과 좋아하는 것을 확인해 주세요.
+獲得済みのステッカーを選んでください。|Choose a sticker you have collected.|Choisissez un sticker déjà obtenu.|请选择已获得的贴纸。|획득한 스티커를 선택해 주세요.
+本文に貼る|Move to text|Placer sur le texte|贴到正文|본문에 붙이기
+絵に貼る|Move to drawing|Placer sur le dessin|贴到图画|그림에 붙이기
 前のプロフィール|Previous profile|Profil précédent|上一个资料页|이전 프로필
 次のプロフィール|Next profile|Profil suivant|下一个资料页|다음 프로필
 プロフィール帳|Profile book|Carnet de profils|个人资料册|프로필북

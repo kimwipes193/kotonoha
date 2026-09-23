@@ -4,8 +4,9 @@ const {sql}=createFixture();const {GET,POST,newSession,authCookie,SESSION_SECOND
 const base='https://diary.example';const cookie=authCookie(new Request(base),'session',await newSession('google:alice'),SESSION_SECONDS).split(';')[0];
 async function api(data){const r=await(data?POST:GET)(new Request(base+'/api/diary',{method:data?'POST':'GET',headers:{cookie,Origin:base},body:data?JSON.stringify(data):undefined}));return {status:r.status,data:await r.json()};}
 const grant=sql.prepare('INSERT INTO rewards(id,owner,day,kind,item) VALUES(?,?,?,?,?)');for(let i=0;i<7;i++)grant.run('a'+i,'google:alice','day'+i,'gacha',i<4?'🌷':'🍋');grant.run('other','google:bob','day','gacha','🌷');
-const placements=Array.from({length:5},(_,i)=>({sticker:i<3?'🌷':'🍋',layout:{x:i*20,y:80-i*10,rotation:i*30,scale:.5+i*.3}}));
+const placements=Array.from({length:5},(_,i)=>({target:i%2?'drawing':'text',sticker:i<3?'🌷':'🍋',layout:{x:i*20,y:80-i*10,rotation:i*30,scale:.5+i*.3}}));
 const send={action:'send',body:'今日は花がきれいでした。',mood:'🌤️',paper:'plain',stickers:placements};
+assert.equal((await api({...send,stickers:[{...placements[0],target:'invalid'}]})).status,400);
 assert.equal((await api({...send,stickers:[...placements,placements[0]]})).status,400);
 assert.equal((await api({...send,stickers:Array(5).fill(placements[0])})).status,400);
 assert.equal((await api({...send,stickers:[{...placements[0],layout:{x:999}}]})).status,400);
