@@ -1,7 +1,7 @@
 import { Localized, LanguagePicker } from '../language';
 export default function Privacy() {
  return <Localized><main className="legal-page">
-  <img className="legal-posto" src="/posto-bow.png" alt="" aria-hidden="true"/><LanguagePicker/><a href="/">← ことのはに戻る</a><h1>プライバシーポリシー</h1><p>更新日：2026年9月23日</p>
+  <nav className="legal-navigation"><LanguagePicker/><a href="/">← ことのはに戻る</a></nav><h1>プライバシーポリシー</h1><p>更新日：2026年9月23日</p>
   <p>ことのはは、匿名の相手と日記を交換するサービスです。運営窓口は kimwipes193@gmail.com です。</p>
   <h2>取得する情報と目的</h2><p>Googleログインでは、本人確認のためGoogleのユーザー識別子とメールアドレスの確認情報を受け取ります。サービスにはGoogleの識別子を保存し、名前やメールアドレスを日記データとして保存しません。Gmailのメール本文や連絡先にはアクセスしません。</p>
   <p>日記本文、気分、IPアドレスから判定した国・地域、便箋、ステッカー、投稿日時、交換先との対応、リアクション、獲得アイテム・称号、なでた回数と操作記録、日記の書体、通報・ブロック情報を、日記の保存・交換、利用回数の管理、不正利用への対応に使用します。</p>
@@ -12,5 +12,6 @@ export default function Privacy() {
   <p>表示言語の設定も、このブラウザーに保存します。</p><h2>保持・削除・お問い合わせ</h2><p>日記や交換履歴には現在、自動削除期限を設けていません。画面に表示される日記は直近100件です。情報の確認・削除を希望する場合は、運営窓口へご連絡ください。本人確認のうえ個別に対応します。パスワードや認証コードを送る必要はありません。相手が既にコピーした内容は回収できません。</p>
   <p>Googleアカウント側でアクセスを取り消しても、保存済みの日記は自動削除されません。ポリシーを変更した場合は、このページの更新日と内容を更新します。</p>
   <p><a href="/terms">利用規約</a></p>
+ <img className="legal-posto" src="/posto-bow.png" alt="" aria-hidden="true"/>
  </main></Localized>;
 }

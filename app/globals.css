@@ -34,7 +34,7 @@
 .duty-sign-board:before{left:8px}.duty-sign-board:after{right:8px}
 .duty-sign:hover .duty-sign-hanger{transform:rotate(-5deg);transition:transform .25s ease}
 .duty-sign:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
-.is-asleep .duty-sign-board{background:repeating-linear-gradient(-2deg,transparent 0 8px,#8b59341a 9px,transparent 10px 15px),linear-gradient(100deg,#d7a571,#ecc38b 50%,#d4a06a)}
+
 @keyframes wood-sign-swing{0%{transform:rotate(-12deg)}35%{transform:rotate(9deg)}65%{transform:rotate(-4deg)}100%{transform:rotate(4deg)}}
 
 .detected-country{display:flex;align-items:center;gap:6px;font-size:12px;flex-wrap:wrap}.detected-country small{color:#756c75;font-size:10px}.customize{flex-wrap:wrap}
@@ -241,3 +241,11 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline-color:#8f7aa8}
 
 .brightness-slider{height:12px;border-radius:20px;accent-color:var(--ink)}.brand .posto-brand-icon{border:0;background:transparent;box-shadow:none;transform:none}.posto-brand-icon img{display:block;width:100%;height:100%;object-fit:contain}
 .drawing-tools .brightness-slider{appearance:none;height:12px!important;border-radius:12px}
+
+/* Matching matte cartoon wood in both duty states. */
+.duty-sign-board,.is-asleep .duty-sign-board{background-color:#efcf98;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 60'%3E%3Cg fill='none' stroke='%23d4aa73' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M7 12Q31 7 57 12T104 12M112 10Q133 15 153 10M5 46Q30 42 46 47T90 48M101 49Q127 43 154 47M4 29Q13 26 20 29M139 29Q147 33 156 30'/%3E%3C/g%3E%3C/svg%3E");background-size:100% 100%;box-shadow:2px 3px 0 #493647;text-shadow:none}.duty-sign-board:before,.duty-sign-board:after{display:none}
+.page-heading .collection-quota{width:76px;min-width:76px;max-width:76px;height:76px;min-height:76px;padding:5px;font-size:11px;margin-top:0}
+.legal-navigation{display:flex;align-items:center;flex-wrap:wrap;gap:18px 32px}.legal-navigation>a{display:inline-block}.legal-page>.legal-posto{margin:40px auto 0}
+.drawing-tools .drawing-actions{padding-right:0}.sample-row .sample-posto{display:block;width:64px;height:64px;object-fit:contain;flex-shrink:0}
+.empty-state>.page-heading{justify-content:center}.empty-state .handwritten-heading img{object-position:center}
+@media(max-width:700px){.page-heading .collection-quota{width:70px;min-width:70px;max-width:70px;height:70px;min-height:70px;font-size:10px}.legal-navigation{gap:16px 24px}.sample-row .sample-posto{width:54px;height:54px}}

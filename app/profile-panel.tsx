@@ -1,4 +1,5 @@
 'use client';
+import PageTitle from './page-title';
 import ProfileCard,{favoriteLabels} from './profile-card';
 import {readProfileDetails,profileColors,profileThemes,favoriteFields} from '@/lib/profile-details';
 import {defaultStickerLayout} from '@/lib/sticker-layout';
@@ -21,7 +22,7 @@ export default function ProfilePanel({profile,friends,busy,signedIn,act,acquired
  async function choosePhoto(file?:File){if(!file)return;setPhotoError('');if(file.size>15*1024*1024){setPhotoError('写真は15MB以下で選んでください。');return;}setPhotoBusy(true);try{setIcon(await readProfilePhoto(file));}catch{setPhotoError('写真を読み込めませんでした。JPEG・PNGなど別の写真をお試しください。');}finally{setPhotoBusy(false);}}
 
  useEffect(()=>{setDetails(readProfileDetails(profile?.details));setNickname(profile?.nickname??'');setIcon(profile?.icon??'🐈');setBirthday((profile?.birthday??'').replace('-',''));},[profile?.nickname,profile?.icon,profile?.birthday,profile?.details]);
- if(!signedIn)return <Localized><div className="empty-state"><h2>フレンド</h2><p>Googleでログインすると、プロフィールとフレンド機能を利用できます。</p><a href="/api/auth/google">Googleでログイン</a></div></Localized>;
+ if(!signedIn)return <Localized><div className="empty-state"><div className="page-heading"><PageTitle headingKey="フレンド"/></div><p>Googleでログインすると、プロフィールとフレンド機能を利用できます。</p><a href="/api/auth/google">Googleでログイン</a></div></Localized>;
  const accepted=friends.filter(f=>f.status==='accepted');
  const themeLabels={stars:'星くず',gingham:'ギンガム',dots:'水玉',letter:'お手紙'};
  const colorLabels={lavender:'ラベンダー',sky:'空色',peach:'桃色',mint:'ミント',cream:'クリーム'};
