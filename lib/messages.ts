@@ -494,6 +494,8 @@ From {country}の、誰かさん|From someone in {country}|De quelqu'un · {coun
 笑った|Funny|Drôle|好笑|웃겨요
 怒り|Angry|En colère|生气|화나요
 ほっこり|Heartwarming|Réconfortant|暖心|따뜻해요
+明度|Brightness|Luminosité|明度|명도
+ペンの明度|Pen brightness|Luminosité du stylo|画笔明度|펜 명도
 `;
 export const messages: Record<string, readonly string[]> = Object.fromEntries(rows.trim().split('\n').map(row=>{const [key,...values]=row.split('|').map(s=>s.replace(/\\n/g,'\n'));return [key,values];}));
 Object.assign(messages,legalMessages);

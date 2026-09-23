@@ -238,3 +238,6 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline-color:#8f7aa8}
 .page-heading>div{min-width:0;flex:1}.sentence-tagline{max-width:100%;min-width:0}.sentence-tagline>span{display:block;white-space:nowrap}.diary-quota .closed-quota>span{display:block;white-space:nowrap}.gacha-panel>div{min-width:0}
 
 @media(max-width:700px){.page-heading:has(.sentence-tagline){display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:14px 10px}.page-heading:has(.sentence-tagline)>div{display:contents}.page-heading:has(.sentence-tagline) h1{grid-column:1;grid-row:1}.page-heading:has(.sentence-tagline)>.quota,.page-heading:has(.sentence-tagline)>svg{grid-column:2;grid-row:1}.page-heading .sentence-tagline{grid-column:1/-1;grid-row:2;margin:0}}
+
+.brightness-slider{height:12px;border-radius:20px;accent-color:var(--ink)}.brand .posto-brand-icon{border:0;background:transparent;box-shadow:none;transform:none}.posto-brand-icon img{display:block;width:100%;height:100%;object-fit:contain}
+.drawing-tools .brightness-slider{appearance:none;height:12px!important;border-radius:12px}

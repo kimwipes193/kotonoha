@@ -1,0 +1,5 @@
+# Posto face icon v2
+
+Created with the built-in image generation tool, using `public/mascot.png` as the character reference. The full generated image is `public/posto-face-source-v2.png`; resized delivery assets are `public/posto-face-v2.png` (256px header), `public/posto-favicon-v2.png` (64px) and `public/posto-apple-icon-v2.png` (180px). Versioned URLs prevent stale favicon caching.
+
+Prompt: Create a fresh favicon and website header icon of ONLY the FACE of this exact Posto cat mascot. Dark navy rounded cat head, one tall upright ear and the other clearly folded ear, huge cream oval eyes with small navy pupils looking slightly towards viewer, tiny peach nose, peach inner ears, two short whiskers on each side. Cheerful endearingly goofy expression, clean bold flat shapes legible at 32 pixels. Front facing head only, no body, no envelope, no bag, no text, no borders, no watermark. Center the head filling 88% of a square canvas, genuinely transparent background. Preserve identity of reference, simplify for icon use.
