@@ -13,4 +13,4 @@ export function drawingFrame(strokes:Stroke[],progress:number):Stroke[]{
  }
  return frame;
 }
-export function drawingDuration(strokes:Stroke[]){return Math.min(10000,Math.max(2500,strokes.reduce((n,s)=>n+s.points.length,0)*8));}
+export function drawingDuration(strokes:Stroke[]){return Math.min(10000,Math.max(2500,strokes.reduce((n,s)=>n+s.points.length,0)*8))/1.3;}

@@ -24,9 +24,11 @@ const box=(await api('alice')).data;
 assert.equal(box.received.length,1);assert.equal(box.today,1);assert.ok(box.collection.length>=1);
 assert.equal(box.received[0].region,'フランス');assert.equal(box.received[0].owner,undefined);
 const id=box.received[0].id;
-assert.equal((await api('bob',{action:'react',id,reaction:'🤍'})).status,404);
-assert.equal((await api('alice',{action:'react',id,reaction:'🤍'})).status,200);
-assert.equal((await api('alice')).data.received[0].reaction,'🤍');
+assert.equal((await api('bob',{action:'react',id,reaction:'☺️'})).status,404);
+assert.equal((await api('alice',{action:'react',id,reaction:'☺️'})).status,200);
+assert.equal((await api('alice')).data.received[0].reaction,'☺️');
+for(const reaction of ['😢','😂','😠','☺️']){assert.equal((await api('alice',{action:'react',id,reaction})).status,200);assert.equal((await api('alice')).data.received[0].reaction,reaction);}
+assert.equal((await api('alice',{action:'react',id,reaction:'🤍'})).status,400);
 assert.equal((await api('alice',{action:'report',id,reason:'その他'})).status,200);
 assert.equal((await api('alice')).data.received.length,0);
 Date.now=realNow;

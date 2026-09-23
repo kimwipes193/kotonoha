@@ -75,7 +75,7 @@ export async function POST(req:Request){
   const entry=await database.prepare('SELECT owner FROM entries WHERE id=? AND receiver=? AND flagged=0').bind(data.id,owner).first<{owner:string}>();
   if(!entry)return reply({error:'この日記は操作できません。'},404);
   if(data.action==='react'){
-   if(!['🤍','🌷','🫂','✨'].includes(data.reaction))return reply({error:'リアクションを選んでください。'},400);
+   if(!['😢','😂','😠','☺️'].includes(data.reaction))return reply({error:'リアクションを選んでください。'},400);
    await database.prepare('UPDATE entries SET reaction=? WHERE id=? AND receiver=?').bind(data.reaction,data.id,owner).run();
   }else if(data.action==='block'){
    await database.prepare('INSERT OR IGNORE INTO blocks(id,owner,target) VALUES(?,?,?)').bind(id,owner,entry.owner).run();

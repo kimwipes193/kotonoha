@@ -486,6 +486,14 @@ From {country}の、誰かさん|From someone in {country}|De quelqu'un · {coun
 写真を拡大|Enlarge photo|Agrandir la photo|放大照片|사진 확대
 写真|Photo|Photo|照片|사진
 写真を確認してください。|Please check the photo.|Veuillez vérifier la photo.|请检查照片。|사진을 확인해 주세요.
+タップで開封|Tap to open|Appuyer pour ouvrir|点击拆信|눌러서 열기
+全消去|Clear all|Tout effacer|全部清除|모두 지우기
+本日|Today|Aujourd’hui|今天|오늘
+1通受付中|1 letter welcome|1 lettre disponible|可寄1封信|1통 접수 중
+かなしい|Sad|Triste|难过|슬퍼요
+笑った|Funny|Drôle|好笑|웃겨요
+怒り|Angry|En colère|生气|화나요
+ほっこり|Heartwarming|Réconfortant|暖心|따뜻해요
 `;
 export const messages: Record<string, readonly string[]> = Object.fromEntries(rows.trim().split('\n').map(row=>{const [key,...values]=row.split('|').map(s=>s.replace(/\\n/g,'\n'));return [key,values];}));
 Object.assign(messages,legalMessages);
