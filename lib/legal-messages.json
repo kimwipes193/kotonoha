@@ -166,5 +166,11 @@
     "Nous enregistrons aussi les aliments, couleurs, lieux et œuvres préférés, le fond, la palette et la disposition des stickers du carnet. Ces éléments sont visibles uniquement par les amis acceptés et ne figurent pas dans les échanges anonymes.",
     "我们还保存资料册中喜欢的食物、颜色、地方、作品，以及背景、配色和贴纸位置。这些信息仅向已确认好友展示，不包含在匿名日记交换中。",
     "프로필북의 좋아하는 음식·색·장소·작품, 배경·배색, 스티커 배치도 저장하며 승인된 친구에게만 표시합니다. 익명 일기 교환에는 포함하지 않습니다."
+  ],
+  "DMで送信する写真も保存し、会話の相手にのみ表示します。写真は端末で縮小し、位置情報などの付加情報を除いて送信します。写真の内容は自動テキストチェックの対象外です。": [
+    "Photos sent in DMs are stored and shown only to the conversation partner. Photos are resized on your device and metadata such as location is removed before sending. Photo contents are not covered by automatic text checks.",
+    "Les photos envoyées en message privé sont conservées et visibles uniquement par votre interlocuteur. Elles sont redimensionnées sur votre appareil et leurs métadonnées, notamment de localisation, sont supprimées avant envoi. Leur contenu ne fait pas l’objet du contrôle automatique du texte.",
+    "私信中发送的照片也会保存，并仅向对话对象显示。照片在设备上缩小并移除位置等附加信息后发送。照片内容不属于自动文字检查范围。",
+    "DM으로 보낸 사진도 저장되며 대화 상대에게만 표시됩니다. 사진은 기기에서 축소되고 위치 정보 등의 메타데이터가 제거된 후 전송됩니다. 사진 내용은 자동 텍스트 검사 대상이 아닙니다."
   ]
 }

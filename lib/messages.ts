@@ -480,6 +480,12 @@ Googleログインに失敗しました。もう一度お試しください。|G
 {country}の、誰かさん|Someone in {country}|Une personne · {country}|来自{country}的某个人|{country}의 누군가
 From {country}の、誰かさん|From someone in {country}|De quelqu'un · {country}|来自{country}的某个人|{country}의 누군가로부터
 全{count}種類・各約{chance}% ／ 重複あり。特典ステッカーは行動で獲得。|{count} types · About {chance}% each · Duplicates possible. Bonus stickers are earned through actions.|{count} types · Environ {chance}% chacun · Doublons possibles. Autocollants bonus gagnés par vos actions.|共 {count} 种 · 每种约 {chance}% · 可能重复。额外贴纸通过行动获得。|총 {count}종 · 각 약 {chance}% · 중복 가능. 특별 스티커는 행동으로 획득해요.
+写真を選ぶ|Choose a photo|Choisir une photo|选择照片|사진 선택
+送信する写真|Photo to send|Photo à envoyer|待发送的照片|보낼 사진
+写真を外す|Remove photo|Retirer la photo|移除照片|사진 제거
+写真を拡大|Enlarge photo|Agrandir la photo|放大照片|사진 확대
+写真|Photo|Photo|照片|사진
+写真を確認してください。|Please check the photo.|Veuillez vérifier la photo.|请检查照片。|사진을 확인해 주세요.
 `;
 export const messages: Record<string, readonly string[]> = Object.fromEntries(rows.trim().split('\n').map(row=>{const [key,...values]=row.split('|').map(s=>s.replace(/\\n/g,'\n'));return [key,values];}));
 Object.assign(messages,legalMessages);

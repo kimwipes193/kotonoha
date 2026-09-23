@@ -1,0 +1,1 @@
+ALTER TABLE `friend_messages` ADD `photo` text;

@@ -12,7 +12,7 @@ assert.throws(()=>normalizeProfilePhoto('data:image/jpeg;base64,'+'A'.repeat(500
 console.log('PASS: browser JPEG metadata normalization, EXIF/XMP removal, preserved image payload, malformed input and dimension bounds');
 
 const moduleText=readFileSync('lib/profile-image.ts','utf8')+'\n'+readFileSync('lib/read-profile-photo.ts','utf8').replace(/^import .*$/m,'');
-const {readProfilePhoto}=await import('data:text/javascript;base64,'+Buffer.from(transformSync(moduleText,{loader:'ts',format:'esm'}).code).toString('base64'));
+const {readProfilePhoto,readMessagePhoto}=await import('data:text/javascript;base64,'+Buffer.from(transformSync(moduleText,{loader:'ts',format:'esm'}).code).toString('base64'));
 let fallbackReads=0,revoked=0;let savedImage;
 globalThis.Image=class{naturalWidth=4000;naturalHeight=3000;set src(value){if(!value)return;queueMicrotask(()=>value.startsWith('blob:')?this.onerror():this.onload());}};
 globalThis.FileReader=class{readAsDataURL(){fallbackReads++;this.result='data:image/jpeg;base64,test';this.onload();}};
@@ -21,3 +21,5 @@ const canvas={width:0,height:0,getContext:()=>({fillRect(){},drawImage(...args){
 globalThis.document={createElement:()=>canvas};
 assert.equal(await readProfilePhoto({}),original);assert.equal(fallbackReads,1);assert.equal(revoked,1);assert.deepEqual(savedImage.slice(1),[500,0,3000,3000,0,0,256,256]);assert.equal(canvas.width,0);assert.equal(canvas.height,0);
 console.log('PASS: failed blob URL falls back to file reader; crop, metadata removal and resource cleanup');
+
+assert.equal(await readMessagePhoto({size:10000}),original);assert.deepEqual(savedImage.slice(1),[0,0,1280,960]);assert.equal(canvas.width,0);assert.equal(canvas.height,0);assert.equal(revoked,2);await assert.rejects(readMessagePhoto({size:16*1024*1024}));console.log('PASS: DM photo preserves aspect ratio, limits dimensions, strips metadata and cleans up');

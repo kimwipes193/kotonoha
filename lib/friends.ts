@@ -12,7 +12,7 @@ export async function ensureProfile(database:D1Database,owner:string){await data
 export async function friendState(database:D1Database,owner:string){
  const profile=await ensureProfile(database,owner);
  const relations=await database.prepare(`SELECT f.id,f.status,f.requester=? AS outgoing,p.code,
- CASE WHEN f.status='accepted' THEN (SELECT body FROM friend_messages WHERE friendship=f.id ORDER BY created DESC,id DESC LIMIT 1) END lastMessageBody,
+ CASE WHEN f.status='accepted' THEN (SELECT CASE WHEN photo IS NOT NULL AND body='' THEN '📷' ELSE body END FROM friend_messages WHERE friendship=f.id ORDER BY created DESC,id DESC LIMIT 1) END lastMessageBody,
  CASE WHEN f.status='accepted' THEN (SELECT created FROM friend_messages WHERE friendship=f.id ORDER BY created DESC,id DESC LIMIT 1) END lastMessageCreated,
  CASE WHEN f.status='accepted' THEN (SELECT owner FROM friend_messages WHERE friendship=f.id ORDER BY created DESC,id DESC LIMIT 1) END lastMessageOwner,
  CASE WHEN f.status='accepted' THEN (SELECT MAX(e.created) FROM friend_entries e WHERE e.friendship=f.id AND e.cancelled=0 AND (e.owner=? OR e.matched IS NOT NULL)) END lastDiaryCreated,

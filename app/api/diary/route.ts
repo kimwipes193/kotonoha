@@ -38,7 +38,7 @@ export async function POST(req:Request){
  try{
  const owner=await getUser(req);if(!owner)return reply({error:'保存・交換にはログインしてください。'},401);
  if(req.headers.get('origin')!==new URL(req.url).origin)return reply({error:'操作元を確認できません。'},403);
- const raw=await req.text();if(raw.length>150000)return reply({error:'入力が長すぎます。'},400);
+ const raw=await req.text();if(raw.length>400000)return reply({error:'入力が長すぎます。'},400);
  let data:any;try{data=JSON.parse(raw);}catch{return reply({error:'入力を確認してください。'},400);}
  const database=db(),day=dayKey(),id=crypto.randomUUID();
  if(typeof data.action==='string'&&(data.action.startsWith('friend-')||data.action==='profile-save'))return await friendAction(database,owner,data,requestCountry(req));

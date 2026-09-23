@@ -10,7 +10,7 @@ import {profileIcons} from '@/lib/friends';
 import {Localized,useLanguage} from './language';
 export type Profile={details?:string;code:string;nickname:string;icon:string;birthday:string;isBirthday:boolean;birthdayGift:boolean};
 export type Friend={details?:string;id:string;status:string;outgoing:boolean;code:string;nickname?:string;icon?:string;birthday?:string;lastMessageBody?:string;lastMessageCreated?:number;lastMessageMine?:boolean;lastDiaryCreated?:number;unread?:number};
-export default function ProfilePanel({profile,friends,busy,signedIn,act,acquired=[]}:{profile?:Profile;acquired?:string[];friends:Friend[];busy:boolean;signedIn:boolean;act:(d:Record<string,unknown>)=>Promise<any>}){
+export default function ProfilePanel({profile,friends,busy,signedIn,act,acquired=[],targetId='self'}:{profile?:Profile;targetId?:string;acquired?:string[];friends:Friend[];busy:boolean;signedIn:boolean;act:(d:Record<string,unknown>)=>Promise<any>}){
  const {locale}=useLanguage();const [nickname,setNickname]=useState(''),[icon,setIcon]=useState('🐈'),[birthday,setBirthday]=useState(''),[code,setCode]=useState('');
  const [details,setDetails]=useState(()=>readProfileDetails(profile?.details));
  const [editing,setEditing]=useState(false);
@@ -27,9 +27,9 @@ export default function ProfilePanel({profile,friends,busy,signedIn,act,acquired
  const colorLabels={lavender:'ラベンダー',sky:'空色',peach:'桃色',mint:'ミント',cream:'クリーム'};
  function beginEdit(){setDetails(readProfileDetails(profile?.details));setNickname(profile?.nickname||'');setIcon(profile?.icon||'🐈');setBirthday((profile?.birthday||'').replace('-',''));setEditing(true);}
  return <Localized><div className="friends-page"><div className="page-heading"><h1 className="handwritten-heading" data-i18n-skip>{locale==='ja'?<img src="/heading-profile.svg" alt="プロフィール"/>:translate('プロフィール',locale)}</h1></div>
- <ProfilePager labels={[nickname||translate('わたし',locale),...accepted.map(f=>f.nickname||f.code)]} ids={['self',...accepted.map(f=>f.id)]}>
+ <ProfilePager targetId={targetId} labels={[nickname||translate('わたし',locale),...accepted.map(f=>f.nickname||f.code)]} ids={['self',...accepted.map(f=>f.id)]}>
  <div><ProfileCard nickname={editing?nickname:profile?.nickname} icon={editing?icon:profile?.icon} birthday={editing&&birthday.length===4?birthday.slice(0,2)+'-'+birthday.slice(2):profile?.birthday} details={editing?details:readProfileDetails(profile?.details)} disabled={busy||photoBusy} onStickerChange={editing?(index,layout)=>setDetails(d=>({...d,stickers:d.stickers.map((s,i)=>i===index?{...s,layout}:s)})):undefined}/><button className="profile-edit-link" onClick={beginEdit} disabled={editing}>プロフィールを編集</button></div>
- {accepted.map(f=><ProfileCard key={f.id} nickname={f.nickname} icon={f.icon} birthday={f.birthday} details={readProfileDetails(f.details)}/>)}</ProfilePager>
+ {accepted.map(f=><ProfileCard isFriend key={f.id} nickname={f.nickname} icon={f.icon} birthday={f.birthday} details={readProfileDetails(f.details)}/>)}</ProfilePager>
  {editing&&<section className="profile-card profile-editor"><h2>わたしらしく飾る</h2><form onSubmit={async e=>{e.preventDefault();if(!photoBusy&&await act({action:'profile-save',nickname,icon,birthday,details}))setEditing(false);}}>
  <label className="photo-upload">{photoBusy?'写真を準備しています…':'写真フォルダから選ぶ'}<input className="sr-only" type="file" accept="image/*" aria-label="プロフィール写真を選ぶ" disabled={busy||photoBusy} onChange={async e=>{const input=e.currentTarget;await choosePhoto(input.files?.[0]);input.value='';}}/></label>{photoError&&<p role="alert" className="dialog-error">{photoError}</p>}
  <details className="profile-emoji-picker"><summary>絵文字アイコンもえらべるよ</summary><div className="profile-icons" role="group" aria-label="アイコン">{profileIcons.map(i=><button type="button" key={i} disabled={busy||photoBusy} aria-label={i} aria-pressed={icon===i} onClick={()=>setIcon(i)}>{i}</button>)}</div></details>
