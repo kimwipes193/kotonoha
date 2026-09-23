@@ -180,7 +180,10 @@ Googleでログインすると、プロフィールとフレンド機能を利�
 封筒を開けて日記を読む|Open the envelope and read|Ouvrir l'enveloppe et lire|打开信封阅读日记|봉투를 열어 일기 읽기
 封筒を開けています…|Opening your letter…|Ouverture de la lettre…|正在打开信封…|봉투를 여는 중…
 とん、とタップで開封。|A little tap to open.|Un petit clic pour ouvrir.|轻轻一点，拆开来信。|톡, 눌러서 열어보세요.
-どこかの誰かが、今日を分けてくれました。|Someone, somewhere, shared a little of their day.|Quelqu'un, quelque part, partage un peu de sa journée.|远方的某个人，与你分享了今天。|어딘가의 누군가가 오늘을 나누어 주었어요.
+{name}が今日を分けてくれました。|{name} shared a little of their day.|{name} a partagé un peu de sa journée.|{name}与你分享了今天。|{name}님이 오늘을 나누어 주었어요.
+{name}からの日記|A diary from {name}|Un journal de {name}|来自{name}的日记|{name}님에게서 온 일기
+{name}に送る日記|A diary to {name}|Un journal pour {name}|寄给{name}的日记|{name}님에게 보내는 일기
+どこかの誰かが今日を分けてくれました。|Someone, somewhere, shared a little of their day.|Quelqu'un, quelque part, partage un peu de sa journée.|远方的某个人，与你分享了今天。|어딘가의 누군가가 오늘을 나누어 주었어요.
 あなた宛てのお便りです。|A letter for you.|Une lettre pour vous.|有一封给你的信。|당신에게 온 편지예요.
 封筒をタップすると、日記がひらきます。|Tap the envelope to reveal the diary.|Touchez l'enveloppe pour découvrir le journal.|轻点信封，即可打开日记。|봉투를 누르면 일기가 열려요.
 まだ開けていないお便り|An unopened letter|Une lettre à découvrir|尚未拆开的来信|아직 열지 않은 편지
@@ -263,7 +266,7 @@ Googleログインは設定準備中|Google sign-in isn't ready yet|Connexion Go
 こんなお便りが届きます|A peek inside the mailbox|Un aperçu de la boîte aux lettres|你可能收到这样的来信|이런 편지가 도착해요
 架空の日記の見本|Fictional sample diary|Exemple de journal fictif|虚构日记示例|가상의 일기 예시
 「誰かのためじゃなく、自分のために。」|“Not for someone else. For me.”|« Pas pour quelqu'un d'autre. Pour moi. »|“不是为别人，是为自己。”|“누군가를 위해서가 아니라, 나를 위해서.”
-フランスの、誰かさんから|From someone in France|De quelqu'un en France|来自法国的某个人|프랑스의 누군가로부터
+フランスの誰かさんから|From someone in France|De quelqu'un en France|来自法国的某个人|프랑스의 누군가로부터
 誰かの「なんでもない」が、あなたの宝物になる。|Someone's ordinary day becomes your little treasure.|Une journée ordinaire devient votre petit trésor.|某个人的平凡日常，成为你的珍藏。|누군가의 평범한 하루가 당신의 보물이 돼요.
 届いた日記|Received|Reçus|收到的日记|받은 일기
 送った日記|Sent|Envoyés|寄出的日记|보낸 일기
@@ -477,8 +480,8 @@ Googleログインに失敗しました。もう一度お試しください。|G
 閉じる|Close|Fermer|关闭|닫기
 言語|Language|Langue|语言|언어
 所持数 {count} 枚|Owned: {count}|En stock : {count}|持有 {count} 张|보유 {count}장
-{country}の、誰かさん|Someone in {country}|Une personne · {country}|来自{country}的某个人|{country}의 누군가
-From {country}の、誰かさん|From someone in {country}|De quelqu'un · {country}|来自{country}的某个人|{country}의 누군가로부터
+{country}の誰かさん|Someone in {country}|Une personne · {country}|来自{country}的某个人|{country}의 누군가
+From {country}の誰かさん|From someone in {country}|De quelqu'un · {country}|来自{country}的某个人|{country}의 누군가로부터
 全{count}種類・各約{chance}% ／ 重複あり。特典ステッカーは行動で獲得。|{count} types · About {chance}% each · Duplicates possible. Bonus stickers are earned through actions.|{count} types · Environ {chance}% chacun · Doublons possibles. Autocollants bonus gagnés par vos actions.|共 {count} 种 · 每种约 {chance}% · 可能重复。额外贴纸通过行动获得。|총 {count}종 · 각 약 {chance}% · 중복 가능. 특별 스티커는 행동으로 획득해요.
 写真を選ぶ|Choose a photo|Choisir une photo|选择照片|사진 선택
 送信する写真|Photo to send|Photo à envoyer|待发送的照片|보낼 사진
