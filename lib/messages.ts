@@ -498,6 +498,18 @@ From {country}の誰かさん|From someone in {country}|De quelqu'un · {country
 怒り|Angry|En colère|生气|화나요
 ほっこり|Heartwarming|Réconfortant|暖心|따뜻해요
 明度|Brightness|Luminosité|明度|명도
+言語とアカウント設定|Language and account settings|Langue et compte|语言与账号设置|언어 및 계정 설정
+通知履歴|Notifications|Notifications|通知记录|알림 기록
+日記の送受信とガチャの受け取り履歴|Diary exchanges and gift history|Journaux échangés et cadeaux reçus|日记收发与礼物领取记录|일기 교환 및 선물 수령 기록
+ログインすると通知履歴を確認できます。|Log in to see your notifications.|Connectez-vous pour voir vos notifications.|登录后可查看通知记录。|로그인하면 알림 기록을 볼 수 있어요.
+まだ通知はありません。|No notifications yet.|Aucune notification pour le moment.|暂无通知。|아직 알림이 없어요.
+日記を投函しました|Diary sent|Journal envoyé|已寄出日记|일기를 보냈어요
+日記が届いています|A diary has arrived|Un journal est arrivé|收到了一封日记|일기가 도착했어요
+フレンドに日記を投函しました|Diary sent to a friend|Journal envoyé à un ami|已向好友寄出日记|친구에게 일기를 보냈어요
+フレンドの日記が届いています|A friend's diary has arrived|Le journal d'un ami est arrivé|收到好友的日记|친구의 일기가 도착했어요
+ガチャの贈りものを受け取りました|Gift received|Cadeau reçu|已领取抽选礼物|뽑기 선물을 받았어요
+日記の投稿日|Diary posted on|Date du journal|日记投递日期|일기 작성일
+便箋|Stationery|Papier à lettres|信纸|편지지
 ペンの明度|Pen brightness|Luminosité du stylo|画笔明度|펜 명도
 `;
 export const messages: Record<string, readonly string[]> = Object.fromEntries(rows.trim().split('\n').map(row=>{const [key,...values]=row.split('|').map(s=>s.replace(/\\n/g,'\n'));return [key,values];}));

@@ -27,11 +27,11 @@ export async function GET(req:Request){
  const [sent,received,collection,today,bonus]=await Promise.all([
  database.prepare('SELECT id,body,mood,region,paper,sticker,sticker_layout,stickers,drawing,font,created,receiver IS NOT NULL AS delivered,reaction FROM entries WHERE owner=? ORDER BY created DESC LIMIT 100').bind(owner).all(),
  database.prepare('SELECT id,body,mood,region,paper,sticker,sticker_layout,stickers,drawing,font,created,reaction FROM entries e WHERE receiver=? AND flagged=0 AND NOT EXISTS(SELECT 1 FROM blocks b WHERE b.owner=? AND b.target=e.owner) ORDER BY created DESC LIMIT 100').bind(owner,owner).all(),
- database.prepare("SELECT item,consumed_by FROM rewards WHERE owner=? AND kind<>'bonus'").bind(owner).all(),
+ database.prepare("SELECT id,day,kind,item,consumed_by FROM rewards WHERE owner=? AND kind<>'bonus'").bind(owner).all(),
  database.prepare('SELECT COUNT(*) AS count FROM entries WHERE owner=? AND day=?').bind(owner,day).first<{count:number}>(),
  database.prepare('SELECT kind FROM rewards WHERE owner=? AND day=?').bind(owner,day).all<{kind:string}>()
  ]);
- return reply({...await friendState(database,owner),region,progress,signedIn:true,sent:sent.results,received:received.results,discovered:[...new Set(collection.results.map((r:any)=>r.item))],collection:collection.results.filter((r:any)=>!r.consumed_by).map((r:any)=>r.item),today:today?.count??0,bonus:bonus.results.some(r=>r.kind==='bonus'),drawn:bonus.results.some(r=>r.kind==='gacha')});
+ return reply({...await friendState(database,owner),region,progress,rewardHistory:collection.results.map(({id,day,kind,item})=>({id,day,kind,item})),signedIn:true,sent:sent.results,received:received.results,discovered:[...new Set(collection.results.map((r:any)=>r.item))],collection:collection.results.filter((r:any)=>!r.consumed_by).map((r:any)=>r.item),today:today?.count??0,bonus:bonus.results.some(r=>r.kind==='bonus'),drawn:bonus.results.some(r=>r.kind==='gacha')});
  }catch(e){console.error('Diary load failed',e);return reply({error:'日記帳を読み込めませんでした。少し待って再試行してください。'},503);}
 }
 export async function POST(req:Request){

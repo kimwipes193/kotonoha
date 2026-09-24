@@ -19,6 +19,7 @@ assert.equal((await api('alice',diary)).status,409);
 assert.equal((await api('bob',{...diary,region:'偽の国'})).status,200);
 assert.equal((await api('alice')).data.received.length,0);
 assert.equal((await api('alice',{action:'gacha'})).status,200);
+const giftHistory=(await api('alice')).data.rewardHistory;assert.equal(giftHistory.filter(r=>r.kind==='gacha').length,1);assert.ok(giftHistory[0].id&&giftHistory[0].day&&giftHistory[0].item);assert.equal((await api('bob')).data.rewardHistory.filter(r=>r.kind==='gacha').length,0);
 const savedError=console.error;console.error=()=>{};try{assert.equal((await api('alice',{action:'gacha'})).status,409);}finally{console.error=savedError;}
 const realNow=Date.now;Date.now=()=>realNow()+31000;
 const box=(await api('alice')).data;
