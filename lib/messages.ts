@@ -1,6 +1,11 @@
 import legalMessages from './legal-messages.json';
 // Columns: Japanese source | English | French | Simplified Chinese | Korean.
 const rows = String.raw`
+ニックネームで検索|Search by nickname|Rechercher par pseudo|搜索昵称|닉네임으로 검색
+一致するフレンドが見つかりません。|No friends match your search.|Aucun ami correspondant.|未找到匹配的好友。|일치하는 친구가 없습니다.
+送信取消|Unsend|Annuler l’envoi|撤回|전송 취소
+送信を取り消しました|Message unsent|Envoi annulé|消息已撤回|전송이 취소되었습니다
+このメッセージの送信を取り消しますか？相手の画面からも削除されます。|Unsend this message? It will also be removed for the recipient.|Annuler cet envoi ? Le message sera aussi supprimé chez le destinataire.|撤回此消息？对方也将无法查看。|전송을 취소할까요? 상대방의 화면에서도 삭제됩니다.
 更新日：2026年9月23日|Updated: September 23, 2026|Mise à jour : 23 septembre 2026|更新日期：2026年9月23日|업데이트: 2026년 9월 23일
 キャンセル|Cancel|Annuler|取消|취소
 好きな食べ物|Favorite food|Plat préféré|喜欢的食物|좋아하는 음식

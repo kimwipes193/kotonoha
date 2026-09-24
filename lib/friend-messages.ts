@@ -16,6 +16,13 @@ export async function messageAction(database:D1Database,owner:string,target:stri
   if(!saved||saved.friendship!==friendship||saved.body!==data.body.trim()||saved.photo!==photo)return out({error:'メッセージを確認してください。'},409);
   return out({id:saved.id});
  }
+ if(data.action==='friend-message-unsend'){
+  const id=typeof data.id==='string'?data.id:'';
+  const row=await database.prepare('SELECT id FROM friend_messages WHERE id=? AND friendship=? AND owner=?').bind(id,friendship,owner).first();
+  if(!row)return out({error:'メッセージを確認してください。'},404);
+  await database.prepare("UPDATE friend_messages SET body='',photo=NULL,unsent_at=COALESCE(unsent_at,?) WHERE id=? AND friendship=? AND owner=?").bind(Date.now(),id,friendship,owner).run();
+  return out({id});
+ }
  if(data.action==='friend-photo'){
   const row=await database.prepare('SELECT photo FROM friend_messages WHERE id=? AND friendship=? AND (owner=? OR target=?)').bind(typeof data.id==='string'?data.id:'',friendship,owner,owner).first<{photo:string|null}>();
   return row?.photo?out({photo:row.photo}):out({error:'写真を確認してください。'},404);
@@ -24,12 +31,13 @@ export async function messageAction(database:D1Database,owner:string,target:stri
   const cursor=data.before;
   if(cursor!==undefined&&(!cursor||!Number.isSafeInteger(cursor.created)||cursor.created<0||typeof cursor.key!=='string'||cursor.key.length>100))return out({error:'履歴を確認してください。'},400);
   const rows=await database.prepare(`SELECT * FROM (
-   SELECT 'message' kind,'m:'||id key,id,owner=? mine,body,photo IS NOT NULL hasPhoto,created,read_at,1 ready FROM friend_messages WHERE friendship=?
+   SELECT 'message' kind,'m:'||id key,id,owner=? mine,body,photo IS NOT NULL hasPhoto,created,read_at,unsent_at,1 ready FROM friend_messages WHERE friendship=?
    UNION ALL
-   SELECT 'diary' kind,'d:'||id key,id,owner=? mine,NULL body,0 hasPhoto,created,read_at,matched IS NOT NULL ready FROM friend_entries WHERE friendship=? AND cancelled=0 AND (owner=? OR matched IS NOT NULL)
+   SELECT 'diary' kind,'d:'||id key,id,owner=? mine,NULL body,0 hasPhoto,created,read_at,NULL unsent_at,matched IS NOT NULL ready FROM friend_entries WHERE friendship=? AND cancelled=0 AND (owner=? OR matched IS NOT NULL)
   ) WHERE (? IS NULL OR created<? OR (created=? AND key<?)) ORDER BY created DESC,key DESC LIMIT 51`).bind(owner,friendship,owner,friendship,owner,cursor?.created??null,cursor?.created??null,cursor?.created??null,cursor?.key??'').all();
   const items=rows.results.slice(0,50);const last=items.at(-1);
-  return out({items:items.reverse(),older:rows.results.length>50&&last?{created:last.created,key:last.key}:null});
+  const unsent=await database.prepare('SELECT id,unsent_at FROM friend_messages WHERE friendship=? AND unsent_at IS NOT NULL').bind(friendship).all();
+  return out({unsent:unsent.results,items:items.reverse(),older:rows.results.length>50&&last?{created:last.created,key:last.key}:null});
  }
  if(data.action==='friend-message-read'){
   const row=await database.prepare('SELECT created,id FROM friend_messages WHERE id=? AND friendship=? AND target=?').bind(typeof data.id==='string'?data.id:'',friendship,owner).first<{created:number;id:string}>();
