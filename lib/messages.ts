@@ -1,6 +1,10 @@
 import legalMessages from './legal-messages.json';
 // Columns: Japanese source | English | French | Simplified Chinese | Korean.
 const rows = String.raw`
+使い方|Guide|Guide|使用方法|사용 안내
+使い方と日記のヒント|Guide and diary ideas|Guide et idées de journal|使用指南与日记灵感|사용 안내와 일기 아이디어
+はじめてのお便りに|For your first letter|Pour votre première lettre|写下第一封信|첫 편지를 위해
+ことのはについて・お問い合わせ|About and contact|À propos et contact|关于与联系|소개 및 문의
 ニックネームで検索|Search by nickname|Rechercher par pseudo|搜索昵称|닉네임으로 검색
 一致するフレンドが見つかりません。|No friends match your search.|Aucun ami correspondant.|未找到匹配的好友。|일치하는 친구가 없습니다.
 送信取消|Unsend|Annuler l’envoi|撤回|전송 취소
