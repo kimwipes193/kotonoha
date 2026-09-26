@@ -26,3 +26,5 @@ Sources checked:
 - https://support.google.com/adsense/answer/7299563?hl=ja
 
 Validation: typecheck, full test suite, build; public URLs and ads.txt return HTTP 200. Public guide/about text is present in server HTML without login. No ad-serving scripts are included in the app.
+
+Resubmission: selected the policy-compliance confirmation and submitted the application in AdSense on 2026-09-27. The rejection panel was replaced with '有効化に必要な手順が完了しました' and 'サイトをリンクしていただきありがとうございます' for kotonoha-post.pages.dev. This confirms resubmission, not approval.
