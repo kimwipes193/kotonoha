@@ -1,11 +1,14 @@
 'use client';
 
-import {useEffect,useState,type ReactNode} from 'react';
+import {useEffect,useState,useRef,type ReactNode} from 'react';
 import {digitPaths,digitCell,digitTop,digitHeight} from './doughnut-digits';
 
 export function LoadingScreen({progress=0,opening=false}:{progress?:number;opening?:boolean}){
+ const frame=useRef<SVGSVGElement>(null);
+ const [size,setSize]=useState({width:1000,height:600});
+ useEffect(()=>{const node=frame.current;if(!node)return;const observer=new ResizeObserver(([entry])=>{if(entry.contentRect.width&&entry.contentRect.height)setSize({width:entry.contentRect.width,height:entry.contentRect.height});});observer.observe(node);return()=>observer.disconnect();},[]);
  return <div className={'arrival-screen'+(opening?' is-opening':'')}>
-  <svg className="arrival-frame" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true"><rect x="3" y="3" width="994" height="594" rx="30" pathLength="100" strokeDasharray="100" strokeDashoffset={100-progress}/></svg>
+  <svg ref={frame} className="arrival-frame" viewBox={`0 0 ${size.width} ${size.height}`} aria-hidden="true"><rect x="3" y="3" width={Math.max(1,size.width-6)} height={Math.max(1,size.height-6)} rx="40" ry="40" pathLength="100" strokeDasharray="100" strokeDashoffset={100-progress}/></svg>
   <div className="arrival-center"><img src="/kotonoha-chika.svg" alt="ことのは" width="360" height="80"/><span className="arrival-subtitle">ONE DAY, ONE CONNECTION.</span><div className="arrival-progress" role="progressbar" aria-label="Loading" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress}><span>LOADING</span><strong className="doughnut-counter"><svg viewBox={`0 ${digitTop} ${digitCell*3} ${digitHeight}`} aria-hidden="true">{String(Math.round(progress)).padStart(3,'0').split('').map((digit,i)=><path key={i} fill="currentColor" transform={`translate(${i*digitCell},0)`} d={digitPaths[digit]}/>)}</svg></strong><small>%</small></div></div>
  </div>;
 }

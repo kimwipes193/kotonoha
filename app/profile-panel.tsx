@@ -22,12 +22,12 @@ export default function ProfilePanel({profile,friends,busy,signedIn,act,acquired
  async function choosePhoto(file?:File){if(!file)return;setPhotoError('');if(file.size>15*1024*1024){setPhotoError('写真は15MB以下で選んでください。');return;}setPhotoBusy(true);try{setIcon(await readProfilePhoto(file));}catch{setPhotoError('写真を読み込めませんでした。JPEG・PNGなど別の写真をお試しください。');}finally{setPhotoBusy(false);}}
 
  useEffect(()=>{setDetails(readProfileDetails(profile?.details));setNickname(profile?.nickname??'');setIcon(profile?.icon??'🐈');setBirthday((profile?.birthday??'').replace('-',''));},[profile?.nickname,profile?.icon,profile?.birthday,profile?.details]);
- if(!signedIn)return <Localized><div className="empty-state"><div className="page-heading"><PageTitle headingKey="フレンド"/></div><p>Googleでログインすると、プロフィールとフレンド機能を利用できます。</p><a href="/api/auth/google">Googleでログイン</a></div></Localized>;
+ if(!signedIn)return <Localized><div className="empty-state"><div className="page-heading"><PageTitle headingKey="プロフィール"/></div><p>Googleでログインすると、プロフィールとフレンド機能を利用できます。</p><a href="/api/auth/google">Googleでログイン</a></div></Localized>;
  const accepted=friends.filter(f=>f.status==='accepted');
  const themeLabels={stars:'星くず',gingham:'ギンガム',dots:'水玉',letter:'お手紙'};
  const colorLabels={lavender:'ラベンダー',sky:'空色',peach:'桃色',mint:'ミント',cream:'クリーム'};
  function beginEdit(){setDetails(readProfileDetails(profile?.details));setNickname(profile?.nickname||'');setIcon(profile?.icon||'🐈');setBirthday((profile?.birthday||'').replace('-',''));setEditing(true);}
- return <Localized><div className="friends-page"><div className="page-heading"><h1 className="handwritten-heading" data-i18n-skip>{locale==='ja'?<img src="/heading-profile.svg" alt="プロフィール"/>:translate('プロフィール',locale)}</h1></div>
+ return <Localized><div className="friends-page"><div className="page-heading"><PageTitle headingKey="プロフィール"/></div>
  <ProfilePager targetId={targetId} labels={[nickname||translate('わたし',locale),...accepted.map(f=>f.nickname||f.code)]} ids={['self',...accepted.map(f=>f.id)]}>
  <div><ProfileCard nickname={editing?nickname:profile?.nickname} icon={editing?icon:profile?.icon} birthday={editing&&birthday.length===4?birthday.slice(0,2)+'-'+birthday.slice(2):profile?.birthday} details={editing?details:readProfileDetails(profile?.details)} disabled={busy||photoBusy} onStickerChange={editing?(index,layout)=>setDetails(d=>({...d,stickers:d.stickers.map((s,i)=>i===index?{...s,layout}:s)})):undefined}/><button className="profile-edit-link" onClick={beginEdit} disabled={editing}>プロフィールを編集</button></div>
  {accepted.map(f=><ProfileCard isFriend key={f.id} nickname={f.nickname} icon={f.icon} birthday={f.birthday} details={readProfileDetails(f.details)}/>)}</ProfilePager>
