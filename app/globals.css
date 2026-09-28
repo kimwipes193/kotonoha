@@ -280,7 +280,7 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline-color:#8f7aa8}
 /* Desktop icon rail: expand over the content without shifting the diary. */
 @media(min-width:701px){
  .workspace{display:grid!important;grid-template-columns:84px minmax(0,1fr)!important;align-items:start}
- .workspace>.sidebar{position:sticky;top:0;align-self:start;z-index:35;width:84px;min-height:100dvh;padding:24px 12px;border-radius:0;overflow:hidden;box-shadow:none;transition:width .28s cubic-bezier(.22,.8,.25,1),box-shadow .28s}
+ .workspace>.sidebar{position:sticky;top:0;align-self:start;z-index:35;width:84px;min-height:100dvh;padding:24px 12px;border-radius:0;overflow:hidden;box-shadow:none;transition:width .46s cubic-bezier(.22,1,.36,1),box-shadow .46s ease}
  .workspace>.sidebar:hover,.workspace>.sidebar:focus-within{width:244px;box-shadow:12px 0 24px #211f3020}
  .workspace>.sidebar .side-label,.workspace>.sidebar .side-bottom{display:none}
  .workspace>.sidebar .main-nav{display:flex!important;flex-direction:column!important;gap:12px!important;width:100%;align-items:stretch}
@@ -292,10 +292,10 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline-color:#8f7aa8}
  .workspace>.sidebar .nav-symbol{display:flex;align-items:center;justify-content:center;flex:0 0 32px;width:32px;height:36px;transform:none!important}
  .workspace>.sidebar .nav-symbol>svg{width:25px;height:25px}
  .workspace>.sidebar .nav-symbol .profile-avatar{width:30px;height:30px;font-size:22px;flex-shrink:0;border:0}
- .workspace>.sidebar .nav-label{display:block;position:absolute;left:62px;white-space:nowrap;opacity:0;transform:translateX(-8px);transition:opacity .18s,transform .28s;pointer-events:none}
- .workspace>.sidebar .nav-count{position:absolute;right:12px;opacity:0;transition:opacity .18s;pointer-events:none}
- .workspace>.sidebar:hover .nav-label,.workspace>.sidebar:focus-within .nav-label{opacity:1;transform:translateX(0);transition-delay:.07s}
- .workspace>.sidebar:hover .nav-count,.workspace>.sidebar:focus-within .nav-count{opacity:1;transition-delay:.07s}
+ .workspace>.sidebar .nav-label{display:block;position:absolute;left:62px;white-space:nowrap;opacity:0;transform:translateX(-6px);transition:opacity .14s ease-out,transform .38s cubic-bezier(.22,1,.36,1);pointer-events:none}
+ .workspace>.sidebar .nav-count{position:absolute;left:186px;right:auto;opacity:0;transition:opacity .14s ease-out;pointer-events:none}
+ .workspace>.sidebar:hover .nav-label,.workspace>.sidebar:focus-within .nav-label{opacity:1;transform:translateX(0);transition:opacity .28s ease-out .1s,transform .38s cubic-bezier(.22,1,.36,1) .08s}
+ .workspace>.sidebar:hover .nav-count,.workspace>.sidebar:focus-within .nav-count{opacity:1;transition:opacity .28s ease-out .14s}
  .workspace>.sidebar .main-nav [role=tab]:focus-visible{outline-offset:-3px}
 }
-@media(min-width:701px) and (prefers-reduced-motion:reduce){.workspace>.sidebar,.workspace>.sidebar .nav-label,.workspace>.sidebar .nav-count{transition:none}}
+@media(min-width:701px) and (prefers-reduced-motion:reduce){.workspace>.sidebar,.workspace>.sidebar .nav-label,.workspace>.sidebar .nav-count,.workspace>.sidebar:hover .nav-label,.workspace>.sidebar:focus-within .nav-label,.workspace>.sidebar:hover .nav-count,.workspace>.sidebar:focus-within .nav-count{transition:none}}
